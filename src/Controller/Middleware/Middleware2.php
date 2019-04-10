@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class Middleware2
 {
-    public function __invoke(Request $request, Response $response, callable $nextMiddleware)
+    public function index_action(Request $request, Response $response, callable $nextMiddleware)
     {
         $response->getBody()->write('Before2');
 

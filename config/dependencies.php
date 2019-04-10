@@ -1,23 +1,28 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: msigr
- * Date: 21/03/2019
- * Time: 20:03
- */
+
+use Slim\Flash\Messages;
+use Slim\Http\Environment;
+use Slim\Http\Uri;
+use Slim\Views\Twig;
+use Slim\Views\TwigExtension;
 
 $container = $app->getContainer();
 
 $container['view'] = function ($c) {
-    $view = new \Slim\Views\Twig(__DIR__ . '/../templates', [
-        'cache' => __DIR__ . '/../var/cache'
+    $view = new Twig(__DIR__ . '/../templates', [
+        'cache' => false,
     ]);
 
     $router = $c->get('router');
 
-    $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
+    $uri = Uri::createFromEnvironment(new Environment($_SERVER));
 
-    $view->addExtension(new \Slim\Views\TwigExtension($router, $uri));
+    $view->addExtension(new TwigExtension($router, $uri));
 
     return $view;
 };
+
+$container['flash'] = function () {
+    return new Messages();
+};
+
