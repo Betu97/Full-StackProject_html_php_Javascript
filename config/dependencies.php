@@ -9,7 +9,7 @@ use Slim\Views\TwigExtension;
 $container = $app->getContainer();
 
 $container['view'] = function ($c) {
-    $view = new Twig(__DIR__ . '/../templates', [
+    $view = new Twig(__DIR__ . '/../src/View/templates', [
         'cache' => false,
     ]);
 

@@ -1,0 +1,25 @@
+{% extends "base.twig" %}
+{% block title %} Login {% endblock %}
+{% block content %}
+    <form id="login-form"
+          action="{{ path_for('login') }}"
+          method="POST">
+        <label>
+            Username
+            <input type="text" name="username">
+        </label>
+        <label>
+            Password
+            <input type="password" name="password">
+        </label>
+        <input type="submit" value="Login">
+    </form>
+{% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script
+            type="application/javascript"
+            src="{{ base_url() }}/assets/js/ajax.js"></script>
+{% endblock %}
+
+
