@@ -7,6 +7,7 @@ use SallePW\SlimApp\Controller\Middleware\TestMiddleware;
 use SallePW\SlimApp\Controller\Middleware\SessionMiddleware;
 use SallePW\SlimApp\Controller\FileController;
 use SallePW\SlimApp\Controller\LoginController;
+use SallePW\SlimApp\Controller\UserController;
 
 $app
     ->get('/hello/{name}', HelloController::class)
@@ -14,7 +15,7 @@ $app
 
 $app->get('/flash', FlashController::class);
 
-$app->get('/files', FileController::class . ':indexAction');
+$app->get('/files', FileController::class . ':formAction');
 
 $app
     ->post('/files', FileController::class . ':uploadAction')
@@ -26,6 +27,9 @@ $app
     ->post('/login', LoginController::class . ':loginAction')
     ->setName('login');
 
+$app->post('/users', UserController::class . ':registerAction');
+
 $app->add(SessionMiddleware::class);
+
 
 
