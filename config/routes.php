@@ -16,7 +16,7 @@ $app
 
 $app->get('/flash', FlashController::class);
 
-$app->get('/files', FileController::class . ':formAction');
+$app->get('/files', FileController::class . ':indexAction');
 
 $app
     ->post('/files', FileController::class . ':uploadAction')
