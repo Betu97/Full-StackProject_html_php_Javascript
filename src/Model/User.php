@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: msigr
- * Date: 02/05/2019
- * Time: 20:15
- */
 
 namespace SallePW\SlimApp\Model;
 
