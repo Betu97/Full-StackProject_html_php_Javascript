@@ -6,6 +6,7 @@ use SallePW\SlimApp\Controller\HelloController;
 use SallePW\SlimApp\Controller\Middleware\TestMiddleware;
 use SallePW\SlimApp\Controller\Middleware\SessionMiddleware;
 use SallePW\SlimApp\Controller\FileController;
+use SallePW\SlimApp\Controller\RegisterController;
 use SallePW\SlimApp\Controller\LoginController;
 use SallePW\SlimApp\Controller\UserController;
 
@@ -30,6 +31,7 @@ $app
 $app->post('/users', UserController::class . ':registerAction');
 
 $app->get('/register', RegisterController::class . ':formAction');
+
 $app
     ->post('/register', RegisterController::class . ':registerAction')
     ->setName('register');
