@@ -14,8 +14,11 @@
 <head>
     <title>{% block title %} {% endblock %}</title>
     <link rel="stylesheet" href="{{ base_url() }}/assets/css/styles.css"/>
+    {% block styles %}
+    {% endblock %}
 </head>
 <body>
+<header>{% block header %}{% endblock %}</header>
 {% block content %}{% endblock %}
 {% block scripts %}
     <script
@@ -24,4 +27,5 @@
             crossorigin="anonymous"></script>
 {% endblock %}
 </body>
+<footer>{% block footer %} {% endblock %}</footer>
 </html>

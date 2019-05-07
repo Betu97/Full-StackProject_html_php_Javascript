@@ -6,6 +6,15 @@
  * Time: 19:33
  */
 
-return ['settings' => [
-    'displayErrorDetails' => true,
-], ];
+return [
+    'settings' => [
+        'displayErrorDetails' => true,
+        'db' => [
+            'username' => 'homestead',
+            'password' => 'secret',
+            'dbName' => 'homestead',
+            'host' => '127.0.0.1',
+        ],
+    ],
+];
+

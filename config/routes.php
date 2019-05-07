@@ -26,6 +26,12 @@ $app
     ->post('/login', LoginController::class . ':loginAction')
     ->setName('login');
 
+$app->post('/users', UserController::class . ':registerAction');
+
+$app->get('/register', LoginController::class . ':formAction');
+
+$app
+    ->post('/register', LoginController::class . ':registerAction')
+    ->setName('register');
+
 $app->add(SessionMiddleware::class);
-
-
