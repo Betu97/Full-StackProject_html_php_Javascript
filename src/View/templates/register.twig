@@ -1,54 +1,65 @@
 {% extends "base.twig" %}
 {% block title %} Register {% endblock %}
 {% block content %}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+            </div>
+            <div class="col-sm">
+                <form id="register-form" class = "register_form" action="{{ path_for('register') }}" method="POST">
+                    <div class="form-group">
+                        <label>
+                            Name
+                            <input type="text" class="form-control" name="name">
+                        </label>
                     </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+                    <div class="form-group">
+                        <label>
+                            Username
+                            <input type="text" class="form-control" name="username">
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Email
+                            <input type="email" class="form-control" name="email">
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Birth Date
+                            <input type="date" class="form-control" name="birth_date">
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Phone Number
+                            <input type="number" class="form-control" name="phone_number">
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Password
+                            <input type="password" class="form-control" name="password">
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Confirm Password
+                            <input type="password" class="form-control" name="confirm_password">
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Profile Image
+                            <input type="text" class="form-control" name="profile_image">
+                        </label>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Register">
+                </form>
+            </div>
+            <div class="col-sm">
+            </div>
         </div>
-    </nav>
-    <form id="register-form"
-          action="{{ path_for('register') }}"
-          method="POST">
-        <!--
-        FINS AQUI FET
-        <label>
-            Username
-            <input type="text" name="username">
-        </label>
-        <label>
-            Password
-            <input type="password" name="password">
-        </label>
-        <input type="submit" value="Login">-->
-    </form>
+    </div>
 {% endblock %}
