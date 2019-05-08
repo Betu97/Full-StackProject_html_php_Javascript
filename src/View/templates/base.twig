@@ -15,12 +15,34 @@
     <title>{% block title %} {% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ base_url() }}/assets/css/styles.css"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     {% block styles %}
     {% endblock %}
 </head>
 <body>
-<header>{% block header %}{% endblock %}</header>
+<header>{% block header %}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+
+            <a class="navbar-brand" href="#"><img src="../../Model/Images/Logo.png" alt="Logo"></a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form class="form-inline mr-auto">
+                    <input class="form-control" type="text" placeholder="Product title" aria-label="Search" size="60">
+                    <button class="btn btn-info btn-sm my-0 ml-sm-2" style="border-radius: 13px" type="submit">Search</button>
+                </form>
+
+            </div>
+            <div class=" pull-right" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-5">
+                    <li class="nav-item">
+                        <a class="btn btn-dark" style="margin-right: 20px; border-radius: 13px" href="#">LogIn</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-dark" style="border-radius: 13px" href="#">SignIn</a>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+    {% endblock %}</header>
 {% block content %}{% endblock %}
 {% block scripts %}
     <script
