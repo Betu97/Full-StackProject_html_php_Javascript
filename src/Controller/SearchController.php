@@ -72,6 +72,7 @@ final class SearchController
         $count = 0;
         $items = array();
 
+
         foreach ($data as $parts) if ($count++ < 5) {
             $item = new Item(
                 $parts['title'],
@@ -82,6 +83,18 @@ final class SearchController
                 new DateTime(),
                 new DateTime()
             );
+
+            $image_name = "";
+            $extensions = array('jpg', 'png');
+            foreach ($extensions as $ext) {
+                $file_name = __DIR__ . '/../../public/assets/Images/' . $item->getProductImage() . '.' . $ext;
+                if (file_exists($file_name)) {
+                    $image_name = $item->getProductImage() . '.' . $ext;
+                    break;
+                }
+            }
+            $item->setProductImage($image_name);
+
             array_push($items, $item);
         }
 

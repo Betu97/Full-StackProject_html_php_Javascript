@@ -36,7 +36,7 @@ final class Item
     /**
      * User constructor.
      */
-    public function __construct(string $title, string $description, float $price, int $product_image, string $category, DateTime $createdAt, DateTime $updatedAt)
+    public function __construct(string $title, string $description, float $price, string $product_image, string $category, DateTime $createdAt, DateTime $updatedAt)
     {
         $this->title = $title;
         $this->description = $description;
@@ -130,7 +130,7 @@ final class Item
     /**
      * @return int
      */
-    public function getProductImage(): int
+    public function getProductImage(): string
     {
         return $this->product_image;
     }
@@ -138,7 +138,7 @@ final class Item
     /**
      * @param int $product_image
      */
-    public function setProductImage(int $product_image): void
+    public function setProductImage(string $product_image): void
     {
         $this->product_image = $product_image;
     }
