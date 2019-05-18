@@ -11,7 +11,7 @@ class Database
     private static $instance = null;
 
     /** @var PDO */
-    protected $connection;
+    public $connection;
 
     private function __construct(
         string $username,

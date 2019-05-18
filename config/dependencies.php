@@ -7,6 +7,7 @@ use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 use SallePW\SlimApp\Model\Database\Database;
 use Slim\Container;
+use SallePW\SlimApp\Model\Database\PDORepository;
 
 $container = $app->getContainer();
 
