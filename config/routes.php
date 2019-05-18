@@ -10,6 +10,7 @@ use SallePW\SlimApp\Controller\RegisterController;
 use SallePW\SlimApp\Controller\LoginController;
 use SallePW\SlimApp\Controller\ProfileController;
 use SallePW\SlimApp\Controller\UserController;
+use SallePW\SlimApp\Controller\HomeController;
 
 $app
     ->get('/hello/{name}', HelloController::class)
@@ -36,6 +37,12 @@ $app
     ->setName('login');
 
 $app->post('/users', UserController::class . ':registerAction');
+
+$app->get('/home', HomeController::class . ':loadAction');
+
+$app
+    ->post('/home', HomeController::class . ':registerAction')
+    ->setName('home');
 
 $app->get('/register', RegisterController::class . ':formAction');
 
