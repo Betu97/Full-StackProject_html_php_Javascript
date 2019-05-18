@@ -78,4 +78,19 @@ final class PDORepository implements UserRepositoryInterface
 
         return $item[0];
     }
+
+    public function searchItem(string $title): array
+    {
+        if(!empty($title)) {
+            $title = '%' . $title . '%';
+        }
+        $statement = $this->database->connection->prepare(
+            "SELECT * FROM item WHERE title LIKE :title"
+        );
+        $statement->bindParam(':title', $title, PDO::PARAM_STR);
+        $statement->execute();
+        $item = $statement->fetchAll();
+
+        return $item;
+    }
 }

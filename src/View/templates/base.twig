@@ -25,9 +25,9 @@
 
             <a class="navbar-brand" href="{{ path_for('home') }}"><img src="{{ base_url() }}/assets/Images/Logo.png" heigth = "45" width = "45" alt="Logo"></a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="form-inline mr-auto">
-                    <input class="form-control" type="text" placeholder="Product title" aria-label="Search" size="60">
-                    <button class="btn btn-info btn-sm my-0 ml-sm-2" style="border-radius: 13px" type="submit">Search</button>
+                <form class="form-inline mr-auto" action="{{ path_for('search') }}" method="POST">
+                    <input class="form-control" type="text" name="title" placeholder="Product title" aria-label="Search" size="60">
+                    <button class="btn btn-info btn-sm my-0 ml-sm-2" style="border-radius: 13px" type="submit" value="search">Search</button>
                 </form>
 
             </div>
