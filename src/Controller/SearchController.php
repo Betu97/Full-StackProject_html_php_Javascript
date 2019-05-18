@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface;
 use SallePW\SlimApp\Model\Item;
 
-final class HomeController
+final class SearchController
 {
     /** @var ContainerInterface */
     private $container;
@@ -50,19 +50,11 @@ final class HomeController
     {
         try {
 
-            $item = $this->itemize(1);
-            $items = array( $item);
-            for ($i = 2; $i <= 5; $i++) {
-                $item = $this->itemize($i);
-                array_push($items, $item);
-            }
-
-
+            $items = $this->itemize($_POST["title"]);
             // We should validate the information before creating the entity
 
 
             $response->withStatus(201);
-
             return $this->container->get('view')->render($response, 'home.twig', ['items' => $items]);
 
 
@@ -72,22 +64,27 @@ final class HomeController
         }
     }
 
-    public function itemize(int $index): Item
+    public function itemize(string $title): array
     {
         $repository = $this->container->get('user_repo');
 
-        $data = $repository->loadItem($index);
+        $data = $repository->searchItem($title);
+        $count = 0;
+        $items = array();
 
-        $item = new Item(
-            $data['title'],
-            $data['description'],
-            $data['price'],
-            $data['product_image'],
-            $data['category'],
-            new DateTime(),
-            new DateTime()
-        );
+        foreach ($data as $parts) if ($count++ < 5) {
+            $item = new Item(
+                $parts['title'],
+                $parts['description'],
+                $parts['price'],
+                $parts['product_image'],
+                $parts['category'],
+                new DateTime(),
+                new DateTime()
+            );
+            array_push($items, $item);
+        }
 
-        return $item;
+        return $items;
     }
 }
