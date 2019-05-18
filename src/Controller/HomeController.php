@@ -63,6 +63,7 @@ final class HomeController
 
 
             $response->withStatus(201);
+
             return $this->container->get('view')->render($response, 'home.twig', ['items' => $items]);
 
 

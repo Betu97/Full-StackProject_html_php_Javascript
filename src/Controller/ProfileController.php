@@ -41,7 +41,18 @@ class ProfileController
 
     public function formAction(Request $request, Response $response): Response
     {
-        return $this->container->get('view')->render($response, 'profile.twig', []);
+        $_SESSION['username'] = 'username';
+        $image_name = "";
+        $extensions = array('jpg', 'png');
+        foreach ($extensions as $ext) {
+            $file_name = __DIR__ . '/../../public/uploads/' . $_SESSION['username'] . '.' . $ext;
+            if (file_exists($file_name)) {
+                $image_name = $_SESSION['username'] . '.' . $ext;
+                break;
+            }
+        }
+
+        return $this->container->get('view')->render($response, 'profile.twig', ['image' => $image_name]);
     }
 
     public function registerAction(Request $request, Response $response): Response
@@ -79,6 +90,8 @@ class ProfileController
 
         $errors = [];
 
+        $name = "";
+
         /** @var UploadedFileInterface $uploadedFile */
         foreach ($uploadedFiles['files'] as $uploadedFile) {
             if ($uploadedFile->getError() !== UPLOAD_ERR_OK) {
@@ -97,12 +110,14 @@ class ProfileController
                 continue;
             }
 
+            $name = $_SESSION['username'] . '.' . $format;
             // We generate a custom name here instead of using the one coming form the form
             $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $name);
         }
 
         return $this->container->get('view')->render($response, 'profile.twig', [
             'errors' => $errors,
+            'image' => $name,
         ]);
     }
 
