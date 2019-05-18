@@ -10,10 +10,25 @@ final class User
     private $id;
 
     /** @var string */
+    private $name;
+
+    /** @var string */
+    private $username;
+
+    /** @var string */
     private $email;
+
+    /** @var DateTime */
+    private $birthdate;
+
+    /** @var int */
+    private $phone_number;
 
     /** @var string */
     private $password;
+
+    /** @var int */
+    private $profile_image;
 
     /** @var DateTime */
     private $createdAt;
@@ -28,10 +43,15 @@ final class User
      * @param DateTime $createdAt
      * @param DateTime $updatedAt
      */
-    public function __construct(string $email, string $password, DateTime $createdAt, DateTime $updatedAt)
+    public function __construct(string $name, string $username, string $email, DateTime $birthdate, int $phone_number, string $password, int $profile_image, DateTime $createdAt, DateTime $updatedAt)
     {
+        $this->name = $name;
+        $this->username = $username;
         $this->email = $email;
+        $this->birthdate = $birthdate;
+        $this->phone_number = $phone_number;
         $this->password = $password;
+        $this->profile_image = $profile_image;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
     }
@@ -50,6 +70,86 @@ final class User
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param string $username
+     */
+    public function setUsername(string $username): void
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getBirthdate(): DateTime
+    {
+        return $this->birthdate;
+    }
+
+    /**
+     * @param DateTime $birthdate
+     */
+    public function setBirthdate(DateTime $birthdate): void
+    {
+        $this->birthdate = $birthdate;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPhoneNumber(): int
+    {
+        return $this->phone_number;
+    }
+
+    /**
+     * @param int $phone_number
+     */
+    public function setPhoneNumber(int $phone_number): void
+    {
+        $this->phone_number = $phone_number;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProfileImage(): int
+    {
+        return $this->profile_image;
+    }
+
+    /**
+     * @param int $profile_image
+     */
+    public function setProfileImage(int $profile_image): void
+    {
+        $this->profile_image = $profile_image;
     }
 
     /**

@@ -1,0 +1,59 @@
+{% extends "base.twig" %}
+{% block title %} Profile {% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="display-5">Your Profile</h1>
+                <p class="lead">Here you will be able to see and edit your profile information</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h4 class="display-5">Profile image</h4>
+                <form action="{{ path_for('profile') }}"
+                      enctype="multipart/form-data"
+                      method="POST">
+                    <input type="file" name="files[]" multiple>
+                    {% if errors is defined %}
+                        <ol>
+                            {% for error in errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ol>
+                    {% endif %}
+                    <input type="submit" value="Change Image">
+                </form>
+            </div>
+        </div>
+        <form id="register-form" class = "register_form" action="{{ path_for('register') }}" method="POST">
+            <div class="row py-4">
+                <label class="col-3">
+                    Name
+                    <input type="text" class="form-control">
+                </label>
+                <label class="col-3">
+                    Email
+                    <input type="email" class="form-control">
+                </label>
+            </div>
+            <div class="row">
+                <label class="col-3">
+                    Birth Date
+                    <input type="date" class="form-control">
+                </label>
+                <label class="col-3">
+                    Phone Number
+                    <input type="number" class="form-control">
+                </label>
+            </div>
+            <label class="col-5 mx-5 py-2">
+                Username
+                <input type="text" class="form-control" placeholder="username_from_database" disabled>
+            </label>
+            <div class="py-3">
+                <input type="submit" class="btn btn-primary col-5 mx-5" value="Save">
+            </div>
+        </form>
+    </div>
+{% endblock %}

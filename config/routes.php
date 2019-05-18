@@ -8,6 +8,7 @@ use SallePW\SlimApp\Controller\Middleware\SessionMiddleware;
 use SallePW\SlimApp\Controller\FileController;
 use SallePW\SlimApp\Controller\RegisterController;
 use SallePW\SlimApp\Controller\LoginController;
+use SallePW\SlimApp\Controller\ProfileController;
 use SallePW\SlimApp\Controller\UserController;
 
 $app
@@ -21,6 +22,12 @@ $app->get('/files', FileController::class . ':indexAction');
 $app
     ->post('/files', FileController::class . ':uploadAction')
     ->setName('upload');
+
+$app->get('/profile', ProfileController::class . ':formAction');
+
+$app
+    ->post('/profile', ProfileController::class . ':uploadAction')
+    ->setName('profile');
 
 $app->get('/login', LoginController::class . ':formAction');
 
