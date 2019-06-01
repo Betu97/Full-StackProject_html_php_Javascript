@@ -108,7 +108,6 @@ class ProfileController
 
         if (!empty($errors)){
             $name = $this->getImageName();
-            var_dump("hi");
         }
         return $this->container->get('view')->render($response, 'profile.twig', [
             'errors' => $errors,

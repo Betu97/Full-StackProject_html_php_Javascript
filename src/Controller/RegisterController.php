@@ -8,9 +8,11 @@
 
 namespace SallePW\SlimApp\Controller;
 
+use DateTime;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use SallePW\SlimApp\Model\User;
 
 final class RegisterController
 {
@@ -33,16 +35,30 @@ final class RegisterController
 
     public function registerAction(Request $request, Response $response): Response
     {
-        // This method decodes the received json
-        $data = $request->getParsedBody();
+    try {
+    $data = $request->getParsedBody();
 
-        $errors = $this->validate($data);
+    /** @var PDORepository $repository */
+    $repository = $this->container->get('user_repo');
 
-        if (count($errors) > 0) {
-            return $response->withJson(['errors' => $errors,], 404);
-        }
+    // We should validate the information before creating the entity
+    $user = new User(
+    $data['name'],
+    $data['username'],
+    $data['email'],
+    new DateTime($data['birthdate']),
+    $data['phone_number'],
+    $data['password'],
+    new DateTime(),
+    new DateTime()
+    );
 
-        return $response->withJson([], 200);
+    $repository->save($user);
+    } catch (\Exception $e) {
+    $response->getBody()->write('Unexpected error: ' . $e->getMessage());
+    return $response->withStatus(500);
+    }
+    return $response->withStatus(201);
     }
 
     private function validate(array $data): array
