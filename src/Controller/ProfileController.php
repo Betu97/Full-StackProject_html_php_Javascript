@@ -18,7 +18,7 @@ class ProfileController
 {
     private const UPLOADS_DIR = __DIR__ . '/../../public/uploads';
 
-    private const UNEXPECTED_ERROR = "An unexpected error occurred uploading the file '%s'...";
+    private const UNEXPECTED_ERROR = "An unexpected error occurred uploading the file, upload the file again and then press Change Image";
 
     private const INVALID_EXTENSION_ERROR = "The received file extension '%s' is not valid";
 
@@ -102,13 +102,21 @@ class ProfileController
             }
 
             $name = $_SESSION['username'] . '.' . $format;
+
+            $extensions = array('jpg', 'png');
+            foreach ($extensions as $ext) {
+                $file_name = __DIR__ . '/../../public/uploads/' . $_SESSION['username'] . '.' . $ext;
+                if (file_exists($file_name)) {
+                    unlink($file_name);
+                    continue;
+                }
+            }
             // We generate a custom name here instead of using the one coming form the form
             $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $name);
         }
 
         if (!empty($errors)){
             $name = $this->getImageName();
-            var_dump("hi");
         }
         return $this->container->get('view')->render($response, 'profile.twig', [
             'errors' => $errors,
