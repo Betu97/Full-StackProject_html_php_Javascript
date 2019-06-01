@@ -41,16 +41,7 @@ class ProfileController
 
     public function formAction(Request $request, Response $response): Response
     {
-        $_SESSION['username'] = 'username';
-        $image_name = "";
-        $extensions = array('jpg', 'png');
-        foreach ($extensions as $ext) {
-            $file_name = __DIR__ . '/../../public/uploads/' . $_SESSION['username'] . '.' . $ext;
-            if (file_exists($file_name)) {
-                $image_name = $_SESSION['username'] . '.' . $ext;
-                break;
-            }
-        }
+        $image_name = $this->getImageName();
 
         return $this->container->get('view')->render($response, 'profile.twig', ['image' => $image_name]);
     }
@@ -115,10 +106,30 @@ class ProfileController
             $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $name);
         }
 
+        if (!empty($errors)){
+            $name = $this->getImageName();
+            var_dump("hi");
+        }
         return $this->container->get('view')->render($response, 'profile.twig', [
             'errors' => $errors,
             'image' => $name,
         ]);
+    }
+
+    public function getImageName(): String
+    {
+        $_SESSION['username'] = 'username';
+        $image_name = "";
+        $extensions = array('jpg', 'png');
+        foreach ($extensions as $ext) {
+            $file_name = __DIR__ . '/../../public/uploads/' . $_SESSION['username'] . '.' . $ext;
+            if (file_exists($file_name)) {
+                $image_name = $_SESSION['username'] . '.' . $ext;
+                break;
+            }
+        }
+
+        return $image_name;
     }
 
     private function isValidFormat(string $extension): bool
