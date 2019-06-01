@@ -39,20 +39,17 @@ $app
 
 $app->post('/users', UserController::class . ':registerAction');
 
-$app->get('/home', HomeController::class . ':loadAction');
-
-$app
-    ->post('/home', HomeController::class . ':registerAction')
+$app->get('/home', HomeController::class . ':loadAction')
     ->setName('home');
 
 $app->get('/register', RegisterController::class . ':formAction');
 
 $app
-    ->post('/search', SearchController::class . ':loadAction')
-    ->setName('search');
-
-$app
     ->post('/register', RegisterController::class . ':registerAction')
     ->setName('register');
+
+$app
+    ->post('/search', SearchController::class . ':loadAction')
+    ->setName('search');
 
 $app->add(SessionMiddleware::class);

@@ -25,15 +25,23 @@ final class PDORepository implements UserRepositoryInterface
     public function save(User $user)
     {
         $statement = $this->database->connection->prepare(
-            "INSERT into user(email, password, created_at, updated_at) values(:email, :password, :created_at, :updated_at)"
+            "INSERT into user(name, username, email, birthdate, phone_number, password, created_at, updated_at) values(:name, :username, :email, :birthdate, :phone_number, :password, :created_at, :updated_at)"
         );
 
+        $name = $user->getName();
+        $username = $user->getUsername();
         $email = $user->getEmail();
+        $birthdate = $user->getBirthdate()->format('Y-m-d H:i:s');
+        $phone_number = $user->getPhoneNumber();
         $password = $user->getPassword();
         $createdAt = $user->getCreatedAt()->format('Y-m-d H:i:s');
         $updatedAt = $user->getUpdatedAt()->format('Y-m-d H:i:s');
 
+        $statement->bindParam('name', $name, PDO::PARAM_STR);
+        $statement->bindParam('username', $username, PDO::PARAM_STR);
         $statement->bindParam('email', $email, PDO::PARAM_STR);
+        $statement->bindParam('birthdate', $birthdate, PDO::PARAM_STR);
+        $statement->bindParam('phone_number', $phone_number, PDO::PARAM_INT);
         $statement->bindParam('password', $password, PDO::PARAM_STR);
         $statement->bindParam('created_at', $createdAt, PDO::PARAM_STR);
         $statement->bindParam('updated_at', $updatedAt, PDO::PARAM_STR);
