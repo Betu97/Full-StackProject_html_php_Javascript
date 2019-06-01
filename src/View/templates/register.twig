@@ -11,6 +11,9 @@
                         <label>
                             Name
                             <input type="text" class="form-control" name="name">
+                            {% if errors['name'] is defined %}
+                                <li>{{ errors['name'] }}</li>
+                            {% endif %}
                         </label>
                     </div>
                     <div>
@@ -69,4 +72,10 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script
+            type="application/javascript"
+            src="{{ base_url() }}/assets/js/ajax.js"></script>
 {% endblock %}

@@ -27,7 +27,7 @@ final class HomeController
         try {
 
             $item = $this->itemize(1);
-            $items = array( $item);
+            $items = array($item);
             for ($i = 2; $i <= 5; $i++) {
                 $item = $this->itemize($i);
                 array_push($items, $item);

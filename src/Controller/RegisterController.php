@@ -35,35 +35,46 @@ final class RegisterController
 
     public function registerAction(Request $request, Response $response): Response
     {
-    try {
-    $data = $request->getParsedBody();
+        try {
+            $data = $request->getParsedBody();
 
-    /** @var PDORepository $repository */
-    $repository = $this->container->get('user_repo');
+            $errors = $this->validate($data);
 
-    // We should validate the information before creating the entity
-    $user = new User(
-    $data['name'],
-    $data['username'],
-    $data['email'],
-    new DateTime($data['birthdate']),
-    $data['phone_number'],
-    $data['password'],
-    new DateTime(),
-    new DateTime()
-    );
+            if (count($errors) > 0) {
+                return $this->container->get('view')->render($response, 'register.twig', ['errors' => $errors])->withStatus(404);
+            }
 
-    $repository->save($user);
-    } catch (\Exception $e) {
-    $response->getBody()->write('Unexpected error: ' . $e->getMessage());
-    return $response->withStatus(500);
-    }
-    return $response->withStatus(201);
+            /** @var PDORepository $repository */
+            $repository = $this->container->get('user_repo');
+
+            // We should validate the information before creating the entity
+            $user = new User(
+                $data['name'],
+                $data['username'],
+                $data['email'],
+                new DateTime($data['birthdate']),
+                $data['phone_number'],
+                $data['password'],
+                new DateTime(),
+                new DateTime()
+            );
+
+            $repository->save($user);
+        } catch (\Exception $e) {
+            $response->getBody()->write('Unexpected error: ' . $e->getMessage());
+            return $response->withStatus(500);
+        }
+        return $response->withStatus(201);
     }
 
     private function validate(array $data): array
     {
         $errors = [];
+
+        if (empty($data['name'])){
+            //$error = { $message = 'The name cannot be empty.', $type = 'name'};
+            $errors['name'] = 'The name cannot be empty.';
+        }
 
         if (empty($data['username'])) {
             $errors['username'] = 'The username cannot be empty.';
