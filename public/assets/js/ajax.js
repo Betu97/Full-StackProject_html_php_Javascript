@@ -34,6 +34,7 @@ $(document).ready(function() {
             password: $('input[name=password]').val()
         };
 
+        //event.preventDefalut()
         $.ajax({
             type: 'POST',
             url: '/register',

@@ -101,4 +101,23 @@ final class PDORepository implements UserRepositoryInterface
 
         return $item;
     }
+
+    public function signIn(string $user, string $password): int
+    {
+        $strUser = strval($user);
+        $strPass = strval($password);
+        $statement = $this->database->connection->prepare(
+            "SELECT * FROM user WHERE (username = :username AND password = :password)"
+        );
+        $statement->bindParam(':username', $strUser, PDO::PARAM_STR);
+        $statement->bindParam(':password', $strPass, PDO::PARAM_STR);
+        $statement->execute();
+        $info = $statement->fetchAll();
+
+        if(!isset($info[0]['id'])){
+            return -1;
+        }
+        return $info[0]['id'];
+    }
+
 }

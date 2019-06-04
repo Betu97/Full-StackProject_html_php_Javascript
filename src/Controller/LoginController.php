@@ -2,9 +2,11 @@
 
 namespace SallePW\SlimApp\Controller;
 
+use DateTime;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use SallePW\SlimApp\Model\User;
 
 final class LoginController
 {
@@ -33,10 +35,25 @@ final class LoginController
         $errors = $this->validate($data);
 
         if (count($errors) > 0) {
-            return $response->withJson(['errors' => $errors,], 404);
+            return $this->container->get('view')->render($response, 'login.twig', ['errors' => $errors])->withStatus(404);
         }
 
-        return $response->withJson([], 200);
+        /** @var PDORepository $repository */
+        $repository = $this->container->get('user_repo');
+
+        $user = $repository->signIn($data['username'], $data['password']);
+
+        if($user != -1) {
+            $_SESSION['id'] = $user;
+            return $this->container->get('view')->render($response, 'home.twig', []);
+        }
+
+        unset($_SESSION['id']);
+        $errors['notFound'] = 'The user is not already registered';
+        return $this->container->get('view')->render($response, 'login.twig', ['errors' => $errors])->withStatus(404);
+
+
+
     }
 
     private function validate(array $data): array

@@ -31,6 +31,19 @@
                             <div class="row">
                                 <div class="col-sm">
                                 </div>
+                                <div>
+                                    <label>
+                                        {% if errors is defined %}
+                                            <ol>
+                                                {% for error in errors %}
+                                                    <li>{{ error }}</li>
+                                                {% endfor %}
+                                            </ol>
+                                        {% endif %}
+                                    </label>
+                                </div>
+                                <div class="col-sm">
+                                </div>
                                 <div class="col-sm">
                                     <button type="submit" class="btn btn-primary">Login</button>
                                 </div>

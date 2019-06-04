@@ -41,6 +41,11 @@ class ProfileController
 
     public function formAction(Request $request, Response $response): Response
     {
+        if(!isset($_SESSION['id'])){
+            $errors['notLogged'] = 'You need to be logged in to access this content';
+            return $this->container->get('view')->render($response, 'login.twig', ['errors' => $errors])->withStatus(404);
+        }
+        var_dump($_SESSION['id']);
         $image_name = $this->getImageName();
 
         return $this->container->get('view')->render($response, 'profile.twig', ['image' => $image_name]);
