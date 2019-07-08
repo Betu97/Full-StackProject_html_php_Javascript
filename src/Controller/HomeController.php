@@ -33,14 +33,11 @@ final class HomeController
                 array_push($items, $item);
             }
 
-
             // We should validate the information before creating the entity
-
 
             $response->withStatus(201);
 
             return $this->container->get('view')->render($response, 'home.twig', ['items' => $items]);
-
 
         } catch (\Exception $e) {
             $response->getBody()->write('Unexpected error: ' . $e->getMessage());

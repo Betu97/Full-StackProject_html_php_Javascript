@@ -52,8 +52,6 @@ final class LoginController
         $errors['notFound'] = 'The user is not already registered';
         return $this->container->get('view')->render($response, 'login.twig', ['errors' => $errors])->withStatus(404);
 
-
-
     }
 
     private function validate(array $data): array
