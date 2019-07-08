@@ -25,7 +25,7 @@ final class PDORepository implements UserRepositoryInterface
     public function save(User $user)
     {
         $statement = $this->database->connection->prepare(
-            "INSERT into user(name, username, email, birthdate, phone_number, password, created_at, updated_at) values(:name, :username, :email, :birthdate, :phone_number, :password, :created_at, :updated_at)"
+            "INSERT into user(name, username, email, birthdate, phone_number, password, is_active, created_at, updated_at) values(:name, :username, :email, :birthdate, :phone_number, :password, :is_active, :created_at, :updated_at)"
         );
 
         $name = $user->getName();
@@ -36,6 +36,7 @@ final class PDORepository implements UserRepositoryInterface
         $phone_number = $user->getPhoneNumber();
         $password = $user->getPassword();
         $filteredPassword = md5(filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+        $is_active = $user->getIsActive();
         $createdAt = $user->getCreatedAt()->format('Y-m-d H:i:s');
         $updatedAt = $user->getUpdatedAt()->format('Y-m-d H:i:s');
 
@@ -45,6 +46,7 @@ final class PDORepository implements UserRepositoryInterface
         $statement->bindParam('birthdate', $birthdate, PDO::PARAM_STR);
         $statement->bindParam('phone_number', $phone_number, PDO::PARAM_INT);
         $statement->bindParam('password', $filteredPassword, PDO::PARAM_STR);
+        $statement->bindParam('is_active', $is_active, PDO::PARAM_BOOL);
         $statement->bindParam('created_at', $createdAt, PDO::PARAM_STR);
         $statement->bindParam('updated_at', $updatedAt, PDO::PARAM_STR);
 
@@ -54,7 +56,7 @@ final class PDORepository implements UserRepositoryInterface
     public function saveItem(Item $item)
     {
         $statement = $this->database->connection->prepare(
-            "INSERT into item(title, owner, description, price, product_image, category, created_at, updated_at) values(:title, :owner, description, price, product_image, category, :created_at, :updated_at)"
+            "INSERT into item(title, owner, description, price, product_image, category, is_active, created_at, updated_at) values(:title, :owner, :description, :price, :product_image, :category, :is_active, :created_at, :updated_at)"
         );
         $title = $item->getTitle();
         $owner = $item->getOwner();
@@ -62,6 +64,7 @@ final class PDORepository implements UserRepositoryInterface
         $price = $item->gePrice();
         $product_image = $item->getProduct_image();
         $category = $item->getCategory();
+        $is_active = $item->getIsActive();
         $createdAt = $item->getCreatedAt()->format('Y-m-d H:i:s');
         $updatedAt = $item->getUpdatedAt()->format('Y-m-d H:i:s');
 
@@ -71,6 +74,7 @@ final class PDORepository implements UserRepositoryInterface
         $statement->bindParam('price', $price, PDO::PARAM_STR);
         $statement->bindParam('product_image', $product_image, PDO::PARAM_STR);
         $statement->bindParam('category', $category, PDO::PARAM_STR);
+        $statement->bindParam('is_active', $is_active, PDO::PARAM_BOOL);
         $statement->bindParam('created_at', $createdAt, PDO::PARAM_STR);
         $statement->bindParam('updated_at', $updatedAt, PDO::PARAM_STR);
 

@@ -27,8 +27,27 @@ final class User
     /** @var string */
     private $password;
 
+    /** @var string */
+    private $is_active;
+
     /** @var DateTime */
     private $createdAt;
+
+    /**
+     * @return string
+     */
+    public function getIsActive(): string
+    {
+        return $this->is_active;
+    }
+
+    /**
+     * @param string $is_active
+     */
+    public function setIsActive(string $is_active): void
+    {
+        $this->is_active = $is_active;
+    }
 
     /** @var DateTime */
     private $updatedAt;
@@ -40,7 +59,7 @@ final class User
      * @param DateTime $createdAt
      * @param DateTime $updatedAt
      */
-    public function __construct(string $name, string $username, string $email, DateTime $birthdate, int $phone_number, string $password, DateTime $createdAt, DateTime $updatedAt)
+    public function __construct(string $name, string $username, string $email, DateTime $birthdate, int $phone_number, string $password, bool $is_active, DateTime $createdAt, DateTime $updatedAt)
     {
         $this->name = $name;
         $this->username = $username;
@@ -48,6 +67,7 @@ final class User
         $this->birthdate = $birthdate;
         $this->phone_number = $phone_number;
         $this->password = $password;
+        $this->is_active = $is_active;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
     }

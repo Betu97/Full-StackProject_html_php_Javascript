@@ -55,6 +55,7 @@ final class RegisterController
                 new DateTime($data['birthdate']),
                 $data['phone_number'],
                 $data['password'],
+                true,
                 new DateTime(),
                 new DateTime()
             );

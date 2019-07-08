@@ -57,6 +57,7 @@ final class HomeController
             $data['price'],
             $data['product_image'],
             $data['category'],
+            $data['is_active'],
             new DateTime(),
             new DateTime()
         );
