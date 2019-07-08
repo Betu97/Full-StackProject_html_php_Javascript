@@ -64,7 +64,8 @@ final class RegisterController
             $response->getBody()->write('Unexpected error: ' . $e->getMessage());
             return $response->withStatus(500);
         }
-        return $response->withStatus(201);
+        $errors['notLogged'] = 'You have been successfully registered';
+        return $this->container->get('view')->render($response, 'login.twig', ['errors' => $errors])->withStatus(201);
     }
 
     private function validate(array $data): array

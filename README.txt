@@ -1,0 +1,1 @@
+Per encriptar el password de cada ususari sha fet servir l'algoritme de reducció criptogràfic MD5 (Message-Digest Algorithm 5)
