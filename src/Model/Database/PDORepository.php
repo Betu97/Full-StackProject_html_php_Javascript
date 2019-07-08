@@ -31,18 +31,20 @@ final class PDORepository implements UserRepositoryInterface
         $name = $user->getName();
         $username = $user->getUsername();
         $email = $user->getEmail();
+        $filteredEmail = filter_var($email, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $birthdate = $user->getBirthdate()->format('Y-m-d H:i:s');
         $phone_number = $user->getPhoneNumber();
         $password = $user->getPassword();
+        $filteredPassword = md5(filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
         $createdAt = $user->getCreatedAt()->format('Y-m-d H:i:s');
         $updatedAt = $user->getUpdatedAt()->format('Y-m-d H:i:s');
 
         $statement->bindParam('name', $name, PDO::PARAM_STR);
         $statement->bindParam('username', $username, PDO::PARAM_STR);
-        $statement->bindParam('email', $email, PDO::PARAM_STR);
+        $statement->bindParam('email', $filteredEmail, PDO::PARAM_STR);
         $statement->bindParam('birthdate', $birthdate, PDO::PARAM_STR);
         $statement->bindParam('phone_number', $phone_number, PDO::PARAM_INT);
-        $statement->bindParam('password', $password, PDO::PARAM_STR);
+        $statement->bindParam('password', $filteredPassword, PDO::PARAM_STR);
         $statement->bindParam('created_at', $createdAt, PDO::PARAM_STR);
         $statement->bindParam('updated_at', $updatedAt, PDO::PARAM_STR);
 
@@ -105,7 +107,8 @@ final class PDORepository implements UserRepositoryInterface
     public function signIn(string $user, string $password): int
     {
         $strUser = strval($user);
-        $strPass = strval($password);
+        $filteredPassword = md5(filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+        $strPass = strval($filteredPassword);
         $statement = $this->database->connection->prepare(
             "SELECT * FROM user WHERE (username = :username AND password = :password)"
         );
