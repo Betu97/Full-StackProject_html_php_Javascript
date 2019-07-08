@@ -43,14 +43,21 @@ final class LoginController
 
         $user = $repository->signIn($data['username'], $data['password']);
 
-        if($user != -1) {
+        if($user != -1 && $user != -2) {
             $_SESSION['id'] = $user;
             return $this->container->get('view')->render($response, 'home.twig', []);
         }
 
         unset($_SESSION['id']);
-        $errors['notFound'] = 'The user is not already registered';
-        return $this->container->get('view')->render($response, 'login.twig', ['errors' => $errors])->withStatus(404);
+        if($user == -2) {
+            $errors['notFound'] = 'The user is not already registered';
+            return $this->container->get('view')->render($response, 'login.twig',
+                ['errors' => $errors])->withStatus(404);
+        }else{
+            $errors['notFound'] = 'The password is not correct';
+            return $this->container->get('view')->render($response, 'login.twig',
+                ['errors' => $errors])->withStatus(404);
+        }
 
     }
 

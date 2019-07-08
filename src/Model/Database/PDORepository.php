@@ -121,6 +121,16 @@ final class PDORepository implements UserRepositoryInterface
         $statement->execute();
         $info = $statement->fetchAll();
 
+        $statement = $this->database->connection->prepare(
+            "SELECT * FROM user WHERE (username = :username)"
+        );
+        $statement->bindParam(':username', $strUser, PDO::PARAM_STR);
+        $statement->execute();
+        $infoUser = $statement->fetchAll();
+
+        if(!isset($infoUser[0]['id'])){
+            return -2;
+        }
         if(!isset($info[0]['id'])){
             return -1;
         }
