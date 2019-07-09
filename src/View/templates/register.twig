@@ -62,14 +62,17 @@
                         <label>
                             Password
                             <input type="password" class="form-control" name="password" required>
+                            {% if errors['password'] is defined %}
+                                <li>{{ errors['password'] }}</li>
+                            {% endif %}
                         </label>
                     </div>
                     <div>
                         <label>
                             Confirm Password
                             <input type="password" class="form-control" name="confirm_password" required>
-                            {% if errors['password'] is defined %}
-                                <li>{{ errors['password'] }}</li>
+                            {% if errors['repPassword'] is defined %}
+                                <li>{{ errors['repPassword'] }}</li>
                             {% endif %}
                         </label>
                     </div>
