@@ -8,6 +8,7 @@
 
 namespace SallePW\SlimApp\Controller;
 
+use SallePW\SlimApp\Controller\HomeController;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -45,10 +46,19 @@ class ProfileController
             $errors['notLogged'] = 'You need to be logged in to access this content';
             return $this->container->get('view')->render($response, 'login.twig', ['errors' => $errors])->withStatus(403);
         }
-        var_dump($_SESSION['id']);
         $image_name = $this->getImageName();
 
         return $this->container->get('view')->render($response, 'profile.twig', ['image' => $image_name]);
+    }
+
+    public function deleteAction(Request $request, Response $response): Response
+    {
+        $repository = $this->container->get('user_repo');
+        $repository->deleteAccount($_SESSION['id']);
+        $errors['delete'] = 'You have deleted your account successfully';
+        $home = new HomeController($this->container);
+        $home->loadAction($request, $response);
+        return $this->container->get('view')->render($response, 'home.twig', ['errors' => $errors])->withStatus(201);
     }
 
     public function registerAction(Request $request, Response $response): Response

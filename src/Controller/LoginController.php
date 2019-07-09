@@ -73,6 +73,8 @@ final class LoginController
             $errors['password'] = 'The password must contain at least 6 characters.';
         }
 
+
+
         return $errors;
     }
 }
