@@ -30,6 +30,9 @@ $app->get('/profile', ProfileController::class . ':formAction');
 $app
     ->post('/profile', ProfileController::class . ':uploadAction')
     ->setName('profile');
+$app
+    ->get('/delete', ProfileController::class . ':deleteAction')
+    ->setName('delete');
 
 $app->get('/login', LoginController::class . ':formAction');
 

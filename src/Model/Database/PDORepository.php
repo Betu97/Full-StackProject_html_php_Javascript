@@ -80,6 +80,20 @@ final class PDORepository implements UserRepositoryInterface
 
         $statement->execute();
     }
+
+    public function deleteAccount(int $id)
+    {
+
+        $statement = $this->database->connection->prepare(
+            "UPDATE user SET is_active = 0 WHERE id = :id"
+        );
+
+        $statement->bindParam('id', $id, PDO::PARAM_INT);
+
+        $statement->execute();
+
+    }
+
     public function loadItem(int $id): array
     {
         $strId = strval($id);
@@ -122,7 +136,7 @@ final class PDORepository implements UserRepositoryInterface
         $info = $statement->fetchAll();
 
         $statement = $this->database->connection->prepare(
-            "SELECT * FROM user WHERE (username = :username)"
+            "SELECT * FROM user WHERE (username = :username AND is_active = 1)"
         );
         $statement->bindParam(':username', $strUser, PDO::PARAM_STR);
         $statement->execute();
