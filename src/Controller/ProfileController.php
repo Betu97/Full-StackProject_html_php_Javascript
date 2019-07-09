@@ -43,7 +43,7 @@ class ProfileController
     {
         if(!isset($_SESSION['id'])){
             $errors['notLogged'] = 'You need to be logged in to access this content';
-            return $this->container->get('view')->render($response, 'login.twig', ['errors' => $errors])->withStatus(404);
+            return $this->container->get('view')->render($response, 'login.twig', ['errors' => $errors])->withStatus(403);
         }
         var_dump($_SESSION['id']);
         $image_name = $this->getImageName();
