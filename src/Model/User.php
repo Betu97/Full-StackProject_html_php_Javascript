@@ -33,22 +33,6 @@ final class User
     /** @var DateTime */
     private $createdAt;
 
-    /**
-     * @return string
-     */
-    public function getIsActive(): string
-    {
-        return $this->is_active;
-    }
-
-    /**
-     * @param string $is_active
-     */
-    public function setIsActive(string $is_active): void
-    {
-        $this->is_active = $is_active;
-    }
-
     /** @var DateTime */
     private $updatedAt;
 
@@ -214,5 +198,21 @@ final class User
     public function setUpdatedAt(DateTime $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIsActive(): string
+    {
+        return $this->is_active;
+    }
+
+    /**
+     * @param string $is_active
+     */
+    public function setIsActive(string $is_active): void
+    {
+        $this->is_active = $is_active;
     }
 }
