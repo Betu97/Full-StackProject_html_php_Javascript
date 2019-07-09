@@ -10,7 +10,7 @@
                     <div>
                         <label>
                             Name
-                            <input type="text" class="form-control" name="name">
+                            <input type="text" class="form-control" name="name" required
                             {% if errors['name'] is defined %}
                                 <li>{{ errors['name'] }}</li>
                             {% endif %}
@@ -34,7 +34,7 @@
                     <div>
                         <label>
                             Email
-                            <input type="email" class="form-control" name="email">
+                            <input type="email" class="form-control" name="email" required>
                             {% if errors['email'] is defined %}
                                 <li>{{ errors['email'] }}</li>
                             {% endif %}
@@ -49,7 +49,7 @@
                     <div>
                         <label>
                             Phone Number
-                            <input type="tel" class="form-control" name="phone_number" pattern="[0-9]{3} [0-9]{3} [0-9]{3}">
+                            <input type="tel" class="form-control" name="phone_number" pattern="[0-9]{3} [0-9]{3} [0-9]{3}" required>
                             {% if errors['phone'] is defined %}
                                 <li>{{ errors['phone'] }}</li>
                             {% endif %}
@@ -58,13 +58,13 @@
                     <div>
                         <label>
                             Password
-                            <input type="password" class="form-control" name="password">
+                            <input type="password" class="form-control" name="password" required>
                         </label>
                     </div>
                     <div>
                         <label>
                             Confirm Password
-                            <input type="password" class="form-control" name="confirm_password">
+                            <input type="password" class="form-control" name="confirm_password" required>
                             {% if errors['password'] is defined %}
                                 <li>{{ errors['password'] }}</li>
                             {% endif %}
