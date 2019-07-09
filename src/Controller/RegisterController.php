@@ -74,17 +74,29 @@ final class RegisterController
         $errors = [];
 
         if (empty($data['name'])){
-            //$error = { $message = 'The name cannot be empty.', $type = 'name'};
-            $errors['name'] = 'The name cannot be empty.';
+            $errors['name'] = 'The name cannot be empty';
         }
 
-        if (empty($data['username'])) {
-            $errors['username'] = 'The username cannot be empty.';
+        if (!ctype_alnum($data['name'] )){
+            $errors['nameFormat'] = sprintf('The name must contain only alphanumerical characters');
+        }
+
+        if (empty($data['username']) || strlen($data['username']) > 20) {
+            $errors['username'] = 'The username must be between 1 and 20 characters';
+        }
+
+        if (!ctype_alnum($data['username'] )){
+            $errors['usernameFormat'] = sprintf('The username must contain only alphanumerical characters');
         }
 
         if (empty($data['password']) || strlen($data['password']) < 6) {
-            $errors['password'] = 'The password must contain at least 6 characters.';
+            $errors['password'] = 'The password must contain at least 6 characters';
         }
+
+        if (false === filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $errors['email'] = sprintf('The email %s is not valid', $data['email']);
+        }
+
 
         return $errors;
     }

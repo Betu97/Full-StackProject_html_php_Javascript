@@ -14,18 +14,30 @@
                             {% if errors['name'] is defined %}
                                 <li>{{ errors['name'] }}</li>
                             {% endif %}
+                            {% if errors['nameFormat'] is defined %}
+                                <li>{{ errors['nameFormat'] }}</li>
+                            {% endif %}
                         </label>
                     </div>
                     <div>
                         <label>
                             Username
                             <input type="text" class="form-control" name="username" required>
+                            {% if errors['username'] is defined %}
+                                <li>{{ errors['username'] }}</li>
+                            {% endif %}
+                            {% if errors['usernameFormat'] is defined %}
+                                <li>{{ errors['usernameFormat'] }}</li>
+                            {% endif %}
                         </label>
                     </div>
                     <div>
                         <label>
                             Email
                             <input type="email" class="form-control" name="email">
+                            {% if errors['email'] is defined %}
+                                <li>{{ errors['email'] }}</li>
+                            {% endif %}
                         </label>
                     </div>
                     <div>
@@ -38,6 +50,9 @@
                         <label>
                             Phone Number
                             <input type="tel" class="form-control" name="phone_number" pattern="[0-9]{3} [0-9]{3} [0-9]{3}">
+                            {% if errors['phone'] is defined %}
+                                <li>{{ errors['phone'] }}</li>
+                            {% endif %}
                         </label>
                     </div>
                     <div>
@@ -50,19 +65,15 @@
                         <label>
                             Confirm Password
                             <input type="password" class="form-control" name="confirm_password">
+                            {% if errors['password'] is defined %}
+                                <li>{{ errors['password'] }}</li>
+                            {% endif %}
                         </label>
                     </div>
                     <div>
                         <label>
                             Profile Image
                             <input type="file" name="files[]" multiple>
-                            {% if errors is defined %}
-                                <ol>
-                                    {% for error in errors %}
-                                        <li>{{ error }}</li>
-                                    {% endfor %}
-                                </ol>
-                            {% endif %}
                         </label>
                     </div>
                     <input type="submit" class="btn btn-primary" value="Register">
