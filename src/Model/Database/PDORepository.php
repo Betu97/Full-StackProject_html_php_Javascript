@@ -44,7 +44,7 @@ final class PDORepository implements UserRepositoryInterface
         $statement->bindParam('username', $username, PDO::PARAM_STR);
         $statement->bindParam('email', $filteredEmail, PDO::PARAM_STR);
         $statement->bindParam('birthdate', $birthdate, PDO::PARAM_STR);
-        $statement->bindParam('phone_number', $phone_number, PDO::PARAM_INT);
+        $statement->bindParam('phone_number', $phone_number, PDO::PARAM_STR);
         $statement->bindParam('password', $filteredPassword, PDO::PARAM_STR);
         $statement->bindParam('is_active', $is_active, PDO::PARAM_BOOL);
         $statement->bindParam('created_at', $createdAt, PDO::PARAM_STR);
