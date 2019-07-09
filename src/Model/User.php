@@ -27,7 +27,7 @@ final class User
     /** @var string */
     private $password;
 
-    /** @var string */
+    /** @var bool */
     private $is_active;
 
     /** @var DateTime */
@@ -40,6 +40,7 @@ final class User
      * User constructor.
      * @param string $email
      * @param string $password
+     * @param string $name
      * @param DateTime $createdAt
      * @param DateTime $updatedAt
      */
