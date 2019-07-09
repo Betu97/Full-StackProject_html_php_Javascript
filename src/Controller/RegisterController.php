@@ -101,8 +101,8 @@ final class RegisterController
             $errors['email'] = sprintf('The email %s is not valid', $data['email']);
         }
 
-        if ($data['confirm_password'] == $data['password']) {
-            $errors['repPassword'] = sprintf('The email %s is not valid', $data['email']);
+        if (strcmp($data['confirm_password'], $data['password'])) {
+            $errors['repPassword'] = "Password confirmation doesn't match password";
         }
 
 
