@@ -38,14 +38,14 @@ final class RegisterController
         try {
             $data = $request->getParsedBody();
 
-            $errors = $this->validate($data);
+            /** @var PDORepository $repository */
+            $repository = $this->container->get('user_repo');
+
+            $errors = $this->validate($data, $repository->checkUser($data['username']));
 
             if (count($errors) > 0) {
                 return $this->container->get('view')->render($response, 'register.twig', ['errors' => $errors])->withStatus(404);
             }
-
-            /** @var PDORepository $repository */
-            $repository = $this->container->get('user_repo');
 
             // We should validate the information before creating the entity
             $user = new User(
@@ -69,7 +69,7 @@ final class RegisterController
         return $this->container->get('view')->render($response, 'login.twig', ['errors' => $errors])->withStatus(201);
     }
 
-    private function validate(array $data): array
+    private function validate(array $data, int $unique): array
     {
         $errors = [];
 
@@ -87,6 +87,10 @@ final class RegisterController
 
         if (!ctype_alnum($data['username'] )){
             $errors['usernameFormat'] = sprintf('The username must contain only alphanumerical characters');
+        }
+
+        if ($unique != -1) {
+            $errors['usernameCaught'] = 'The username is already in use';
         }
 
         if (empty($data['password']) || strlen($data['password']) < 6) {

@@ -29,6 +29,9 @@
                             {% if errors['usernameFormat'] is defined %}
                                 <li>{{ errors['usernameFormat'] }}</li>
                             {% endif %}
+                            {% if errors['usernameCaught'] is defined %}
+                                <li>{{ errors['usernameCaught'] }}</li>
+                            {% endif %}
                         </label>
                     </div>
                     <div>
