@@ -44,7 +44,7 @@ final class User
      * @param DateTime $createdAt
      * @param DateTime $updatedAt
      */
-    public function __construct(string $name, string $username, string $email, DateTime $birthdate, int $phone_number, string $password, bool $is_active, DateTime $createdAt, DateTime $updatedAt)
+    public function __construct(string $name, string $username, string $email, DateTime $birthdate, String $phone_number, string $password, bool $is_active, DateTime $createdAt, DateTime $updatedAt)
     {
         $this->name = $name;
         $this->username = $username;
@@ -122,9 +122,9 @@ final class User
     }
 
     /**
-     * @return int
+     * @return String
      */
-    public function getPhoneNumber(): int
+    public function getPhoneNumber(): String
     {
         return $this->phone_number;
     }
@@ -132,7 +132,7 @@ final class User
     /**
      * @param int $phone_number
      */
-    public function setPhoneNumber(int $phone_number): void
+    public function setPhoneNumber(String $phone_number): void
     {
         $this->phone_number = $phone_number;
     }
