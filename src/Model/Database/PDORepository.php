@@ -109,7 +109,7 @@ final class PDORepository implements UserRepositoryInterface
 
     public function searchItem(string $title): array
     {
-        if(!empty($title)) {
+        if (!empty($title)) {
             $title = '%' . $title . '%';
         }
         $statement = $this->database->connection->prepare(
@@ -120,6 +120,22 @@ final class PDORepository implements UserRepositoryInterface
         $item = $statement->fetchAll();
 
         return $item;
+    }
+
+    public function checkUser(string $user): int
+    {
+        $strUser = strval($user);
+        $statement = $this->database->connection->prepare(
+            "SELECT * FROM user WHERE (username = :username AND is_active = 1)"
+        );
+        $statement->bindParam(':username', $strUser, PDO::PARAM_STR);
+        $statement->execute();
+        $infoUser = $statement->fetchAll();
+
+        if(!isset($infoUser[0]['id'])){
+            return -1;
+        }
+        return 1;
     }
 
     public function signIn(string $user, string $password): int
@@ -135,14 +151,7 @@ final class PDORepository implements UserRepositoryInterface
         $statement->execute();
         $info = $statement->fetchAll();
 
-        $statement = $this->database->connection->prepare(
-            "SELECT * FROM user WHERE (username = :username AND is_active = 1)"
-        );
-        $statement->bindParam(':username', $strUser, PDO::PARAM_STR);
-        $statement->execute();
-        $infoUser = $statement->fetchAll();
-
-        if(!isset($infoUser[0]['id'])){
+        if($this->checkUser($user) == -1){
             return -2;
         }
         if(!isset($info[0]['id'])){
