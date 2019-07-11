@@ -77,4 +77,9 @@ final class HomeController
 
         return $item;
     }
+
+    public function signOutAction(Request $request, Response $response): Response
+    {
+        unset($_SESSION['id']);
+    }
 }
