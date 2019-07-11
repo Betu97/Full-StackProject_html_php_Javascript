@@ -32,12 +32,13 @@ final class myProductsController
 
         try {
 
-            $item = $this->itemize(1);
-            if($item)
-            $items = array($item);
-            for ($i = 2; $i <= 5; $i++) {
+
+            $items = array();
+            for ($i = 1; $i <= 5; $i++) {
                 $item = $this->itemize($i);
-                array_push($items, $item);
+                if ($item->getOwner() == $_SESSION['id']) {
+                    array_push($items, $item);
+                }
             }
 
             // We should validate the information before creating the entity
@@ -60,6 +61,7 @@ final class myProductsController
 
         $item = new Item(
             $data['title'],
+            $data['owner'],
             $data['description'],
             $data['price'],
             $data['product_image'],

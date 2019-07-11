@@ -76,9 +76,11 @@ final class SearchController
         foreach ($data as $parts) if ($count++ < 5) {
             $item = new Item(
                 $parts['title'],
+                $parts['owner'],
                 $parts['description'],
                 $parts['price'],
                 $parts['product_image'],
+                $parts['is_active'],
                 $parts['category'],
                 new DateTime(),
                 new DateTime()
