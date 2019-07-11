@@ -12,7 +12,7 @@ use DateTime;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use SallePW\SlimApp\Model\User;
+use SallePW\SlimApp\Model\Item;
 
 
 final class AddItemController
@@ -49,24 +49,24 @@ final class AddItemController
             }
 
             // We should validate the information before creating the entity
-            $user = new User(
-                $data['name'],
-                $data['username'],
-                $data['email'],
-                new DateTime($data['birthdate']),
-                $data['phone_number'],
-                $data['password'],
-                true,
+            $item = new Item(
+                $data['title'],
+                $data['owner'],
+                $data['description'],
+                $data['price'],
+                $data['product_image'],
+                $data['category'],
+                $data['is_active'],
                 new DateTime(),
                 new DateTime()
             );
 
-            $repository->save($user);
+            $repository->saveItem($item);
         } catch (\Exception $e) {
             $response->getBody()->write('Unexpected error: ' . $e->getMessage());
             return $response->withStatus(500);
         }
-        $errors['notLogged'] = 'You have been successfully registered';
+        $errors['notLogged'] = 'You have successfully added an item';
         return $this->container->get('view')->render($response, 'login.twig', ['errors' => $errors])->withStatus(201);
     }
 
