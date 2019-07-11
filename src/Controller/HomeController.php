@@ -35,9 +35,11 @@ final class HomeController
 
             // We should validate the information before creating the entity
 
-            $response->withStatus(201);
+            $logged = isset($_SESSION['id']);
 
-            return $this->container->get('view')->render($response, 'home.twig', ['items' => $items]);
+            $response->withStatus(201);
+            var_dump($logged);
+            return $this->container->get('view')->render($response, 'home.twig', ['items' => $items, 'logged' => $logged]);
 
         } catch (\Exception $e) {
             $response->getBody()->write('Unexpected error: ' . $e->getMessage());
