@@ -55,4 +55,6 @@ $app
     ->post('/search', SearchController::class . ':loadAction')
     ->setName('search');
 
+
+
 $app->add(SessionMiddleware::class);
