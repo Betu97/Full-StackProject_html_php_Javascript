@@ -12,6 +12,7 @@ use SallePW\SlimApp\Controller\ProfileController;
 use SallePW\SlimApp\Controller\UserController;
 use SallePW\SlimApp\Controller\HomeController;
 use SallePW\SlimApp\Controller\SearchController;
+use SallePW\SlimApp\Controller\myProductsController;
 
 $app
     ->get('/hello/{name}', HelloController::class)
@@ -44,6 +45,9 @@ $app->post('/users', UserController::class . ':registerAction');
 
 $app->get('/home', HomeController::class . ':loadAction')
     ->setName('home');
+
+$app->get('/myProducts', myProductsController::class . ':loadAction')
+    ->setName('myProducts');
 
 $app->get('/register', RegisterController::class . ':formAction');
 

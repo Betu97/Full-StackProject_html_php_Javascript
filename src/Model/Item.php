@@ -39,9 +39,10 @@ final class Item
     /**
      * User constructor.
      */
-    public function __construct(string $title, string $description, float $price, string $product_image, string $category,  bool $is_active, DateTime $createdAt, DateTime $updatedAt)
+    public function __construct(string $title, string $owner, string $description, float $price, string $product_image, string $category,  bool $is_active, DateTime $createdAt, DateTime $updatedAt)
     {
         $this->title = $title;
+        $this->owner = $owner;
         $this->description = $description;
         $this->price = $price;
         $this->product_image = $product_image;
