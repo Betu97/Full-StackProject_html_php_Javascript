@@ -45,7 +45,7 @@ final class myProductsController
 
             $response->withStatus(201);
 
-            return $this->container->get('view')->render($response, 'home.twig', ['items' => $items]);
+            return $this->container->get('view')->render($response, 'home.twig', ['items' => $items, 'logged' => 1]);
 
         } catch (\Exception $e) {
             $response->getBody()->write('Unexpected error: ' . $e->getMessage());
