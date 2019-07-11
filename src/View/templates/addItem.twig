@@ -1,5 +1,84 @@
 {% extends "base.twig" %}
 {% block title %} Add Item {% endblock %}
 {% block content %}
-
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+            </div>
+            <div class="col-sm">
+                <form id="register-form" class = "register_form" action="{{ path_for('register') }}" method="POST">
+                    <div>
+                        <label>
+                            Title
+                            <input type="text" class="form-control" name="title" required>
+                            {% if errors['title'] is defined %}
+                                <li>{{ errors['title'] }}</li>
+                            {% endif %}
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Description
+                            <input type="text" class="form-control" name="description" required>
+                            {% if errors['description'] is defined %}
+                                <li>{{ errors['description'] }}</li>
+                            {% endif %}
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Price
+                            <input type="number" class="form-control" name="price" required>
+                            {% if errors['price'] is defined %}
+                                <li>{{ errors['price'] }}</li>
+                            {% endif %}
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Birth Date
+                            <input type="date" class="form-control" name="birthdate">
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Phone Number
+                            <input type="tel" class="form-control" name="phone_number" aria-describedby="pattern" pattern="[0-9]{3} [0-9]{3} [0-9]{3}" required>
+                            <small id="pattern" class="form-text text-muted">Format: xxx xxx xxx</small>
+                            {% if errors['phone'] is defined %}
+                                <li>{{ errors['phone'] }}</li>
+                            {% endif %}
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Password
+                            <input type="password" class="form-control" name="password" required>
+                            {% if errors['password'] is defined %}
+                                <li>{{ errors['password'] }}</li>
+                            {% endif %}
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Confirm Password
+                            <input type="password" class="form-control" name="confirm_password" required>
+                            {% if errors['repPassword'] is defined %}
+                                <li>{{ errors['repPassword'] }}</li>
+                            {% endif %}
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Profile Image
+                            <input type="file" name="files[]" multiple>
+                        </label>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Register">
+                </form>
+            </div>
+            <div class="col-sm">
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -74,22 +74,14 @@ final class AddItemController
     {
         $errors = [];
 
-        if (empty($data['name'])){
-            $errors['name'] = 'The name cannot be empty';
+        if (empty($data['title'])) {
+            $errors['title'] = 'The title cannot be empty';
         }
 
-        if (!ctype_alnum($data['name'] )){
-            $errors['nameFormat'] = sprintf('The name must contain only alphanumerical characters');
+        if (empty($data['description']) || strlen($data['description']) < 20) {
+            $errors['description'] = 'The description must have 20 characters minimum';
         }
-
-        if (empty($data['username']) || strlen($data['username']) > 20) {
-            $errors['username'] = 'The username must be between 1 and 20 characters';
-        }
-
-        if (!ctype_alnum($data['username'] )){
-            $errors['usernameFormat'] = sprintf('The username must contain only alphanumerical characters');
-        }
-
+/*
         if (empty($data['password']) || strlen($data['password']) < 6) {
             $errors['password'] = 'The password must contain at least 6 characters';
         }
@@ -101,7 +93,7 @@ final class AddItemController
         if (strcmp($data['confirm_password'], $data['password'])) {
             $errors['repPassword'] = "Password confirmation doesn't match password";
         }
-
+*/
 
         return $errors;
     }

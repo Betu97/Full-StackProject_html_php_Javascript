@@ -13,6 +13,7 @@ use SallePW\SlimApp\Controller\UserController;
 use SallePW\SlimApp\Controller\HomeController;
 use SallePW\SlimApp\Controller\SearchController;
 use SallePW\SlimApp\Controller\myProductsController;
+use SallePW\SlimApp\Controller\AddItemController;
 
 $app
     ->get('/hello/{name}', HelloController::class)
