@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface;
 use SallePW\SlimApp\Model\Item;
 
-final class HomeController
+final class myProductsController
 {
     /** @var ContainerInterface */
     private $container;
@@ -24,9 +24,16 @@ final class HomeController
 
     public function loadAction(Request $request, Response $response): Response
     {
+
+        if(!isset($_SESSION['id'])){
+            $errors['notLogged'] = 'You need to be logged in to access this content';
+            return $this->container->get('view')->render($response, 'error403.twig', ['errors' => $errors])->withStatus(403);
+        }
+
         try {
 
             $item = $this->itemize(1);
+            if($item)
             $items = array($item);
             for ($i = 2; $i <= 5; $i++) {
                 $item = $this->itemize($i);
@@ -35,11 +42,9 @@ final class HomeController
 
             // We should validate the information before creating the entity
 
-            $logged = isset($_SESSION['id']);
-
             $response->withStatus(201);
-            var_dump($logged);
-            return $this->container->get('view')->render($response, 'home.twig', ['items' => $items, 'logged' => $logged]);
+
+            return $this->container->get('view')->render($response, 'home.twig', ['items' => $items]);
 
         } catch (\Exception $e) {
             $response->getBody()->write('Unexpected error: ' . $e->getMessage());
@@ -55,7 +60,6 @@ final class HomeController
 
         $item = new Item(
             $data['title'],
-            $data['owner'],
             $data['description'],
             $data['price'],
             $data['product_image'],
