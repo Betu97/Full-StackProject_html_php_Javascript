@@ -51,6 +51,12 @@ $app
     ->post('/register', RegisterController::class . ':registerAction')
     ->setName('register');
 
+$app->get('/addItem', AddItemController::class . ':formAction');
+
+$app
+    ->post('/addItem', AddItemController::class . ':registerAction')
+    ->setName('addItem');
+
 $app
     ->post('/search', SearchController::class . ':loadAction')
     ->setName('search');
