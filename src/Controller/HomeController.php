@@ -37,7 +37,9 @@ final class HomeController
 
             $response->withStatus(201);
 
-            return $this->container->get('view')->render($response, 'home.twig', ['items' => $items]);
+            $logged = isset($_SESSION['id']);
+
+            return $this->container->get('view')->render($response, 'home.twig', ['items' => $items, 'logged'  => $logged]);
 
         } catch (\Exception $e) {
             $response->getBody()->write('Unexpected error: ' . $e->getMessage());
