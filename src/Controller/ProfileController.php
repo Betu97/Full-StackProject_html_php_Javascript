@@ -44,11 +44,14 @@ class ProfileController
     {
         if(!isset($_SESSION['id'])){
             $errors['notLogged'] = 'You need to be logged in to access this content';
-            return $this->container->get('view')->render($response, 'error403.twig', ['errors' => $errors])->withStatus(403);
+            $logged = isset($_SESSION['id']);
+
+            return $this->container->get('view')->render($response, 'error403.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(403);
         }
         $image_name = $this->getImageName();
+        $logged = isset($_SESSION['id']);
 
-        return $this->container->get('view')->render($response, 'profile.twig', ['image' => $image_name]);
+        return $this->container->get('view')->render($response, 'profile.twig', ['image' => $image_name, 'logged'  => $logged]);
     }
 
     public function deleteAction(Request $request, Response $response): Response
@@ -58,7 +61,9 @@ class ProfileController
         $errors['delete'] = 'You have deleted your account successfully';
         $home = new HomeController($this->container);
         $home->loadAction($request, $response);
-        return $this->container->get('view')->render($response, 'home.twig', ['errors' => $errors])->withStatus(201);
+        $logged = isset($_SESSION['id']);
+
+        return $this->container->get('view')->render($response, 'home.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(201);
     }
 
     public function registerAction(Request $request, Response $response): Response
@@ -69,7 +74,9 @@ class ProfileController
         $errors = $this->validate($data);
 
         if (count($errors) > 0) {
-            return $response->withJson(['errors' => $errors,], 404);
+            $logged = isset($_SESSION['id']);
+
+            return $response->withJson(['errors' => $errors, 'logged'  => $logged], 404);
         }
 
         return $response->withJson([], 200);

@@ -2,18 +2,20 @@
 {% block title %} My Products {% endblock %}
 {% block content %}
     <div class="row">
-        {% for item in items %}
-            <div class="col-sm-3 d-flex">
-                <div class="card my-3">
-                    <img class="card-img-top" src="{{ base_url() }}/assets/Images/{{ item.productImage }}" height="380" alt="adasd">
-                    <div class="card-body">
-                        <h4 class="card-title">{{ item.price }}€</h4>
-                        <h6 class="card-title">{{ item.title }}</h6>
-                        <h8 class="card-subtitle mb-2 text-muted">{{ item.category }}</h8>
-                        <p class="card-text my-3">{{ item.description }}</p>
+        {% if items is defined  %}
+            {% for item in items %}
+                <div class="col-sm-3 d-flex">
+                    <div class="card my-3">
+                        <img class="card-img-top" src="{{ base_url() }}/assets/Images/{{ item.productImage }}" height="380" alt="adasd">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ item.price }}€</h4>
+                            <h6 class="card-title">{{ item.title }}</h6>
+                            <h8 class="card-subtitle mb-2 text-muted">{{ item.category }}</h8>
+                            <p class="card-text my-3">{{ item.description }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}

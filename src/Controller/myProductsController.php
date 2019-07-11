@@ -27,7 +27,9 @@ final class myProductsController
 
         if(!isset($_SESSION['id'])){
             $errors['notLogged'] = 'You need to be logged in to access this content';
-            return $this->container->get('view')->render($response, 'error403.twig', ['errors' => $errors])->withStatus(403);
+            $logged = isset($_SESSION['id']);
+
+            return $this->container->get('view')->render($response, 'error403.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(403);
         }
 
         try {
@@ -44,8 +46,9 @@ final class myProductsController
             // We should validate the information before creating the entity
 
             $response->withStatus(201);
+            $logged = isset($_SESSION['id']);
 
-            return $this->container->get('view')->render($response, 'home.twig', ['items' => $items, 'logged' => 1]);
+            return $this->container->get('view')->render($response, 'home.twig', ['items' => $items, 'logged'  => $logged]);
 
         } catch (\Exception $e) {
             $response->getBody()->write('Unexpected error: ' . $e->getMessage());

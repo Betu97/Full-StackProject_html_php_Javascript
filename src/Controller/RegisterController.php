@@ -30,7 +30,9 @@ final class RegisterController
 
     public function formAction(Request $request, Response $response): Response
     {
-        return $this->container->get('view')->render($response, 'register.twig', []);
+        $logged = isset($_SESSION['id']);
+
+        return $this->container->get('view')->render($response, 'register.twig', ['logged'  => $logged]);
     }
 
     public function registerAction(Request $request, Response $response): Response
@@ -44,7 +46,9 @@ final class RegisterController
             $errors = $this->validate($data, $repository->checkUser($data['username']));
 
             if (count($errors) > 0) {
-                return $this->container->get('view')->render($response, 'register.twig', ['errors' => $errors])->withStatus(404);
+                $logged = isset($_SESSION['id']);
+
+                return $this->container->get('view')->render($response, 'register.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(404);
             }
 
             // We should validate the information before creating the entity
@@ -66,7 +70,9 @@ final class RegisterController
             return $response->withStatus(500);
         }
         $errors['notLogged'] = 'You have been successfully registered';
-        return $this->container->get('view')->render($response, 'login.twig', ['errors' => $errors])->withStatus(201);
+        $logged = isset($_SESSION['id']);
+
+        return $this->container->get('view')->render($response, 'login.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(201);
     }
 
     private function validate(array $data, int $unique): array

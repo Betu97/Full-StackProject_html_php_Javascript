@@ -33,7 +33,9 @@ final class FileController
 
     public function indexAction(Request $request, Response $response): Response
     {
-        return $this->container->get('view')->render($response, 'upload.twig', []);
+        $logged = isset($_SESSION['id']);
+
+        return $this->container->get('view')->render($response, 'upload.twig', ['logged'  => $logged]);
     }
 
     public function uploadAction(Request $request, Response $response): Response

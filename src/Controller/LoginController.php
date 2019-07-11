@@ -6,7 +6,7 @@ use DateTime;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use SallePW\SlimApp\Model\User;
+use SallePW\SlimApp\Controller\HomeController;
 
 final class LoginController
 {
@@ -24,7 +24,9 @@ final class LoginController
 
     public function formAction(Request $request, Response $response): Response
     {
-        return $this->container->get('view')->render($response, 'login.twig', []);
+        $logged = isset($_SESSION['id']);
+
+        return $this->container->get('view')->render($response, 'login.twig', ['logged'  => $logged]);
     }
 
     public function loginAction(Request $request, Response $response): Response
@@ -35,7 +37,9 @@ final class LoginController
         $errors = $this->validate($data);
 
         if (count($errors) > 0) {
-            return $this->container->get('view')->render($response, 'login.twig', ['errors' => $errors])->withStatus(404);
+            $logged = isset($_SESSION['id']);
+
+            return $this->container->get('view')->render($response, 'login.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(404);
         }
 
         /** @var PDORepository $repository */
@@ -45,18 +49,25 @@ final class LoginController
 
         if($user != -1 && $user != -2) {
             $_SESSION['id'] = $user;
-            return $this->container->get('view')->render($response, 'home.twig', []);
+
+            $home = new HomeController($this->container);
+            $home->loadAction($request, $response);
+
+            return $response;
         }
 
         unset($_SESSION['id']);
         if($user == -2) {
             $errors['notFound'] = 'The user is not already registered';
+            $logged = isset($_SESSION['id']);
+
             return $this->container->get('view')->render($response, 'login.twig',
-                ['errors' => $errors])->withStatus(404);
+                ['errors' => $errors, 'logged'  => $logged])->withStatus(404);
         }else{
             $errors['notFound'] = 'The password is not correct';
+            $logged = isset($_SESSION['id']);
             return $this->container->get('view')->render($response, 'login.twig',
-                ['errors' => $errors])->withStatus(404);
+                ['errors' => $errors, 'logged'  => $logged])->withStatus(404);
         }
 
     }
