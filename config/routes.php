@@ -46,6 +46,9 @@ $app->post('/users', UserController::class . ':registerAction');
 $app->get('/home', HomeController::class . ':loadAction')
     ->setName('home');
 
+$app->get('/signOut', HomeController::class . ':signOutAction')
+    ->setName('signOut');
+
 $app->get('/myProducts', myProductsController::class . ':loadAction')
     ->setName('myProducts');
 
