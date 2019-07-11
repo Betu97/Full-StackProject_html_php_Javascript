@@ -61,7 +61,7 @@ final class PDORepository implements UserRepositoryInterface
         $title = $item->getTitle();
         $owner = $item->getOwner();
         $description = $item->getDescription();
-        $price = $item->gePrice();
+        $price = $item->getPrice();
         $product_image = $item->getProduct_image();
         $category = $item->getCategory();
         $is_active = $item->getIsActive();
