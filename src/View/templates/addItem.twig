@@ -6,7 +6,7 @@
             <div class="col-sm">
             </div>
             <div class="col-sm">
-                <form id="register-form" class = "register_form" action="{{ path_for('register') }}" method="POST">
+                <form id="register-form" class = "register_form" action="{{ path_for('addItem') }}" method="POST">
                     <div>
                         <label>
                             Title
@@ -36,43 +36,21 @@
                     </div>
                     <div>
                         <label>
-                            Birth Date
-                            <input type="date" class="form-control" name="birthdate">
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Phone Number
-                            <input type="tel" class="form-control" name="phone_number" aria-describedby="pattern" pattern="[0-9]{3} [0-9]{3} [0-9]{3}" required>
-                            <small id="pattern" class="form-text text-muted">Format: xxx xxx xxx</small>
-                            {% if errors['phone'] is defined %}
-                                <li>{{ errors['phone'] }}</li>
-                            {% endif %}
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Password
-                            <input type="password" class="form-control" name="password" required>
-                            {% if errors['password'] is defined %}
-                                <li>{{ errors['password'] }}</li>
-                            {% endif %}
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Confirm Password
-                            <input type="password" class="form-control" name="confirm_password" required>
-                            {% if errors['repPassword'] is defined %}
-                                <li>{{ errors['repPassword'] }}</li>
-                            {% endif %}
-                        </label>
-                    </div>
-                    <div>
-                        <label>
                             Profile Image
                             <input type="file" name="files[]" multiple>
                         </label>
+                    </div>
+                    <div>
+                        <label for="category">Category</label>
+                        <select class="form-control" name="category" id="category" required>
+                            <option>Computers and electronic</option>
+                            <option>Cars</option>
+                            <option>Sports</option>
+                            <option>Games</option>
+                            <option>Fashion</option>
+                            <option>Home</option>
+                            <option>Other</option>
+                        </select>
                     </div>
                     <input type="submit" class="btn btn-primary" value="Register">
                 </form>
