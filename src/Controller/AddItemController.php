@@ -96,18 +96,9 @@ final class AddItemController
             $errors['description'] = 'The description must have 20 characters minimum';
         }
 
-        if (preg_match("/^[0-9]+(\.[0-9]{2})?$/" , $data['price'])) {
+        if (!preg_match("/^\d+(\.\d{1,2})?$/" , $data['price'])) {
             $errors['price'] = 'The price must have a correct format';
         }
-
-        if (false === filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $errors['email'] = sprintf('The email %s is not valid', $data['email']);
-        }
-
-        if (strcmp($data['confirm_password'], $data['password'])) {
-            $errors['repPassword'] = "Password confirmation doesn't match password";
-        }
-
 
         return $errors;
     }

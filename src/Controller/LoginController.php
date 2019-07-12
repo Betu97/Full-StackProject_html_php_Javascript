@@ -49,7 +49,7 @@ final class LoginController
 
         if($user != -1 && $user != -2) {
             $_SESSION['id'] = $user;
-
+            $_SESSION['username'] = $data['username'];
             $home = new HomeController($this->container);
             $home->loadAction($request, $response);
 

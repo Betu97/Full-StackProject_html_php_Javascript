@@ -42,14 +42,14 @@ class ProfileController
 
     public function formAction(Request $request, Response $response): Response
     {
+        $logged = isset($_SESSION['id']);
+
         if(!isset($_SESSION['id'])){
             $errors['notLogged'] = 'You need to be logged in to access this content';
-            $logged = isset($_SESSION['id']);
 
             return $this->container->get('view')->render($response, 'error403.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(403);
         }
         $image_name = $this->getImageName();
-        $logged = isset($_SESSION['id']);
 
         return $this->container->get('view')->render($response, 'profile.twig', ['image' => $image_name, 'logged'  => $logged]);
     }
@@ -73,13 +73,12 @@ class ProfileController
 
         $errors = $this->validate($data);
 
-        if (count($errors) > 0) {
-            $logged = isset($_SESSION['id']);
+        $logged = isset($_SESSION['id']);
 
+        if (count($errors) > 0) {
             return $response->withJson(['errors' => $errors, 'logged'  => $logged], 404);
         }
-
-        return $response->withJson([], 200);
+        return $response->withJson(['logged'  => $logged], 200);
     }
 
     private function validate(array $data): array
@@ -100,6 +99,8 @@ class ProfileController
     public function uploadAction(Request $request, Response $response): Response
     {
         $uploadedFiles = $request->getUploadedFiles();
+
+        $logged = isset($_SESSION['id']);
 
         $errors = [];
 
@@ -143,12 +144,12 @@ class ProfileController
         return $this->container->get('view')->render($response, 'profile.twig', [
             'errors' => $errors,
             'image' => $name,
+            'logged'  => $logged,
         ]);
     }
 
     public function getImageName(): String
     {
-        $_SESSION['username'] = 'username';
         $image_name = "";
         $extensions = array('jpg', 'png');
         foreach ($extensions as $ext) {

@@ -7,39 +7,27 @@
             </div>
             <div class="col-sm">
                 <form id="register-form" class = "register_form" action="{{ path_for('addItem') }}" method="POST">
-                    <div>
-                        <label>
-                            Title
-                            <input type="text" class="form-control" name="title" required>
-                            {% if errors['title'] is defined %}
-                                <li>{{ errors['title'] }}</li>
-                            {% endif %}
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Description
-                            <input type="text" class="form-control" name="description" required>
-                            {% if errors['description'] is defined %}
-                                <li>{{ errors['description'] }}</li>
-                            {% endif %}
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Price
-                            <input type="number" class="form-control" step="any" name="price" required>
-                            {% if errors['price'] is defined %}
-                                <li>{{ errors['price'] }}</li>
-                            {% endif %}
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Profile Image
-                            <input type="file" name="files[]" multiple>
-                        </label>
-                    </div>
+                    <label>
+                        Title
+                        <input type="text" class="form-control" name="title" required>
+                        {% if errors['title'] is defined %}
+                            <li>{{ errors['title'] }}</li>
+                        {% endif %}
+                    </label>
+                    <label>
+                        Description
+                        <input type="text" class="form-control" name="description" required>
+                        {% if errors['description'] is defined %}
+                            <li>{{ errors['description'] }}</li>
+                        {% endif %}
+                    </label>
+                    <label>
+                        Price
+                        <input type="number" class="form-control" step="any" name="price" pattern="/^\d+(\.\d{1,2})?$/" required>
+                        {% if errors['price'] is defined %}
+                            <li>{{ errors['price'] }}</li>
+                        {% endif %}
+                    </label>
                     <div>
                         <label for="category">Category</label>
                         <select class="form-control" name="category" id="category" required>
@@ -52,6 +40,10 @@
                             <option>Other</option>
                         </select>
                     </div>
+                    <label>
+                        Profile Image
+                        <input type="file" name="files[]" multiple>
+                    </label>
                     <input type="submit" class="btn btn-primary" value="Register">
                 </form>
             </div>
