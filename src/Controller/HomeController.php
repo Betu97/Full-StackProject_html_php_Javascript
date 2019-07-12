@@ -81,5 +81,7 @@ final class HomeController
     public function signOutAction(Request $request, Response $response): Response
     {
         unset($_SESSION['id']);
+
+        return $this->loadAction($request, $response);
     }
 }

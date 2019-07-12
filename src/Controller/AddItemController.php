@@ -31,7 +31,16 @@ final class AddItemController
 
     public function formAction(Request $request, Response $response): Response
     {
-        return $this->container->get('view')->render($response, 'addItem.twig', []);
+        if(!isset($_SESSION['id'])){
+            $errors['notLogged'] = 'You need to be logged in to access this content';
+            $logged = isset($_SESSION['id']);
+
+            return $this->container->get('view')->render($response, 'error403.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(403);
+        }
+
+        $logged = isset($_SESSION['id']);
+
+        return $this->container->get('view')->render($response, 'addItem.twig', ['logged'  => $logged]);
     }
 
     public function registerAction(Request $request, Response $response): Response
@@ -45,7 +54,9 @@ final class AddItemController
             $errors = $this->validate($data);
 
             if (count($errors) > 0) {
-                return $this->container->get('view')->render($response, 'addItem.twig', ['errors' => $errors])->withStatus(404);
+                $logged = isset($_SESSION['id']);
+
+                return $this->container->get('view')->render($response, 'addItem.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(404);
             }
 
             // We should validate the information before creating the entity
@@ -67,7 +78,10 @@ final class AddItemController
             return $response->withStatus(500);
         }
         $errors['notLogged'] = 'You have successfully added an item';
-        return $this->container->get('view')->render($response, 'addItem.twig', ['errors' => $errors])->withStatus(201);
+
+        $logged = isset($_SESSION['id']);
+
+        return $this->container->get('view')->render($response, 'addItem.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(201);
     }
 
     private function validate(array $data): array
