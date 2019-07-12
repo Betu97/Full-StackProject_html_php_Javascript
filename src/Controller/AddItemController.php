@@ -62,17 +62,18 @@ final class AddItemController
             // We should validate the information before creating the entity
             $item = new Item(
                 $data['title'],
-                $data['owner'],
+                $_SESSION['id'],
                 $data['description'],
                 $data['price'],
-                $data['product_image'],
+                -1,
                 $data['category'],
-                $data['is_active'],
+                true,
                 new DateTime(),
                 new DateTime()
             );
 
             $repository->saveItem($item);
+
         } catch (\Exception $e) {
             $response->getBody()->write('Unexpected error: ' . $e->getMessage());
             return $response->withStatus(500);

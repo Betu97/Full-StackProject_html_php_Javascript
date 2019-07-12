@@ -62,7 +62,7 @@ final class PDORepository implements UserRepositoryInterface
         $owner = $item->getOwner();
         $description = $item->getDescription();
         $price = $item->getPrice();
-        $product_image = $item->getProduct_image();
+        $product_image = $item->getProductImage();
         $category = $item->getCategory();
         $is_active = $item->getIsActive();
         $createdAt = $item->getCreatedAt()->format('Y-m-d H:i:s');
@@ -79,6 +79,10 @@ final class PDORepository implements UserRepositoryInterface
         $statement->bindParam('updated_at', $updatedAt, PDO::PARAM_STR);
 
         $statement->execute();
+
+        $statement = $this->database->connection->prepare(
+            "SELECT last_insert_id()"
+        );
     }
 
     public function deleteAccount(int $id)
