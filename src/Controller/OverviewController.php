@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface;
 use SallePW\SlimApp\Model\Item;
 
-final class HomeController
+final class OverviewController
 {
     /** @var ContainerInterface */
     private $container;
@@ -24,22 +24,30 @@ final class HomeController
 
     public function loadAction(Request $request, Response $response): Response
     {
+
+        if(!isset($_SESSION['id'])){
+            $errors['notLogged'] = 'You need to be logged in to access this content';
+            $logged = isset($_SESSION['id']);
+
+            return $this->container->get('view')->render($response, 'error403.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(403);
+        }
+
         try {
 
-            $item = $this->itemize(1);
-            $items = array($item);
-            for ($i = 2; $i <= 5; $i++) {
-                $item = $this->itemize($i);
-                array_push($items, $item);
+            $mine = 0;
+            $data = $request->getParsedBody();
+
+            $item = $this->itemize($data['image']);
+            if ($item->getOwner() == $_SESSION['id']) {
+                $mine = 1;
             }
 
             // We should validate the information before creating the entity
 
             $response->withStatus(201);
-
             $logged = isset($_SESSION['id']);
 
-            return $this->container->get('view')->render($response, 'home.twig', ['items' => $items, 'logged'  => $logged, 'mine' => 0, 'user' => $_SESSION['id']]);
+            return $this->container->get('view')->render($response, 'overview.twig', ['item' => $item, 'logged'  => $logged, 'mine' => $mine]);
 
         } catch (\Exception $e) {
             $response->getBody()->write('Unexpected error: ' . $e->getMessage());
@@ -64,7 +72,6 @@ final class HomeController
             new DateTime(),
             new DateTime()
         );
-        $item->setId($index);
         $image_name = "";
         $extensions = array('jpg', 'png');
         foreach ($extensions as $ext) {
@@ -77,12 +84,5 @@ final class HomeController
         $item->setProductImage($image_name);
 
         return $item;
-    }
-
-    public function signOutAction(Request $request, Response $response): Response
-    {
-        unset($_SESSION['id']);
-
-        return $this->loadAction($request, $response);
     }
 }

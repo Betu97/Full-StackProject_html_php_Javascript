@@ -48,7 +48,7 @@ final class myProductsController
             $response->withStatus(201);
             $logged = isset($_SESSION['id']);
 
-            return $this->container->get('view')->render($response, 'home.twig', ['items' => $items, 'logged'  => $logged]);
+            return $this->container->get('view')->render($response, 'home.twig', ['items' => $items, 'logged'  => $logged, 'mine' => 1]);
 
         } catch (\Exception $e) {
             $response->getBody()->write('Unexpected error: ' . $e->getMessage());
@@ -73,6 +73,7 @@ final class myProductsController
             new DateTime(),
             new DateTime()
         );
+        $item->setId($index);
         $image_name = "";
         $extensions = array('jpg', 'png');
         foreach ($extensions as $ext) {

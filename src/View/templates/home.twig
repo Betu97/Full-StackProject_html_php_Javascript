@@ -11,19 +11,42 @@
     {% endif %}
     <div class="row">
         {% if items is defined  %}
-        {% for item in items %}
-            <div class="col-sm-3 d-flex">
-                <div class="card my-3">
-                    <img class="card-img-top" src="{{ base_url() }}/assets/Images/{{ item.productImage }}" height="380" alt="adasd">
-                    <div class="card-body">
-                        <h4 class="card-title">{{ item.price }}€</h4>
-                        <h6 class="card-title">{{ item.title }}</h6>
-                        <h8 class="card-subtitle mb-2 text-muted">{{ item.category }}</h8>
-                        <p class="card-text my-3">{{ item.description }}</p>
+            {% if mine == 0  %}
+                {% for item in items %}
+                    <div class="col-sm-3 d-flex">
+                        <div class="card my-3">
+                            <form id="register-form" class = "register_form" action="{{ path_for('overview') }}" method="POST">
+                                <input type="hidden" name="image" value="{{ item.Id }}"/>
+                                <input type="image" class="card-img-top" src="{{ base_url() }}/assets/Images/{{ item.productImage }}" height="380" alt="submit">
+                            </form>
+                            <div class="card-body">
+                                <h4 class="card-title">{{ item.price }}€</h4>
+                                <h6 class="card-title">{{ item.title }}</h6>
+                                <h8 class="card-subtitle mb-2 text-muted">{{ item.category }}</h8>
+                                <p class="card-text my-3">{{ item.description }}</p>
+                                {% if logged  == true and item.owner != user%}
+                                    <a class="btn btn-dark" style="margin-right: 5px; border-radius: 13px" href="{{ path_for('login') }}">Like</a>
+                                    <a class="btn btn-dark" style="border-radius: 13px" href="{{ path_for('login') }}">Buy</a>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        {% endfor %}
+                {% endfor %}
+            {% else  %}
+                {% for item in items %}
+                    <div class="col-sm-3 d-flex">
+                        <div class="card my-3">
+                            <form id="register-form" class = "register_form" action="{{ path_for('overview') }}" method="POST">
+                                <input type="hidden" name="image" value="{{ item.Id }}"/>
+                                <input type="image" class="card-img-top" src="{{ base_url() }}/assets/Images/{{ item.productImage }}" height="380" alt="submit">
+                            </form>
+                            <div class="card-body">
+                                <h4 class="card-title">{{ item.title }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif  %}
         {% endif  %}
     </div>
 {% endblock %}

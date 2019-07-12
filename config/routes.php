@@ -14,6 +14,7 @@ use SallePW\SlimApp\Controller\HomeController;
 use SallePW\SlimApp\Controller\SearchController;
 use SallePW\SlimApp\Controller\myProductsController;
 use SallePW\SlimApp\Controller\AddItemController;
+use SallePW\SlimApp\Controller\OverviewController;
 
 $app
     ->get('/hello/{name}', HelloController::class)
@@ -52,6 +53,13 @@ $app->get('/signOut', HomeController::class . ':signOutAction')
 
 $app->get('/myProducts', myProductsController::class . ':loadAction')
     ->setName('myProducts');
+
+$app->get('/overview', OverviewController::class . ':loadAction')
+    ->setName('overview');
+
+$app
+    ->post('/overview', OverviewController::class . ':loadAction')
+    ->setName('overview');
 
 $app->get('/register', RegisterController::class . ':formAction');
 
