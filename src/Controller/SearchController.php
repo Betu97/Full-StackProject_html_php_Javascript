@@ -99,7 +99,9 @@ final class SearchController
             }
             $item->setProductImage($image_name);
 
-            array_push($items, $item);
+            if($item->getIsActive()) {
+                array_push($items, $item);
+            }
         }
 
         return $items;

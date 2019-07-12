@@ -38,7 +38,7 @@ final class myProductsController
             $items = array();
             for ($i = 1; $i <= 5; $i++) {
                 $item = $this->itemize($i);
-                if ($item->getOwner() == $_SESSION['id']) {
+                if ($item->getOwner() == $_SESSION['id'] && $item->getIsActive()) {
                     array_push($items, $item);
                 }
             }
