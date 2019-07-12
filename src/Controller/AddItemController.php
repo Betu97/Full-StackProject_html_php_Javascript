@@ -78,9 +78,10 @@ final class AddItemController
             return $response->withStatus(500);
         }
         $errors['notLogged'] = 'You have successfully added an item';
+
         $logged = isset($_SESSION['id']);
 
-        return $this->container->get('view')->render($response, 'login.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(201);
+        return $this->container->get('view')->render($response, 'addItem.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(201);
     }
 
     private function validate(array $data): array
@@ -94,19 +95,10 @@ final class AddItemController
         if (empty($data['description']) || strlen($data['description']) < 20) {
             $errors['description'] = 'The description must have 20 characters minimum';
         }
-/*
-        if (empty($data['password']) || strlen($data['password']) < 6) {
-            $errors['password'] = 'The password must contain at least 6 characters';
-        }
 
-        if (false === filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $errors['email'] = sprintf('The email %s is not valid', $data['email']);
+        if (!preg_match("/^\d+(\.\d{1,2})?$/" , $data['price'])) {
+            $errors['price'] = 'The price must have a correct format';
         }
-
-        if (strcmp($data['confirm_password'], $data['password'])) {
-            $errors['repPassword'] = "Password confirmation doesn't match password";
-        }
-*/
 
         return $errors;
     }
