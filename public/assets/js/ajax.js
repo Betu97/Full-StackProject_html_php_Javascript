@@ -34,7 +34,6 @@ $(document).ready(function() {
             password: $('input[name=password]').val()
         };
 
-
         $.ajax({
             type: 'POST',
             url: '/register',

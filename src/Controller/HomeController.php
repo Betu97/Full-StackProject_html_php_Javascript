@@ -39,7 +39,12 @@ final class HomeController
 
             $logged = isset($_SESSION['id']);
 
-            return $this->container->get('view')->render($response, 'home.twig', ['items' => $items, 'logged'  => $logged]);
+            if($logged) {
+                return $this->container->get('view')->render($response, 'home.twig',
+                    ['items' => $items, 'logged' => $logged, 'mine' => 0, 'user' => $_SESSION['id']]);
+            }
+            return $this->container->get('view')->render($response, 'home.twig',
+                ['items' => $items, 'logged' => $logged, 'mine' => 0, 'user' => -2]);
 
         } catch (\Exception $e) {
             $response->getBody()->write('Unexpected error: ' . $e->getMessage());
@@ -64,6 +69,7 @@ final class HomeController
             new DateTime(),
             new DateTime()
         );
+        $item->setId($index);
         $image_name = "";
         $extensions = array('jpg', 'png');
         foreach ($extensions as $ext) {

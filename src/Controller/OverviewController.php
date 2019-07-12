@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface;
 use SallePW\SlimApp\Model\Item;
 
-final class myProductsController
+final class OverviewController
 {
     /** @var ContainerInterface */
     private $container;
@@ -34,13 +34,12 @@ final class myProductsController
 
         try {
 
+            $mine = 0;
+            $data = $request->getParsedBody();
 
-            $items = array();
-            for ($i = 1; $i <= 5; $i++) {
-                $item = $this->itemize($i);
-                if ($item->getOwner() == $_SESSION['id'] && $item->getIsActive()) {
-                    array_push($items, $item);
-                }
+            $item = $this->itemize($data['image']);
+            if ($item->getOwner() == $_SESSION['id']) {
+                $mine = 1;
             }
 
             // We should validate the information before creating the entity
@@ -48,7 +47,7 @@ final class myProductsController
             $response->withStatus(201);
             $logged = isset($_SESSION['id']);
 
-            return $this->container->get('view')->render($response, 'home.twig', ['items' => $items, 'logged'  => $logged, 'mine' => 1]);
+            return $this->container->get('view')->render($response, 'overview.twig', ['item' => $item, 'logged'  => $logged, 'mine' => $mine]);
 
         } catch (\Exception $e) {
             $response->getBody()->write('Unexpected error: ' . $e->getMessage());
@@ -73,7 +72,6 @@ final class myProductsController
             new DateTime(),
             new DateTime()
         );
-        $item->setId($index);
         $image_name = "";
         $extensions = array('jpg', 'png');
         foreach ($extensions as $ext) {
