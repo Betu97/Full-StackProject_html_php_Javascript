@@ -74,8 +74,7 @@ final class AddItemController
             );
 
             $repository->saveItem($item);
-            var_dump($item->getId());
-            //$repository->insertProductImage($item->getId());
+            $repository->insertProductImage();
 
         } catch (\Exception $e) {
             $response->getBody()->write('Unexpected error: ' . $e->getMessage());

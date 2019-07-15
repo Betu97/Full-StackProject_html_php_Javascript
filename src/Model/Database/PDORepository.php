@@ -96,7 +96,22 @@ final class PDORepository implements UserRepositoryInterface
 
     }
 
-    public function insertProductImage(int $id)
+    public function insertProductImage()
+    {
+        $id = $this->getMaxId();
+        $product_image = $id;
+        $statement = $this->database->connection->prepare(
+            "UPDATE item SET product_image = :product_image WHERE id = :id"
+        );
+
+        $statement->bindParam('product_image', $product_image, PDO::PARAM_STR);
+        $statement->bindParam('id', $id, PDO::PARAM_STR);
+        $statement->execute();
+
+
+    }
+
+    public function getMaxId(): String
     {
         $statement = $this->database->connection->prepare(
             "SELECT MAX(id) FROM item"
@@ -104,17 +119,7 @@ final class PDORepository implements UserRepositoryInterface
         $statement->execute();
 
         $item = $statement->fetchAll();
-        $product_image = $item[0]['MAX(id)'];
-        $strId = strval($id);
-        $statement = $this->database->connection->prepare(
-            "UPDATE item SET product_image = :product_image WHERE id = :id"
-        );
-
-        $statement->bindParam('product_image', $product_image, PDO::PARAM_STR);
-        $statement->bindParam('id', $strId, PDO::PARAM_STR);
-        $statement->execute();
-
-
+        return $item[0]['MAX(id)'];
     }
 
 
