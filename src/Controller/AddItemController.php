@@ -73,16 +73,21 @@ final class AddItemController
             );
 
             $repository->saveItem($item);
+            var_dump($item->getId());
+            //$repository->insertProductImage($item->getId());
 
         } catch (\Exception $e) {
             $response->getBody()->write('Unexpected error: ' . $e->getMessage());
             return $response->withStatus(500);
         }
-        $errors['notLogged'] = 'You have successfully added an item';
+
+        echo'<script type="text/javascript">
+                alert("You have successfully added an item");
+        </script>';
 
         $logged = isset($_SESSION['id']);
 
-        return $this->container->get('view')->render($response, 'addItem.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(201);
+        return $this->container->get('view')->render($response, 'addItem.twig', ['logged'  => $logged])->withStatus(201);
     }
 
     private function validate(array $data): array
