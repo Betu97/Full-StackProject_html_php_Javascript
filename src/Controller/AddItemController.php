@@ -155,21 +155,6 @@ final class AddItemController
         return $errors;
     }
 
-    public function getImageName(): String
-    {
-        $image_name = "";
-        $extensions = array('jpg', 'png');
-        foreach ($extensions as $ext) {
-            $file_name = __DIR__ . '/../../public/uploads/' . $_SESSION['username'] . '.' . $ext;
-            if (file_exists($file_name)) {
-                $image_name = $_SESSION['username'] . '.' . $ext;
-                break;
-            }
-        }
-
-        return $image_name;
-    }
-
     private function isValidFormat(string $extension): bool
     {
         return in_array($extension, self::ALLOWED_EXTENSIONS, true);
