@@ -70,29 +70,35 @@ class ProfileController
 
     public function registerAction(Request $request, Response $response): Response
     {
+        $logged = isset($_SESSION['id']);
+        $repository = $this->container->get('user_repo');
         // This method decodes the received json
         $data = $request->getParsedBody();
-
+        if (empty($data)){
+            $errors['empty'] = "There is no information to update";
+            return $response->withJson(['errors' => $errors, 'logged'  => $logged], 404);
+        }
         $errors = $this->validate($data);
-
-        $logged = isset($_SESSION['id']);
 
         if (count($errors) > 0) {
             return $response->withJson(['errors' => $errors, 'logged'  => $logged], 404);
         }
+
+        $repository->updateProfile($data);
         return $response->withJson(['logged'  => $logged], 200);
     }
+
 
     private function validate(array $data): array
     {
         $errors = [];
 
-        if (empty($data['username'])) {
-            $errors['username'] = 'The username cannot be empty.';
+        if (!ctype_alnum($data['name'] )){
+            $errors['nameFormat'] = sprintf('The name must contain only alphanumerical characters');
         }
 
-        if (empty($data['password']) || strlen($data['password']) < 6) {
-            $errors['password'] = 'The password must contain at least 6 characters.';
+        if (false === filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $errors['email'] = sprintf('The email %s is not valid', $data['email']);
         }
 
         return $errors;

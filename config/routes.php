@@ -37,6 +37,9 @@ $app
 $app
     ->get('/delete', ProfileController::class . ':deleteAction')
     ->setName('delete');
+$app
+    ->get('/update', ProfileController::class . ':registerAction')
+    ->setName('update');
 
 $app->get('/login', LoginController::class . ':formAction');
 

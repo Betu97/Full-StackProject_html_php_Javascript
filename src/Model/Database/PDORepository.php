@@ -107,8 +107,49 @@ final class PDORepository implements UserRepositoryInterface
         $statement->bindParam('product_image', $product_image, PDO::PARAM_STR);
         $statement->bindParam('id', $id, PDO::PARAM_STR);
         $statement->execute();
+    }
 
+    public function updateProfile(array $data, int $id)
+    {
+        if (!empty($data['name'])){
+            $statement = $this->database->connection->prepare(
+                "UPDATE user SET name = :name WHERE id = :id"
+            );
 
+            $statement->bindParam('name', $data['name'], PDO::PARAM_STR);
+            $statement->bindParam('id', $id, PDO::PARAM_STR);
+            $statement->execute();
+        }
+
+        if (!empty($data['email'])){
+            $statement = $this->database->connection->prepare(
+                "UPDATE user SET email = :email WHERE id = :id"
+            );
+
+            $statement->bindParam('email', $data['email'], PDO::PARAM_STR);
+            $statement->bindParam('id', $id, PDO::PARAM_STR);
+            $statement->execute();
+        }
+
+        if (!empty($data['birthdate'])){
+            $statement = $this->database->connection->prepare(
+                "UPDATE user SET birthdate = :birthdate WHERE id = :id"
+            );
+
+            $statement->bindParam('birthdate', $data['birthdate'], PDO::PARAM_STR);
+            $statement->bindParam('id', $id, PDO::PARAM_STR);
+            $statement->execute();
+        }
+
+        if (!empty($data['phone_number'])){
+            $statement = $this->database->connection->prepare(
+                "UPDATE user SET phone_number = :phone_number WHERE id = :id"
+            );
+
+            $statement->bindParam('phone_number', $data['phone_number'], PDO::PARAM_STR);
+            $statement->bindParam('id', $id, PDO::PARAM_STR);
+            $statement->execute();
+        }
     }
 
     public function getMaxId(): String
