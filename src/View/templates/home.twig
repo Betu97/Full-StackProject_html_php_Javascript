@@ -17,7 +17,7 @@
                                 <h8 class="card-subtitle mb-2 text-muted">{{ item.category }}</h8>
                                 <p class="card-text my-3">{{ item.description }}</p>
                                 {% if logged  == true and item.owner != user%}
-                                    <a class="btn btn-dark" style="margin-right: 5px; border-radius: 13px" href="{{ path_for('login') }}">Like</a>
+                                    <button class="btn btn-dark" style="margin-right: 5px; border-radius: 13px">Like</button>
                                     <a class="btn btn-dark" style="border-radius: 13px" href="{{ path_for('login') }}">Buy</a>
                                 {% endif %}
                             </div>
