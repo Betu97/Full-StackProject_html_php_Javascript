@@ -66,6 +66,7 @@ final class HomeController
             $data['product_image'],
             $data['category'],
             $data['is_active'],
+            $data['sold'],
             new DateTime(),
             new DateTime()
         );

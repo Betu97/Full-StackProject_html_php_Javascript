@@ -30,6 +30,9 @@ final class Item
     /** @var string */
     private $is_active;
 
+    /** @var string */
+    private $sold;
+
     /** @var DateTime */
     private $createdAt;
 
@@ -39,7 +42,7 @@ final class Item
     /**
      * User constructor.
      */
-    public function __construct(string $title, string $owner, string $description, float $price, string $product_image, string $category,  bool $is_active, DateTime $createdAt, DateTime $updatedAt)
+    public function __construct(string $title, string $owner, string $description, float $price, string $product_image, string $category,  bool $is_active,  bool $sold, DateTime $createdAt, DateTime $updatedAt)
     {
         $this->title = $title;
         $this->owner = $owner;
@@ -48,8 +51,25 @@ final class Item
         $this->product_image = $product_image;
         $this->category = $category;
         $this->is_active = $is_active;
+        $this->sold = $sold;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSold(): string
+    {
+        return $this->sold;
+    }
+
+    /**
+     * @param string $sold
+     */
+    public function setSold(string $sold): void
+    {
+        $this->sold = $sold;
     }
 
     /**

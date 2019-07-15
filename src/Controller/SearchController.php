@@ -82,8 +82,9 @@ final class SearchController
                 $parts['description'],
                 $parts['price'],
                 $parts['product_image'],
-                $parts['is_active'],
                 $parts['category'],
+                $parts['is_active'],
+                $parts['sold'],
                 new DateTime(),
                 new DateTime()
             );

@@ -56,7 +56,7 @@ final class PDORepository implements UserRepositoryInterface
     public function saveItem(Item $item)
     {
         $statement = $this->database->connection->prepare(
-            "INSERT into item(title, owner, description, price, product_image, category, is_active, created_at, updated_at) values(:title, :owner, :description, :price, :product_image, :category, :is_active, :created_at, :updated_at)"
+            "INSERT into item(title, owner, description, price, product_image, category, is_active, sold, created_at, updated_at) values(:title, :owner, :description, :price, :product_image, :category, :is_active, :sold, :created_at, :updated_at)"
         );
         $title = $item->getTitle();
         $owner = $item->getOwner();
@@ -65,6 +65,7 @@ final class PDORepository implements UserRepositoryInterface
         $product_image = $item->getProductImage();
         $category = $item->getCategory();
         $is_active = $item->getIsActive();
+        $sold = $item->getSold();
         $createdAt = $item->getCreatedAt()->format('Y-m-d H:i:s');
         $updatedAt = $item->getUpdatedAt()->format('Y-m-d H:i:s');
 
@@ -75,14 +76,11 @@ final class PDORepository implements UserRepositoryInterface
         $statement->bindParam('product_image', $product_image, PDO::PARAM_STR);
         $statement->bindParam('category', $category, PDO::PARAM_STR);
         $statement->bindParam('is_active', $is_active, PDO::PARAM_BOOL);
+        $statement->bindParam('sold', $sold, PDO::PARAM_BOOL);
         $statement->bindParam('created_at', $createdAt, PDO::PARAM_STR);
         $statement->bindParam('updated_at', $updatedAt, PDO::PARAM_STR);
 
         $statement->execute();
-
-        $statement = $this->database->connection->prepare(
-            "SELECT last_insert_id()"
-        );
     }
 
     public function deleteAccount(int $id)

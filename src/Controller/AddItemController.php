@@ -68,6 +68,7 @@ final class AddItemController
                 -1,
                 $data['category'],
                 true,
+                false,
                 new DateTime(),
                 new DateTime()
             );
