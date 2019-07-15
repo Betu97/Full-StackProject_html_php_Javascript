@@ -33,10 +33,10 @@ final class myProductsController
         }
 
         try {
-
+            $repository = $this->container->get('user_repo');
 
             $items = array();
-            for ($i = 1; $i <= 5; $i++) {
+            for ($i = 1; $i <= $repository->getMaxId(); $i++) {
                 $item = $this->itemize($i);
                 if ($item->getOwner() == $_SESSION['id'] && $item->getIsActive()) {
                     array_push($items, $item);
