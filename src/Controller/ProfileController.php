@@ -8,7 +8,6 @@
 
 namespace SallePW\SlimApp\Controller;
 
-use SallePW\SlimApp\Controller\HomeController;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -112,7 +111,7 @@ class ProfileController
         /** @var UploadedFileInterface $uploadedFile */
         foreach ($uploadedFiles['files'] as $uploadedFile) {
             if ($uploadedFile->getError() !== UPLOAD_ERR_OK) {
-                $errors[] = sprintf(self::UNEXPECTED_ERROR, $uploadedFile->getClientFilename());
+                $errors['file'] = sprintf(self::UNEXPECTED_ERROR, $uploadedFile->getClientFilename());
                 continue;
             }
 
@@ -123,7 +122,7 @@ class ProfileController
             $format = $fileInfo['extension'];
 
             if (!$this->isValidFormat($format)) {
-                $errors[] = sprintf(self::INVALID_EXTENSION_ERROR, $format);
+                $errors['file'] = sprintf(self::INVALID_EXTENSION_ERROR, $format);
                 continue;
             }
 
