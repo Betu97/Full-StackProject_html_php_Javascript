@@ -57,38 +57,6 @@ final class Item
     }
 
     /**
-     * @return string
-     */
-    public function getSold(): string
-    {
-        return $this->sold;
-    }
-
-    /**
-     * @param string $sold
-     */
-    public function setSold(string $sold): void
-    {
-        $this->sold = $sold;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIsActive(): string
-    {
-        return $this->is_active;
-    }
-
-    /**
-     * @param string $is_active
-     */
-    public function setIsActive(string $is_active): void
-    {
-        $this->is_active = $is_active;
-    }
-
-    /**
      * @return int
      */
     public function getId(): int
@@ -198,6 +166,38 @@ final class Item
     public function setCategory(string $category): void
     {
         $this->category = $category;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIsActive(): string
+    {
+        return $this->is_active;
+    }
+
+    /**
+     * @param string $is_active
+     */
+    public function setIsActive(string $is_active): void
+    {
+        $this->is_active = $is_active;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSold(): string
+    {
+        return $this->sold;
+    }
+
+    /**
+     * @param string $sold
+     */
+    public function setSold(string $sold): void
+    {
+        $this->sold = $sold;
     }
 
     /**

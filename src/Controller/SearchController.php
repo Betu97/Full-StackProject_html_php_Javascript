@@ -89,6 +89,7 @@ final class SearchController
                 new DateTime()
             );
 
+            $item->setId($parts['id']);
             $image_name = "";
             $extensions = array('jpg', 'png');
             foreach ($extensions as $ext) {
