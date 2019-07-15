@@ -17,8 +17,11 @@
                                 <h8 class="card-subtitle mb-2 text-muted">{{ item.category }}</h8>
                                 <p class="card-text my-3">{{ item.description }}</p>
                                 {% if logged  == true and item.owner != user%}
+                                <form id="register-form" class = "register_form" action="{{ path_for('buy') }}" method="POST">
                                     <button class="btn btn-dark" style="margin-right: 5px; border-radius: 13px">Like</button>
-                                    <a class="btn btn-dark" style="border-radius: 13px" href="{{ path_for('login') }}">Buy</a>
+                                    <input type="hidden" name="item" value="{{ item.Id }}"/>
+                                    <input type="submit" class="btn btn-dark" style="border-radius: 13px" value="Buy"/>
+                                </form>
                                 {% endif %}
                             </div>
                         </div>
@@ -35,6 +38,11 @@
                             <div class="card-body">
                                 <h4 class="card-title">{{ item.title }}</h4>
                             </div>
+                            {% if item.sold %}
+                            <div class="card-body">
+                                <h6 class="card-title" style="color: red; font-weight: bold;" >SOLD OUT</h6>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}

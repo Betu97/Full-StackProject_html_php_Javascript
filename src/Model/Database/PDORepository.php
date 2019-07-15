@@ -184,4 +184,17 @@ final class PDORepository implements UserRepositoryInterface
         return $info[0]['id'];
     }
 
+    public function buy(int $id)
+    {
+
+        $statement = $this->database->connection->prepare(
+            "UPDATE item SET sold = 1 WHERE id = :id AND sold = 0"
+        );
+
+        $statement->bindParam('id', $id, PDO::PARAM_INT);
+
+        $statement->execute();
+
+    }
+
 }

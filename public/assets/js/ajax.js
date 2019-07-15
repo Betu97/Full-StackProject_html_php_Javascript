@@ -41,14 +41,15 @@ $(document).ready(function() {
             data: JSON.stringify(payload), // our data object
             dataType: 'json' // what type of data do we expect back from the server
         })
-            .done(function(data) {
-                console.log(data);
-            })
-            .fail(function(error) {
-                console.log(error);
-            });
-
-        // stop the form from submitting the normal way and refreshing the page
-        event.preventDefault();
+        let errors = validateRegister(payload);
+        if(Object.keys(errors).length > 0){
+            event.preventDefault();
+            if (errors['name']) $('#name_error').text(errors['name']);
+            else $('#name_error').text("");
+        }
     });
 });
+
+function validateRegister() {
+
+}

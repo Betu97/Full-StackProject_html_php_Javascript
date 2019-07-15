@@ -15,6 +15,7 @@ use SallePW\SlimApp\Controller\SearchController;
 use SallePW\SlimApp\Controller\myProductsController;
 use SallePW\SlimApp\Controller\AddItemController;
 use SallePW\SlimApp\Controller\OverviewController;
+use SallePW\SlimApp\Controller\BuyController;
 
 $app
     ->get('/hello/{name}', HelloController::class)
@@ -60,6 +61,12 @@ $app->get('/overview', OverviewController::class . ':loadAction')
 $app
     ->post('/overview', OverviewController::class . ':loadAction')
     ->setName('overview');
+
+$app->get('/buy', BuyController::class . ':loadAction');
+
+$app
+    ->post('/buy', BuyController::class . ':loadAction')
+    ->setName('buy');
 
 $app->get('/register', RegisterController::class . ':formAction');
 

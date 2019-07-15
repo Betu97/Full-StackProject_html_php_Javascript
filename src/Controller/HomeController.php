@@ -26,11 +26,12 @@ final class HomeController
     {
         try {
 
-            $item = $this->itemize(1);
-            $items = array($item);
-            for ($i = 2; $i <= 5; $i++) {
+            $items = array();
+            for ($i = 1; $i <= 5; $i++) {
                 $item = $this->itemize($i);
-                array_push($items, $item);
+                if(!$item->getSold()) {
+                    array_push($items, $item);
+                }
             }
 
             // We should validate the information before creating the entity

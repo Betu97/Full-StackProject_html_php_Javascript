@@ -38,6 +38,11 @@ final class OverviewController
             $data = $request->getParsedBody();
 
             $item = $this->itemize($data['image']);
+            if($item->getSold()){
+                $logged = isset($_SESSION['id']);
+
+                return $this->container->get('view')->render($response, 'error404.twig', ['logged'  => $logged])->withStatus(404);
+            }
             if ($item->getOwner() == $_SESSION['id']) {
                 $mine = 1;
             }
@@ -73,6 +78,7 @@ final class OverviewController
             new DateTime(),
             new DateTime()
         );
+        $item->setId($index);
         $image_name = "";
         $extensions = array('jpg', 'png');
         foreach ($extensions as $ext) {
