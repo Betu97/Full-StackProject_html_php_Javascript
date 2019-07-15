@@ -58,12 +58,15 @@ class ProfileController
     {
         $repository = $this->container->get('user_repo');
         $repository->deleteAccount($_SESSION['id']);
-        $errors['delete'] = 'You have deleted your account successfully';
+        echo'<script type="text/javascript">
+                alert("You have deleted your account successfully");
+        </script>';
         $home = new HomeController($this->container);
+        unset($_SESSION['id']);
         $home->loadAction($request, $response);
-        $logged = isset($_SESSION['id']);
 
-        return $this->container->get('view')->render($response, 'home.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(201);
+
+        return $response;
     }
 
     public function registerAction(Request $request, Response $response): Response

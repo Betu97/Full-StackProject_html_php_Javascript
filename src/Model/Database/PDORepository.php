@@ -148,7 +148,7 @@ final class PDORepository implements UserRepositoryInterface
         $filteredPassword = md5(filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
         $strPass = strval($filteredPassword);
         $statement = $this->database->connection->prepare(
-            "SELECT * FROM user WHERE (username = :username AND password = :password)"
+            "SELECT * FROM user WHERE (username = :username AND password = :password AND is_active = 1)"
         );
         $statement->bindParam(':username', $strUser, PDO::PARAM_STR);
         $statement->bindParam(':password', $strPass, PDO::PARAM_STR);

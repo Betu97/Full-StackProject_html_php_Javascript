@@ -1,14 +1,6 @@
 {% extends "base.twig" %}
 {% block title %} Home page {% endblock %}
 {% block content %}
-    {% if errors is defined %}
-        <script>
-            function alerta() {
-                alert("You have deleted your account successfully");
-            }
-            alerta();
-        </script>
-    {% endif %}
     <div class="row">
         {% if items is defined  %}
             {% if mine == 0  %}
