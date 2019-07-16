@@ -22,17 +22,18 @@ $app
     ->post('/files', FileController::class . ':uploadAction')
     ->setName('upload');
 
-$app->get('/profile', ProfileController::class . ':formAction');
+$app->get('/profile', ProfileController::class . ':formAction')
+    ->setName('profile');
 
 $app
-    ->get('/image', ProfileController::class . ':uploadAction')
+    ->post('/image', ProfileController::class . ':uploadAction')
     ->setName('image');
 $app
     ->get('/delete', ProfileController::class . ':deleteAction')
     ->setName('delete');
 $app
-    ->post('/profile', ProfileController::class . ':registerAction')
-    ->setName('profile');
+    ->post('/update', ProfileController::class . ':registerAction')
+    ->setName('update');
 
 $app->get('/login', LoginController::class . ':formAction');
 
@@ -55,6 +56,10 @@ $app->get('/overview', OverviewController::class . ':loadAction')
 $app
     ->post('/overview', OverviewController::class . ':loadAction')
     ->setName('overview');
+
+$app
+    ->post('/updateItem', OverviewController::class . ':updateItem')
+    ->setName('updateItem');
 
 $app->get('/buy', BuyController::class . ':loadAction');
 
