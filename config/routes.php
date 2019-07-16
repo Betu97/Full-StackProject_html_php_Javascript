@@ -1,15 +1,11 @@
 <?php
 
-use SallePW\SlimApp\Controller\Middleware\Middleware2;
-use SallePW\SlimApp\Controller\FlashController;
-use SallePW\SlimApp\Controller\HelloController;
-use SallePW\SlimApp\Controller\Middleware\TestMiddleware;
+
 use SallePW\SlimApp\Controller\Middleware\SessionMiddleware;
 use SallePW\SlimApp\Controller\FileController;
 use SallePW\SlimApp\Controller\RegisterController;
 use SallePW\SlimApp\Controller\LoginController;
 use SallePW\SlimApp\Controller\ProfileController;
-use SallePW\SlimApp\Controller\UserController;
 use SallePW\SlimApp\Controller\HomeController;
 use SallePW\SlimApp\Controller\SearchController;
 use SallePW\SlimApp\Controller\myProductsController;
@@ -17,11 +13,8 @@ use SallePW\SlimApp\Controller\AddItemController;
 use SallePW\SlimApp\Controller\OverviewController;
 use SallePW\SlimApp\Controller\BuyController;
 
-$app
-    ->get('/hello/{name}', HelloController::class)
-    ->add(TestMiddleware::class);
 
-$app->get('/flash', FlashController::class);
+$app->get('/', HomeController::class . ':loadAction');
 
 $app->get('/files', FileController::class . ':indexAction');
 
@@ -46,8 +39,6 @@ $app->get('/login', LoginController::class . ':formAction');
 $app
     ->post('/login', LoginController::class . ':loginAction')
     ->setName('login');
-
-$app->post('/users', UserController::class . ':registerAction');
 
 $app->get('/home', HomeController::class . ':loadAction')
     ->setName('home');

@@ -1,5 +1,5 @@
 {
-    "name": "marcsegura/slim",
+    "name": "marcseguraAlbertmartinez/slim",
     "require": {
         "slim/slim": "^3.12",
         "slim/twig-view": "^2.4",
