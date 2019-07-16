@@ -32,14 +32,14 @@ $app
 $app->get('/profile', ProfileController::class . ':formAction');
 
 $app
-    ->post('/profile', ProfileController::class . ':uploadAction')
-    ->setName('profile');
+    ->get('/image', ProfileController::class . ':uploadAction')
+    ->setName('image');
 $app
     ->get('/delete', ProfileController::class . ':deleteAction')
     ->setName('delete');
 $app
-    ->get('/update', ProfileController::class . ':registerAction')
-    ->setName('update');
+    ->post('/profile', ProfileController::class . ':registerAction')
+    ->setName('profile');
 
 $app->get('/login', LoginController::class . ':formAction');
 

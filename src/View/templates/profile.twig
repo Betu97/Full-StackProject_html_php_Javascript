@@ -13,9 +13,9 @@
             <div class="col">
                 <h4 class="display-5">Profile image</h4>
                 <img src="{{ base_url() }}/uploads/{{ image }}" heigth = "480" width = "360" alt="You haven't upload an image yet">
-                <form action="{{ path_for('profile') }}"
+                <form action="{{ path_for('image') }}"
                       enctype="multipart/form-data"
-                      method="POST">
+                      method="GET">
                     <input type="file" name="files[]" multiple>
                     {% if errors['file'] is defined %}
                         <ol>
@@ -28,7 +28,7 @@
                 </form>
             </div>
         </div>
-        <form id="register-form" class = "register_form" action="{{ path_for('update') }}" method="GET">
+        <form id="register-form" class = "register_form" action="{{ path_for('profile') }}" method="POST">
             <div class="row py-4">
                 <label class="col-3">
                     Name
@@ -48,11 +48,11 @@
             <div class="row">
                 <label class="col-3">
                     Birth Date
-                    <input type="date" class="form-control" name="birhtdate">
+                    <input type="date" class="form-control" name="birthdate">
                 </label>
                 <label class="col-3">
                     Phone Number
-                    <input type="number" class="form-control" name= "phone_number" aria-describedby="pattern" pattern="[0-9]{3} [0-9]{3} [0-9]{3}">
+                    <input type="tel" class="form-control" name= "phone_number" aria-describedby="pattern" pattern="[0-9]{3} [0-9]{3} [0-9]{3}">
                     <small id="pattern" class="form-text text-muted">Format: xxx xxx xxx</small>
                     {% if errors['phone'] is defined %}
                         <li>{{ errors['phone'] }}</li>

@@ -82,7 +82,7 @@ final class AddItemController
                 }
 
                 $new_id = $repository->getMaxId() + 1;
-                
+
                 $name = $new_id . '.' . $format;
 
                 $extensions = array('jpg', 'png');

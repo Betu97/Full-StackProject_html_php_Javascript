@@ -2,7 +2,7 @@
 
 namespace SallePW\SlimApp\Model;
 
-interface UserRepositoryInterface
+interface ItemRepositoryInterface
 {
     public function saveItem(Item $item);
     public function loadItem(int $id): array;

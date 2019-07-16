@@ -3,6 +3,7 @@
 namespace SallePW\SlimApp\Model\Database;
 
 use PDO;
+use DateTime;
 use SallePW\SlimApp\Model\Item;
 use SallePW\SlimApp\Model\ItemRepositoryInterface;
 use SallePW\SlimApp\Model\User;
@@ -111,6 +112,7 @@ final class PDORepository implements UserRepositoryInterface
 
     public function updateProfile(array $data, int $id)
     {
+
         if (!empty($data['name'])){
             $statement = $this->database->connection->prepare(
                 "UPDATE user SET name = :name WHERE id = :id"
@@ -132,11 +134,14 @@ final class PDORepository implements UserRepositoryInterface
         }
 
         if (!empty($data['birthdate'])){
+
+            $date = new DateTime($data['birthdate']);
+            $date = $date->format('Y-m-d H:i:s');
             $statement = $this->database->connection->prepare(
                 "UPDATE user SET birthdate = :birthdate WHERE id = :id"
             );
 
-            $statement->bindParam('birthdate', $data['birthdate'], PDO::PARAM_STR);
+            $statement->bindParam('birthdate', $date, PDO::PARAM_STR);
             $statement->bindParam('id', $id, PDO::PARAM_STR);
             $statement->execute();
         }

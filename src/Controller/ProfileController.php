@@ -74,18 +74,20 @@ class ProfileController
         $repository = $this->container->get('user_repo');
         // This method decodes the received json
         $data = $request->getParsedBody();
+        $name = $this->getImageName();
         if (empty($data)){
             $errors['empty'] = "There is no information to update";
-            return $response->withJson(['errors' => $errors, 'logged'  => $logged], 404);
+            return $this->container->get('view')->render($response, 'profile.twig', ['errors' => $errors, 'logged'  => $logged, 'image' => $name])->withStatus(404);
+
         }
         $errors = $this->validate($data);
 
         if (count($errors) > 0) {
-            return $response->withJson(['errors' => $errors, 'logged'  => $logged], 404);
+            return $this->container->get('view')->render($response, 'profile.twig', ['errors' => $errors, 'logged'  => $logged, 'image' => $name])->withStatus(404);
         }
 
-        $repository->updateProfile($data);
-        return $response->withJson(['logged'  => $logged], 200);
+        $repository->updateProfile($data, $_SESSION['id']);
+        return $this->container->get('view')->render($response, 'profile.twig', ['logged'  => $logged, 'image' => $name])->withStatus(200);
     }
 
 
@@ -93,11 +95,11 @@ class ProfileController
     {
         $errors = [];
 
-        if (!ctype_alnum($data['name'] )){
+        if (!empty($data['name']) && !ctype_alnum($data['name'] )){
             $errors['nameFormat'] = sprintf('The name must contain only alphanumerical characters');
         }
 
-        if (false === filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+        if (!empty($data['email']) && false === filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             $errors['email'] = sprintf('The email %s is not valid', $data['email']);
         }
 
