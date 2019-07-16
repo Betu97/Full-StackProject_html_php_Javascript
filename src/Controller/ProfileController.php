@@ -41,6 +41,10 @@ class ProfileController
 
     public function formAction(Request $request, Response $response): Response
     {
+        if(!isset($_SESSION['id']) && isset($_COOKIE['userId'])){
+            $_SESSION['id'] = $_COOKIE['userId'];
+        }
+
         $logged = isset($_SESSION['id']);
 
         if(!isset($_SESSION['id'])){

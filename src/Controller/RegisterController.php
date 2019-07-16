@@ -41,6 +41,10 @@ final class RegisterController
 
     public function formAction(Request $request, Response $response): Response
     {
+        if(!isset($_SESSION['id']) && isset($_COOKIE['userId'])){
+            $_SESSION['id'] = $_COOKIE['userId'];
+        }
+
         $logged = isset($_SESSION['id']);
 
         return $this->container->get('view')->render($response, 'register.twig', ['logged'  => $logged]);

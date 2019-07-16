@@ -55,6 +55,11 @@ final class SearchController
 
 
             $response->withStatus(201);
+
+            if(!isset($_SESSION['id']) && isset($_COOKIE['userId'])){
+                $_SESSION['id'] = $_COOKIE['userId'];
+            }
+
             $logged = isset($_SESSION['id']);
 
             return $this->container->get('view')->render($response, 'home.twig', ['items' => $items, 'logged'  => $logged]);

@@ -23,7 +23,7 @@
                     <div class="row">
                         {% if logged  == true and mine == 0 %}
                             <form id="register-form" class = "register_form" action="{{ path_for('buy') }}" method="POST">
-                                <button class="btn btn-dark" style="margin-right: 5px; border-radius: 13px">Like</button>
+                                <button type="button"  class="btn btn-dark" style="margin-right: 5px; border-radius: 13px">Like</button>
                                 <input type="hidden" name="item" value="{{ item.Id }}"/>
                                 <input type="submit" class="btn btn-dark" style="border-radius: 13px" value="Buy"/>
                             </form>
