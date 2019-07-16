@@ -41,6 +41,9 @@ final class AddItemController
 
     public function formAction(Request $request, Response $response): Response
     {
+        if(!isset($_SESSION['id']) && isset($_COOKIE['userId'])){
+            $_SESSION['id'] = $_COOKIE['userId'];
+        }
         if(!isset($_SESSION['id'])){
             $errors['notLogged'] = 'You need to be logged in to access this content';
             $logged = isset($_SESSION['id']);

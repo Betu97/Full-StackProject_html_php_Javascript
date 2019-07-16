@@ -50,6 +50,10 @@ final class LoginController
         if($user != -1 && $user != -2) {
             $_SESSION['id'] = $user;
             $_SESSION['username'] = $data['username'];
+            if(isset($data['remember'])){
+                $info = strval($user);
+                setcookie("userId", $info, time() + 60 * 120);
+            }
             $home = new HomeController($this->container);
             $home->loadAction($request, $response);
 

@@ -26,6 +26,9 @@ final class HomeController
     {
         try {
 
+            if(!isset($_SESSION['id']) && isset($_COOKIE['userId'])){
+                $_SESSION['id'] = $_COOKIE['userId'];
+            }
             $repository = $this->container->get('user_repo');
             $items = array();
             $i = $repository->getMaxId();
@@ -101,6 +104,7 @@ final class HomeController
     public function signOutAction(Request $request, Response $response): Response
     {
         unset($_SESSION['id']);
+        setcookie("userId", "", time() - 3600);
 
         return $this->loadAction($request, $response);
     }
