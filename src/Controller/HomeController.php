@@ -26,11 +26,23 @@ final class HomeController
     {
         try {
 
+            $repository = $this->container->get('user_repo');
             $items = array();
-            for ($i = 1; $i <= 5; $i++) {
+            $i = $repository->getMaxId();
+            $count = 0;
+            while($count < 5 && $i > 0){
                 $item = $this->itemize($i);
-                if(!$item->getSold()) {
-                    array_push($items, $item);
+                $i = $i - 1;
+                if(!isset($_SESSION['id'])) {
+                    if (!$item->getSold()) {
+                        array_push($items, $item);
+                        $count = $count + 1;
+                    }
+                }else{
+                    if (!$item->getSold() && $item->getOwner() != $_SESSION['id']) {
+                        array_push($items, $item);
+                        $count = $count + 1;
+                    }
                 }
             }
 
