@@ -60,6 +60,10 @@ final class OverviewController
         }
     }
 
+    public function updateItem(Request $request, Response $response): Response
+    {
+
+    }
     public function itemize(int $index): Item
     {
         $repository = $this->container->get('user_repo');

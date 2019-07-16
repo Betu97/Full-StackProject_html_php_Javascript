@@ -3,6 +3,7 @@
 {% block content %}
     <div class="row">
         {% if item is defined  %}
+            {% if mine == 0  %}
                 <div class="container">
                     <div class="row">
                         <h1 class="display-5">{{ item.title }}</h1>
@@ -20,14 +21,47 @@
                         <p class="card-text my-3">{{ item.description }}</p>
                     </div>
                     <div class="row">
-                        {% if logged  == true and mine == 0%}
+                        {% if logged  == true and mine == 0 %}
                             <form id="register-form" class = "register_form" action="{{ path_for('buy') }}" method="POST">
                                 <button class="btn btn-dark" style="margin-right: 5px; border-radius: 13px">Like</button>
                                 <input type="hidden" name="item" value="{{ item.Id }}"/>
                                 <input type="submit" class="btn btn-dark" style="border-radius: 13px" value="Buy"/>
                             </form>
                         {% endif %}
+                    </div>
                 </div>
+            {% endif %}
+        {% if mine == 1  %}
+            <div class="container">
+                <form action="{{ path_for('updateItem') }}" enctype="multipart/form-data" method="POST">
+                    <div class="row">
+                        <h1 class="display-5">{{ item.title }}</h1>
+                    </div>
+                    <div class="row">
+                        <img src="{{ base_url() }}/assets/Images/{{ item.productImage }}" height="380" alt="Image">
+                    </div>
+                    <div class="row">
+                        <h3 class="card-title">{{ item.price }}€</h3>
+                    </div>
+                    <div class="row">
+                        <h5 class="card-subtitle mb-2 text-muted">{{ item.category }}</h5>
+                    </div>
+                    <div class="row">
+                        <p class="card-text my-3">{{ item.description }}</p>
+                    </div>
+                    <div class="row">
+                        {% if logged  == true and mine == 0 %}
+                            <form id="register-form" class = "register_form" action="{{ path_for('buy') }}" method="POST">
+                                <button class="btn btn-dark" style="margin-right: 5px; border-radius: 13px">Like</button>
+                                <input type="hidden" name="item" value="{{ item.Id }}"/>
+                                <input type="submit" class="btn btn-dark" style="border-radius: 13px" value="Buy"/>
+                            </form>
+                        {% endif %}
+                    </div>
+                    <input type="submit" class="btn btn-primary col-5 mx-5" value="Update">
+                </form>
+            </div>
+        {% endif %}
         {% endif  %}
     </div>
 {% endblock %}
