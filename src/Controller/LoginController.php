@@ -53,6 +53,8 @@ final class LoginController
             if(isset($data['remember'])){
                 $info = strval($user);
                 setcookie("userId", $info, time() + 60 * 120);
+            }else{
+                setcookie("userId", "", time() - 3600);
             }
             $home = new HomeController($this->container);
             $home->loadAction($request, $response);
