@@ -81,11 +81,13 @@ final class AddItemController
                     continue;
                 }
 
-                $name = $repository->getMaxId() . '.' . $format;
+                $new_id = $repository->getMaxId() + 1;
+                
+                $name = $new_id . '.' . $format;
 
                 $extensions = array('jpg', 'png');
                 foreach ($extensions as $ext) {
-                    $file_name = __DIR__ . '/../../public/assets/Images' . $repository->getMaxId() . '.' . $ext;
+                    $file_name = __DIR__ . '/../../public/assets/Images' . $new_id . '.' . $ext;
                     if (file_exists($file_name)) {
                         unlink($file_name);
                         continue;
