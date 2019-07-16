@@ -248,4 +248,18 @@ final class PDORepository implements UserRepositoryInterface
 
     }
 
+    public function loadUser(int $id): array
+    {
+        $strId = strval($id);
+        $statement = $this->database->connection->prepare(
+            "SELECT * FROM user WHERE id = :id"
+        );
+        $statement->bindParam(':id', $strId, PDO::PARAM_STR);
+        $statement->execute();
+        $user = $statement->fetchAll();
+
+        return $user[0];
+    }
+
+
 }
