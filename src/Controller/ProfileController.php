@@ -54,7 +54,10 @@ class ProfileController
         }
         $image_name = $this->getImageName();
 
-        return $this->container->get('view')->render($response, 'profile.twig', ['image' => $image_name, 'logged'  => $logged]);
+        $repository = $this->container->get('user_repo');
+        $user = $repository->loadUser($_SESSION['id']);
+
+        return $this->container->get('view')->render($response, 'profile.twig', ['image' => $image_name, 'logged'  => $logged, 'user' => $user]);
     }
 
     public function deleteAction(Request $request, Response $response): Response
