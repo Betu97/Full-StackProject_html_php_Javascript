@@ -32,14 +32,14 @@
             <div class="row py-4">
                 <label class="col-3">
                     Name
-                    <input type="text" class="form-control" name="name" placeholder="{{ user.name }}">
+                    <input type="text" class="form-control" name="name" value="{{ user.name }}">
                     {% if errors['nameFormat'] is defined %}
                         <li>{{ errors['nameFormat'] }}</li>
                     {% endif %}
                 </label>
                 <label class="col-3">
                     Email
-                    <input type="email" class="form-control" name="email" placeholder="{{ user.email }}">
+                    <input type="email" class="form-control" name="email" value="{{ user.email }}">
                     {% if errors['email'] is defined %}
                         <li>{{ errors['email'] }}</li>
                     {% endif %}
@@ -48,11 +48,11 @@
             <div class="row">
                 <label class="col-3">
                     Birth Date
-                    <input type="date" class="form-control" name="birthdate" placeholder="{{ user.birthdate }}">
+                    <input type="date" class="form-control" name="birthdate" value="{{ user.birthdate }}">
                 </label>
                 <label class="col-3">
                     Phone Number
-                    <input type="tel" class="form-control" name= "phone_number" aria-describedby="pattern" pattern="[0-9]{3} [0-9]{3} [0-9]{3}" placeholder="{{ user.phone_number }}">
+                    <input type="tel" class="form-control" name= "phone_number" aria-describedby="pattern" pattern="[0-9]{3} [0-9]{3} [0-9]{3}" value="{{ user.phone_number }}">
                     <small id="pattern" class="form-text text-muted">Format: xxx xxx xxx</small>
                     {% if errors['phone'] is defined %}
                         <li>{{ errors['phone'] }}</li>
@@ -61,7 +61,7 @@
             </div>
             <label class="col-5 mx-5 py-2">
                 Username
-                <input type="text" class="form-control" placeholder="{{ user.username }}" disabled>
+                <input type="text" class="form-control" value="{{ user.username }}" disabled>
             </label>
             <div class="py-3">
                 <input type="submit" class="btn btn-primary col-5 mx-5" value="Save">

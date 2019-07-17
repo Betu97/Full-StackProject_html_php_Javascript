@@ -65,6 +65,9 @@
                                     <option value="Home">Home</option>
                                     <option value="Other">Other</option>
                                 </select>
+                                {% if errors['category'] is defined %}
+                                    <li>{{ errors['category'] }}</li>
+                                {% endif %}
                             </label>
                         </div>
                         <div class="row">

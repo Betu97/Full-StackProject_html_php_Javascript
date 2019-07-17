@@ -72,32 +72,6 @@ final class OverviewController
         }
     }
 
-    public function updateItem(Request $request, Response $response): Response
-    {
-        $logged = isset($_SESSION['id']);
-        $mine = 1;
-        /** @var PDORepository $repository */
-        $repository = $this->container->get('user_repo');
-        $data = $request->getParsedBody();
-        $errors = $this->validate($data);
-
-        $item = $this->itemize($data['item']);
-        if (count($errors) > 0) {
-            return $this->container->get('view')->render($response, 'overview.twig', ['errors' => $errors, 'logged'  => $logged, 'item' => $item, 'mine' => $mine])->withStatus(404);
-        }
-        if (!empty($data)){
-            $repository->updateOverview($data);
-        }
-
-        $item = $this->itemize($data['item']);
-
-        echo'<script type="text/javascript">
-                alert("You have successfully update the item");
-            </script>';
-
-        return $this->container->get('view')->render($response, 'overview.twig', ['errors' => $errors, 'logged'  => $logged, 'item' => $item, 'mine' => $mine])->withStatus(200);
-    }
-
     public function itemize(int $index): Item
     {
         $repository = $this->container->get('user_repo');
@@ -129,20 +103,5 @@ final class OverviewController
         $item->setProductImage($image_name);
 
         return $item;
-    }
-
-    private function validate(array $data): array
-    {
-        $errors = [];
-
-        if (!empty($data['description']) && strlen($data['description']) < 20) {
-            $errors['description'] = 'The description must have 20 characters minimum';
-        }
-
-        if (!empty($data['price']) && !preg_match("/^\d+(\.\d{1,2})?$/" , $data['price'])) {
-            $errors['price'] = 'The price must have a correct format';
-        }
-
-        return $errors;
     }
 }
