@@ -65,40 +65,46 @@ final class AddItemController
             $repository = $this->container->get('user_repo');
             $uploadedFiles = $request->getUploadedFiles();
 
-
-            /** @var UploadedFileInterface $uploadedFile */
-            foreach ($uploadedFiles['files'] as $uploadedFile) {
-                if ($uploadedFile->getError() !== UPLOAD_ERR_OK) {
-                    $errors['file'] = sprintf(self::UNEXPECTED_ERROR, $uploadedFile->getClientFilename());
-                    continue;
-                }
-
-                $name = $uploadedFile->getClientFilename();
-
-                $fileInfo = pathinfo($name);
-
-                $format = $fileInfo['extension'];
-
-                if (!$this->isValidFormat($format)) {
-                    $errors['file'] = sprintf(self::INVALID_EXTENSION_ERROR, $format);
-                    continue;
-                }
-
-                $new_id = $repository->getMaxId() + 1;
-
-                $name = $new_id . '.' . $format;
-
-                $extensions = array('jpg', 'png');
-                foreach ($extensions as $ext) {
-                    $file_name = __DIR__ . '/../../public/assets/Images' . $new_id . '.' . $ext;
-                    if (file_exists($file_name)) {
-                        unlink($file_name);
+            if ($uploadedFiles['files']['0']->getSize() < 1000000){
+                /** @var UploadedFileInterface $uploadedFile */
+                foreach ($uploadedFiles['files'] as $uploadedFile) {
+                    if ($uploadedFile->getError() !== UPLOAD_ERR_OK) {
+                        $errors['file'] = sprintf(self::UNEXPECTED_ERROR, $uploadedFile->getClientFilename());
                         continue;
                     }
+
+                    $name = $uploadedFile->getClientFilename();
+
+                    $fileInfo = pathinfo($name);
+
+                    $format = $fileInfo['extension'];
+
+                    if (!$this->isValidFormat($format)) {
+                        $errors['file'] = sprintf(self::INVALID_EXTENSION_ERROR, $format);
+                        continue;
+                    }
+
+                    $new_id = $repository->getMaxId() + 1;
+
+                    $name = $new_id . '.' . $format;
+
+                    $extensions = array('jpg', 'png');
+                    foreach ($extensions as $ext) {
+                        $file_name = __DIR__ . '/../../public/assets/Images' . $new_id . '.' . $ext;
+                        if (file_exists($file_name)) {
+                            unlink($file_name);
+                            continue;
+                        }
+                    }
+                    // We generate a custom name here instead of using the one coming form the form
+                    $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $name);
                 }
-                // We generate a custom name here instead of using the one coming form the form
-                $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $name);
             }
+
+            if ($uploadedFiles['files']['0']->getSize() > 1000000){
+                $errors['file'] = "The file can't exceed 1MB";
+            }
+
             if (!empty($errors)){
                 return $this->container->get('view')->render($response, 'addItem.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(404);
             }

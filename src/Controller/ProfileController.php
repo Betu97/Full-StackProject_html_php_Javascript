@@ -122,37 +122,41 @@ class ProfileController
         $name = "";
 
         /** @var UploadedFileInterface $uploadedFile */
-        foreach ($uploadedFiles['files'] as $uploadedFile) {
-            if ($uploadedFile->getError() !== UPLOAD_ERR_OK) {
-                $errors['file'] = sprintf(self::UNEXPECTED_ERROR, $uploadedFile->getClientFilename());
-                continue;
-            }
-
-            $name = $uploadedFile->getClientFilename();
-
-            $fileInfo = pathinfo($name);
-
-            $format = $fileInfo['extension'];
-
-            if (!$this->isValidFormat($format)) {
-                $errors['file'] = sprintf(self::INVALID_EXTENSION_ERROR, $format);
-                continue;
-            }
-
-            $name = $_SESSION['username'] . '.' . $format;
-
-            $extensions = array('jpg', 'png');
-            foreach ($extensions as $ext) {
-                $file_name = __DIR__ . '/../../public/uploads/' . $_SESSION['username'] . '.' . $ext;
-                if (file_exists($file_name)) {
-                    unlink($file_name);
+        if ($uploadedFiles['files']['0']->getSize() < 500000){
+            foreach ($uploadedFiles['files'] as $uploadedFile) {
+                if ($uploadedFile->getError() !== UPLOAD_ERR_OK) {
+                    $errors['file'] = sprintf(self::UNEXPECTED_ERROR, $uploadedFile->getClientFilename());
                     continue;
                 }
-            }
-            // We generate a custom name here instead of using the one coming form the form
-            $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $name);
-        }
 
+                $name = $uploadedFile->getClientFilename();
+
+                $fileInfo = pathinfo($name);
+
+                $format = $fileInfo['extension'];
+
+                if (!$this->isValidFormat($format)) {
+                    $errors['file'] = sprintf(self::INVALID_EXTENSION_ERROR, $format);
+                    continue;
+                }
+
+                $name = $_SESSION['username'] . '.' . $format;
+
+                $extensions = array('jpg', 'png');
+                foreach ($extensions as $ext) {
+                    $file_name = __DIR__ . '/../../public/uploads/' . $_SESSION['username'] . '.' . $ext;
+                    if (file_exists($file_name)) {
+                        unlink($file_name);
+                        continue;
+                    }
+                }
+                // We generate a custom name here instead of using the one coming form the form
+                $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $name);
+            }
+        }
+        if ($uploadedFiles['files']['0']->getSize() > 500000){
+            $errors['file'] = "The file can't exceed 500KB";
+        }
         if (!empty($errors)){
             $name = $this->getImageName();
         }
