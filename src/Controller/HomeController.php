@@ -37,12 +37,12 @@ final class HomeController
                 $item = $this->itemize($i);
                 $i = $i - 1;
                 if(!isset($_SESSION['id'])) {
-                    if (!$item->getSold()) {
+                    if (!$item->getSold() && $item->getIsActive()) {
                         array_push($items, $item);
                         $count = $count + 1;
                     }
                 }else{
-                    if (!$item->getSold() && $item->getOwner() != $_SESSION['id']) {
+                    if (!$item->getSold() && $item->getOwner() != $_SESSION['id'] && $item->getIsActive()) {
                         array_push($items, $item);
                         $count = $count + 1;
                     }

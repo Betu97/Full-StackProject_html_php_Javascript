@@ -67,10 +67,6 @@ function validateRegister(payload) {
 
     /*if (!ctype_alnum(payload['username'] )){
         errors['usernameFormat'] = 'The username must contain only alphanumerical characters';
-    }
-
-    if (unique != -1) {
-        errors['usernameCaught'] = 'The username is already in use';
     }*/
 
     if (payload['password']  === null || payload['password'].length < 6) {

@@ -46,6 +46,15 @@ final class OverviewController
 
                 return $this->container->get('view')->render($response, 'error404.twig', ['logged'  => $logged])->withStatus(404);
             }
+            if(!$item->getIsActive()){
+                echo'<script type="text/javascript">
+                alert("WARNING: The item is no longer available");
+            </script>';
+                $home = new HomeController($this->container);
+                $home->loadAction($request, $response);
+
+                return $response;
+            }
             if ($item->getOwner() == $_SESSION['id']) {
                 $mine = 1;
             }
