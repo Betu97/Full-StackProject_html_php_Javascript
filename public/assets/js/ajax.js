@@ -51,40 +51,40 @@ $(document).ready(function() {
 });
 
 function validateRegister(payload) {
-   /* var errors = [];
+    let errors = [];
 
-    if (empty(input[name=name])){
-        $errors['name'] = 'The name cannot be empty';
+    if (payload['name'] === null){
+        errors['name'] = 'The name cannot be empty';
     }
 
-    if (!ctype_alnum($data['name'] )){
-        $errors['nameFormat'] = sprintf('The name must contain only alphanumerical characters');
+    /*if (!ctype_alnum(payload['name'] )){
+        errors['nameFormat'] = 'The name must contain only alphanumerical characters';
+    }*/
+
+    if (payload['username'] === null || payload['username'].length > 20) {
+        errors['username'] = 'The username must be between 1 and 20 characters';
     }
 
-    if (empty($data['username']) || strlen($data['username']) > 20) {
-        $errors['username'] = 'The username must be between 1 and 20 characters';
+    /*if (!ctype_alnum(payload['username'] )){
+        errors['usernameFormat'] = 'The username must contain only alphanumerical characters';
     }
 
-    if (!ctype_alnum($data['username'] )){
-        $errors['usernameFormat'] = sprintf('The username must contain only alphanumerical characters');
+    if (unique != -1) {
+        errors['usernameCaught'] = 'The username is already in use';
+    }*/
+
+    if (payload['password']  === null || payload['password'].length < 6) {
+        errors['password'] = 'The password must contain at least 6 characters';
     }
 
-    if ($unique != -1) {
-        $errors['usernameCaught'] = 'The username is already in use';
-    }
+    /*if (false === filter_var(payload['email'], FILTER_VALIDATE_EMAIL)) {
+        errors['email'] = 'The email is not valid';
+    }*/
 
-    if (empty($data['password']) || strlen($data['password']) < 6) {
-        $errors['password'] = 'The password must contain at least 6 characters';
-    }
-
-    if (false === filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-        $errors['email'] = sprintf('The email %s is not valid', $data['email']);
-    }
-
-    if (strcmp($data['confirm_password'], $data['password'])) {
-        $errors['repPassword'] = "Password confirmation doesn't match password";
+    if (payload['confirm_password'] === payload['password']) {
+        errors['repPassword'] = "Password confirmation doesn't match password";
     }
 
 
-    return $errors;*/
+    return errors;
 }
