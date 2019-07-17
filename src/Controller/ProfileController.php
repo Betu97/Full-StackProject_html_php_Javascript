@@ -61,6 +61,7 @@ class ProfileController
     {
         $repository = $this->container->get('user_repo');
         $repository->deleteAccount($_SESSION['id']);
+        $repository->deleteItems($_SESSION['id']);
         echo'<script type="text/javascript">
                 alert("You have deleted your account successfully");
         </script>';

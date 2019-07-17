@@ -34,6 +34,7 @@ final class DeleteItemController
     {
         $repository = $this->container->get('user_repo');
         $data = $request->getParsedBody();
+        $repository->deleteItem($data['item']);
         $items = array();
         for ($i = 1; $i <= $repository->getMaxId(); $i++) {
             $item = $this->itemize($i);
@@ -42,7 +43,6 @@ final class DeleteItemController
             }
         }
         $logged = isset($_SESSION['id']);
-        $repository->deleteItem($data['item']);
         echo'<script type="text/javascript">
                 alert("You have deleted the item successfully");
         </script>';
