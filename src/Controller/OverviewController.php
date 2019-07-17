@@ -135,12 +135,18 @@ final class OverviewController
     {
         $errors = [];
 
+        $categories = array("Computers and electronic", "Cars", "Sports", "Games", "Fashion", "Home", "Other");
+
         if (!empty($data['description']) && strlen($data['description']) < 20) {
             $errors['description'] = 'The description must have 20 characters minimum';
         }
 
         if (!empty($data['price']) && !preg_match("/^\d+(\.\d{1,2})?$/" , $data['price'])) {
             $errors['price'] = 'The price must have a correct format';
+        }
+
+        if(!in_array($data['category'], $categories)){
+            $errors['category'] = 'The category does not exist';
         }
 
         return $errors;

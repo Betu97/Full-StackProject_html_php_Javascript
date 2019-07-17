@@ -39,6 +39,9 @@
                             <option>Home</option>
                             <option>Other</option>
                         </select>
+                        {% if errors['category'] is defined %}
+                            <li>{{ errors['category'] }}</li>
+                        {% endif %}
                     </div>
                     <label>
                         Profile Image

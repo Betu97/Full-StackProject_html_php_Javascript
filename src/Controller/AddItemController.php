@@ -151,6 +151,8 @@ final class AddItemController
     {
         $errors = [];
 
+        $categories = array("Computers and electronic", "Cars", "Sports", "Games", "Fashion", "Home", "Other");
+
         if (empty($data['title'])) {
             $errors['title'] = 'The title cannot be empty';
         }
@@ -161,6 +163,10 @@ final class AddItemController
 
         if (!preg_match("/^\d+(\.\d{1,2})?$/" , $data['price'])) {
             $errors['price'] = 'The price must have a correct format';
+        }
+
+        if(!in_array($data['category'], $categories)){
+            $errors['category'] = 'The category does not exist';
         }
 
         return $errors;
