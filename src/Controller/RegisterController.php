@@ -57,41 +57,42 @@ final class RegisterController
             $data = $request->getParsedBody();
             $uploadedFiles = $request->getUploadedFiles();
 
-            /** @var UploadedFileInterface $uploadedFile */
-            foreach ($uploadedFiles['files'] as $uploadedFile) {
-                if ($uploadedFile->getError() !== UPLOAD_ERR_OK) {
-                    $errors['file'] = sprintf(self::UNEXPECTED_ERROR, $uploadedFile->getClientFilename());
-                    continue;
-                }
-
-                $name = $uploadedFile->getClientFilename();
-
-                $fileInfo = pathinfo($name);
-
-                $format = $fileInfo['extension'];
-
-                if (!$this->isValidFormat($format)) {
-                    $errors['file'] = sprintf(self::INVALID_EXTENSION_ERROR, $format);
-                    continue;
-                }
-
-                $name = $data['username'] . '.' . $format;
-
-                $extensions = array('jpg', 'png');
-                foreach ($extensions as $ext) {
-                    $file_name = __DIR__ . '/../../public/uploads/' . $data['username'] . '.' . $ext;
-                    if (file_exists($file_name)) {
-                        unlink($file_name);
+            if ($uploadedFiles['files']['0']->getSize() != 0){
+                /** @var UploadedFileInterface $uploadedFile */
+                foreach ($uploadedFiles['files'] as $uploadedFile) {
+                    if ($uploadedFile->getError() !== UPLOAD_ERR_OK) {
+                        $errors['file'] = sprintf(self::UNEXPECTED_ERROR, $uploadedFile->getClientFilename());
                         continue;
                     }
-                }
-                // We generate a custom name here instead of using the one coming form the form
-                $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $name);
-            }
-            if (!empty($errors)){
-                return $this->container->get('view')->render($response, 'register.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(404);
-            }
 
+                    $name = $uploadedFile->getClientFilename();
+
+                    $fileInfo = pathinfo($name);
+
+                    $format = $fileInfo['extension'];
+
+                    if (!$this->isValidFormat($format)) {
+                        $errors['file'] = sprintf(self::INVALID_EXTENSION_ERROR, $format);
+                        continue;
+                    }
+
+                    $name = $data['username'] . '.' . $format;
+
+                    $extensions = array('jpg', 'png');
+                    foreach ($extensions as $ext) {
+                        $file_name = __DIR__ . '/../../public/uploads/' . $data['username'] . '.' . $ext;
+                        if (file_exists($file_name)) {
+                            unlink($file_name);
+                            continue;
+                        }
+                    }
+                    // We generate a custom name here instead of using the one coming form the form
+                    $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $name);
+                }
+                if (!empty($errors)){
+                    return $this->container->get('view')->render($response, 'register.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(404);
+                }
+            }
 
             /** @var PDORepository $repository */
             $repository = $this->container->get('user_repo');
