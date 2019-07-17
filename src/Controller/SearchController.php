@@ -22,30 +22,6 @@ final class SearchController
         $this->container = $container;
     }
 
-    /** public function registerAction(Request $request, Response $response): Response
-    {
-        try {
-            $data = $request->getParsedBody();
-
-            /** @var PDORepository $repository * /
-            $repository = $this->container->get('user_repo');
-
-            // We should validate the information before creating the entity
-            $user = new User(
-                $data['email'],
-                $data['password'],
-                new DateTime(),
-                new DateTime()
-            );
-
-            $repository->save($user);
-        } catch (\Exception $e) {
-            $response->getBody()->write('Unexpected error: ' . $e->getMessage());
-            return $response->withStatus(500);
-        }
-        return $response->withStatus(201);
-    } */
-
     public function loadAction(Request $request, Response $response): Response
     {
         try {

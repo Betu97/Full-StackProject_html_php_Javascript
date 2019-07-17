@@ -82,8 +82,12 @@ final class LoginController
     {
         $errors = [];
 
-        if (empty($data['username'])) {
-            $errors['username'] = 'The username cannot be empty.';
+        if (empty($data['username']) || strlen($data['username']) > 20) {
+            $errors['username'] = 'The username must be between 1 and 20 characters';
+        }
+
+        if (!ctype_alnum($data['username'] )){
+            $errors['usernameFormat'] = sprintf('The username must contain only alphanumerical characters');
         }
 
         if (empty($data['password']) || strlen($data['password']) < 6) {
