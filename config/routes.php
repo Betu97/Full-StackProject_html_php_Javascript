@@ -1,6 +1,5 @@
 <?php
 
-
 use SallePW\SlimApp\Controller\Middleware\SessionMiddleware;
 use SallePW\SlimApp\Controller\FileController;
 use SallePW\SlimApp\Controller\RegisterController;
@@ -12,6 +11,7 @@ use SallePW\SlimApp\Controller\myProductsController;
 use SallePW\SlimApp\Controller\AddItemController;
 use SallePW\SlimApp\Controller\OverviewController;
 use SallePW\SlimApp\Controller\BuyController;
+use SallePW\SlimApp\Controller\DeleteItemController;
 
 
 $app->get('/', HomeController::class . ':loadAction');
@@ -83,6 +83,10 @@ $app
     ->post('/search', SearchController::class . ':loadAction')
     ->setName('search');
 
+$app->get('/deleteItem', DeleteItemController::class . ':deleteAction');
 
+$app
+    ->post('/deleteItem', DeleteItemController::class . ':deleteAction')
+    ->setName('deleteItem');
 
 $app->add(SessionMiddleware::class);
