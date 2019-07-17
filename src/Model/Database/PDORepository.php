@@ -110,6 +110,19 @@ final class PDORepository implements UserRepositoryInterface
 
     }
 
+    public function deleteItem(int $id)
+    {
+
+        $statement = $this->database->connection->prepare(
+            "UPDATE item SET is_active = 0 WHERE id = :id"
+        );
+
+        $statement->bindParam('id', $id, PDO::PARAM_INT);
+
+        $statement->execute();
+
+    }
+
     public function insertProductImage()
     {
         $id = $this->getMaxId();
