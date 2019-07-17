@@ -56,8 +56,7 @@ final class RegisterController
             $logged = isset($_SESSION['id']);
             $data = $request->getParsedBody();
             $uploadedFiles = $request->getUploadedFiles();
-
-            if ($uploadedFiles['files']['0']->getSize() != 0){
+            if ($uploadedFiles['files']['0']->getSize() != 0 && $uploadedFiles['files']['0']->getSize() < 500000){
                 /** @var UploadedFileInterface $uploadedFile */
                 foreach ($uploadedFiles['files'] as $uploadedFile) {
                     if ($uploadedFile->getError() !== UPLOAD_ERR_OK) {
@@ -89,9 +88,13 @@ final class RegisterController
                     // We generate a custom name here instead of using the one coming form the form
                     $uploadedFile->moveTo(self::UPLOADS_DIR . DIRECTORY_SEPARATOR . $name);
                 }
-                if (!empty($errors)){
-                    return $this->container->get('view')->render($response, 'register.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(404);
-                }
+            }
+
+            if ($uploadedFiles['files']['0']->getSize() > 500000){
+                $errors['file'] = "The file can't exceed 500KB";
+            }
+            if (!empty($errors)){
+                return $this->container->get('view')->render($response, 'register.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(404);
             }
 
             /** @var PDORepository $repository */
