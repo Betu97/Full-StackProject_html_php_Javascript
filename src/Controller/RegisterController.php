@@ -105,7 +105,6 @@ final class RegisterController
             if (count($errors) > 0) {
                 return $this->container->get('view')->render($response, 'register.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(200);
             }
-
             // We should validate the information before creating the entity
             $user = new User(
                 $data['name'],
