@@ -9,7 +9,7 @@ use SallePW\SlimApp\Model\ItemRepositoryInterface;
 use SallePW\SlimApp\Model\User;
 use SallePW\SlimApp\Model\UserRepositoryInterface;
 
-final class PDORepository implements UserRepositoryInterface
+final class PDORepository implements UserRepositoryInterface, ItemRepositoryInterface
 {
     /** @var Database */
     private $database;
