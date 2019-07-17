@@ -6,11 +6,17 @@
             <div class="col-sm">
             </div>
             <div class="col-sm">
-                <form id="register-form" class = "register_form" action="{{ path_for('register') }}" enctype="multipart/form-data" method="POST">
+                <form id="register-form" action="{{ path_for('register') }}" enctype="multipart/form-data" method="POST">
                     <div>
                         <label>
                             Name
                             <input type="text" class="form-control" name="name" required>
+                            <small class="form-text text-danger" id="name_error_format">
+                                {% if errors["nameFormat"] %}
+                                    {{ errors["nameFormat"] }}
+                                {% endif %}
+                            </small>
+
                             {% if errors['name'] is defined %}
                                 <li>{{ errors['name'] }}</li>
                             {% endif %}
@@ -68,6 +74,11 @@
                     <div>
                         <label>
                             Confirm Password
+                            <small class="form-text text-danger" id="confirm_password">
+                                {% if errors["confirm_password"] %}
+                                    {{ errors["confirm_password"] }}
+                                {% endif %}
+                            </small>
                             <input type="password" class="form-control" name="confirm_password" required>
                             {% if errors['repPassword'] is defined %}
                                 <li>{{ errors['repPassword'] }}</li>
