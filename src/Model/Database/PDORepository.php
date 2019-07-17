@@ -157,6 +157,51 @@ final class PDORepository implements UserRepositoryInterface
         }
     }
 
+    public function updateOverview(array $data)
+    {
+
+        if (!empty($data['title'])){
+            $statement = $this->database->connection->prepare(
+                "UPDATE item SET title = :title WHERE id = :id"
+            );
+
+            $statement->bindParam('title', $data['title'], PDO::PARAM_STR);
+            $statement->bindParam('id', $data['item'], PDO::PARAM_STR);
+            $statement->execute();
+        }
+
+        if (!empty($data['price'])){
+            $statement = $this->database->connection->prepare(
+                "UPDATE item SET price = :price WHERE id = :id"
+            );
+
+            $statement->bindParam('price', $data['price'], PDO::PARAM_STR);
+            $statement->bindParam('id', $data['item'], PDO::PARAM_STR);
+            $statement->execute();
+        }
+
+        if (!empty($data['category'])){
+
+            $statement = $this->database->connection->prepare(
+                "UPDATE item SET category = :category WHERE id = :id"
+            );
+
+            $statement->bindParam('category', $data['category'], PDO::PARAM_STR);
+            $statement->bindParam('id', $data['item'], PDO::PARAM_STR);
+            $statement->execute();
+        }
+
+        if (!empty($data['description'])){
+            $statement = $this->database->connection->prepare(
+                "UPDATE item SET description = :description WHERE id = :id"
+            );
+
+            $statement->bindParam('description', $data['description'], PDO::PARAM_STR);
+            $statement->bindParam('id', $data['item'], PDO::PARAM_STR);
+            $statement->execute();
+        }
+    }
+
     public function getMaxId(): String
     {
         $statement = $this->database->connection->prepare(
