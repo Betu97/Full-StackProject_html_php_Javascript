@@ -8,18 +8,34 @@
         <div class="row">
             <div class="Absolute-Center is-Responsive">
                 <div class="col-sm-12 col-md-10 col-md-offset-1">
-                    <form action="{{ path_for('login') }}" method="POST" id="login-Form">
+                    <form action="{{ path_for('login') }}" method="POST" id="loginForm">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input class="form-control" type="text" name='username' placeholder="username"/>
+                            <input class="form-control" type="text" name="username" placeholder="username"/>
+                            <small id="usernameError">
+                                {% if errors['username'] is defined %}
+                                    {{ errors['username'] }}
+                                {% endif %}
+                            </small>
+
+                            <small id="usernameErrorFormat">
+                                {% if errors['usernameFormat'] is defined %}
+                                    {{ errors['usernameFormat'] }}
+                                {% endif %}
+                            </small>
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-unlock-alt"></i></span>
                             </div>
-                            <input class="form-control" type="password" name='password' placeholder="password"/>
+                            <input class="form-control" type="password" name="password" placeholder="password"/>
+                            <small id="passwordError">
+                                {% if errors['password'] is defined %}
+                                    {{ errors['password'] }}
+                                {% endif %}
+                            </small>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="true" id="remember" name='remember'>
@@ -36,7 +52,9 @@
                                         {% if errors is defined %}
                                             <ol>
                                                 {% for error in errors %}
-                                                    <li>{{ error }}</li>
+                                                    {%if error != errors['password'] and error != errors['username'] and error != errors['usernameFormat']%}
+                                                        <li>{{ error }}</li>
+                                                    {%endif%}
                                                 {% endfor %}
                                             </ol>
                                         {% endif %}
