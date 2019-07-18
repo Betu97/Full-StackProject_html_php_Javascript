@@ -39,51 +39,59 @@ $(document).ready(function() {
         let errors = validateRegister(payload);
 
             if (errors["name"]) {
-                $("#name_error").text(errors["name"]);
+                $("#nameError").text(errors["name"]);
                 stop = 1;
             }
-            else $("#name_error").text("");
+            else $("#nameError").text("");
+
             if (errors["nameFormat"]){
                 $("#nameErrorFormat").text(errors["nameFormat"]);
                 stop = 1;
             }
             else $("#nameErrorFormat").text("");
-            if (errors['username']){
-                $('#username_error').text(errors['username']);
-                stop = 1;
-            }
-            else $('#username_error').text("");
-            if (errors['usernameFormat']) {
-                $('#name_error_format').text(errors['usernameFormat']);
-                stop = 1;
-            }
-            else $('#name_error_format').text("");
-            if (errors['password']){
-                $('#password_error').text(errors['password']);
-                stop = 1;
-            }
-            else $('#password_error').text("");
-            if (errors['email']) {
-                $('#email_error_format').text(errors['email']);
-                stop = 1;
-            }
-            else $('#email_error_format').text("");
-            if (errors['phone_number']) {
-                $('#phone_number_error').text(errors['phone_number']);
-                stop = 1;
-            }
-            else $('#phone_number_error').text("");
-            if (errors['phone_number_length']) {
-                $('#phone_number_error_length').text(errors['phone_number_length']);
-                stop = 1;
-            }
-            else $('#phone_number_error_length').text("");
 
-        if (errors["confirm_password"]) {
+            if (errors['username']){
+                $("#usernameError").text(errors['username']);
+                stop = 1;
+            }
+            else $("#usernameError").text("");
+
+            if (errors['usernameFormat']) {
+                $("#usernameErrorFormat").text(errors['usernameFormat']);
+                stop = 1;
+            }
+            else $("#usernameErrorFormat").text("");
+
+            if (errors['password']){
+                $("#passwordError").text(errors['password']);
+                stop = 1;
+            }
+            else $("#passwordError").text("");
+
+            if (errors['email']) {
+                $("#emailErrorFormat").text(errors['email']);
+                stop = 1;
+            }
+            else $("#emailErrorFormat").text("");
+
+            if (errors['phone_number']) {
+                $("#phoneNumberError").text(errors['phone_number']);
+                stop = 1;
+            }
+            else $("#phoneNumberError").text("");
+
+            if (errors['phone_number_length']) {
+                $("#phoneNumberErrorLength").text(errors['phone_number_length']);
+                stop = 1;
+            }
+            else $("#phoneNumberErrorLength").text("");
+
+            if (errors["confirm_password"]) {
                 $("#confirmPasswordError").text(errors["confirm_password"]);
                 stop = 1;
             }
             else $("#confirmPasswordError").text("");
+
             if (stop == 1) {
                 event.preventDefault();
             }
