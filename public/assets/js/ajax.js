@@ -53,7 +53,7 @@ function validateLogin(payload) {
     return errors;
 }
 $(document).ready(function() {
-    $('#register-form').submit(function(event) {
+    $('#registerForm').submit(function(event) {
         var payload = {
             name: $('input[name=name]').val(),
             username: $('input[name=username]').val(),
@@ -194,7 +194,7 @@ function validateRegister(payload) {
 }
 
 $(document).ready(function() {
-    $('#add-form').submit(function(event) {
+    $('#addForm').submit(function(event) {
         var payload = {
             title: $('#title').val(),
             description: $('input[name=description]').val(),
@@ -257,7 +257,7 @@ function validateAdd(payload) {
 }
 
 $(document).ready(function() {
-    $('#profile-form').submit(function(event) {
+    $('#profileForm').submit(function(event) {
         var payload = {
             name: $('input[name=name]').val(),
             email: $('input[name=email]').val(),

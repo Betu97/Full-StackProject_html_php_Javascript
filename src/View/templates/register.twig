@@ -6,7 +6,7 @@
             <div class="col-sm">
             </div>
             <div class="col-sm">
-                <form id="register-form" action="{{ path_for('register') }}" enctype="multipart/form-data" method="POST">
+                <form id="registerForm" action="{{ path_for('register') }}" enctype="multipart/form-data" method="POST">
                     <div>
                         <label>
                             Name
@@ -116,13 +116,13 @@
                         <label>
                             Profile Image
                             <input type="file" name="files[]" multiple>
-                            {% if errors['file'] is defined %}
-                                <ol>
-                                    {% for error in errors %}
-                                        <li>{{ error }}</li>
-                                    {% endfor %}
-                                </ol>
-                            {% endif %}
+                            <small class="text-danger" id="confirmPasswordError">
+                                {% if errors['file'] is defined %}
+                                        {% for error in errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                {% endif %}
+                            </small>
                         </label>
                     </div>
                     <input type="submit" class="btn btn-primary" value="Register">
