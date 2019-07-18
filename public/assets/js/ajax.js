@@ -107,7 +107,7 @@ function validateRegister(payload) {
         errors["name"] = 'The name cannot be empty';
     }
 
-    if (!payload["name"].match(/^[a-zA-Z ]+$/) ){
+    if (!payload["name"].match(/^[a-zA-Z\d]+$/) ){
         errors["nameFormat"] = 'The name must contain only alphanumerical characters';
     }
 
@@ -115,7 +115,7 @@ function validateRegister(payload) {
         errors['username'] = 'The username must be between 1 and 20 characters';
     }
 
-    if (!payload['username'].match(/^[a-zA-Z ]+$/) ){
+    if (!payload['username'].match(/^[a-zA-Z\d]+$/) ){
         errors['usernameFormat'] = 'The username must contain only alphanumerical characters';
     }
 
@@ -247,7 +247,7 @@ $(document).ready(function() {
 function validateProfile(payload) {
     var errors = [];
 
-    if (!payload["name"].match(/^[a-zA-Z ]+$/) ){
+    if (!payload["name"].match(/^[a-zA-Z\d]+$/) ){
         errors["nameFormat"] = 'The name must contain only alphanumerical characters';
     }
 
