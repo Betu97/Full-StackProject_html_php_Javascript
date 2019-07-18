@@ -14,13 +14,13 @@
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
                             <input class="form-control" type="text" name="username" placeholder="username"/>
-                            <small id="usernameError">
+                            <small class="text-danger" id="usernameError">
                                 {% if errors['username'] is defined %}
                                     {{ errors['username'] }}
                                 {% endif %}
                             </small>
 
-                            <small id="usernameErrorFormat">
+                            <small class="text-danger" id="usernameErrorFormat">
                                 {% if errors['usernameFormat'] is defined %}
                                     {{ errors['usernameFormat'] }}
                                 {% endif %}
@@ -31,7 +31,7 @@
                                 <span class="input-group-text"><i class="fas fa-unlock-alt"></i></span>
                             </div>
                             <input class="form-control" type="password" name="password" placeholder="password"/>
-                            <small id="passwordError">
+                            <small class="text-danger" id="passwordError">
                                 {% if errors['password'] is defined %}
                                     {{ errors['password'] }}
                                 {% endif %}
