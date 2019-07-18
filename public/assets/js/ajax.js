@@ -134,3 +134,66 @@ function validateRegister(payload) {
 
     return errors;
 }
+
+$(document).ready(function() {
+    $('#add-form').submit(function(event) {
+        var payload = {
+            title: $('#title').val(),
+            description: $('input[name=description]').val(),
+            price: $('input[name=price]').val(),
+            category: $('#category').val()
+        };
+
+        let stop = 0;
+        let errors = validateAdd(payload);
+
+        if (errors['title']) {
+            $("#titleError").text(errors['title']);
+            stop = 1;
+        }
+        else $("#titleError").text("");
+        if (errors["description"]){
+            $("#description").text(errors["description"]);
+            stop = 1;
+        }
+        else $("#description").text("");
+        if (errors['price']){
+            $('#price').text(errors['price']);
+            stop = 1;
+        }
+        else $('#price').text("");
+        if (errors['category']){
+            $('#categoryError').text(errors['category']);
+            stop = 1;
+        }
+        else $('#categoryError').text("");
+        if (stop == 1) {
+            event.preventDefault();
+        }
+    });
+});
+
+function validateAdd(payload) {
+    var errors = [];
+
+    var categories = ['Computers and electronic', 'Cars', 'Sports', 'Games', 'Fashion', 'Home', 'Other'];
+
+    if (!payload['title']){
+        errors['title'] = 'The title cannot be empty';
+    }
+
+    if (!payload['description'] || payload['description'].length < 20) {
+        errors['description'] = 'The description must have a minimum of 20 characters';
+    }
+
+    if (!payload['price'].match(/^\d+(\.\d{1,2})?$/) ){
+        errors['price'] = 'The price must have the correct format';
+    }
+
+    if (!payload['category'] || !categories.includes(payload['category'])) {
+        errors['category'] = 'The category must be one of the list';
+    }
+
+
+    return errors;
+}

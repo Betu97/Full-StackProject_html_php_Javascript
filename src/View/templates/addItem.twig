@@ -6,27 +6,33 @@
             <div class="col-sm">
             </div>
             <div class="col-sm">
-                <form id="register-form" class = "register_form" action="{{ path_for('addItem') }}" enctype="multipart/form-data" method="POST">
+                <form id="add-form" class = "register_form" action="{{ path_for('addItem') }}" enctype="multipart/form-data" method="POST">
                     <label>
                         Title
-                        <input type="text" class="form-control" name="title" required>
-                        {% if errors['title'] is defined %}
-                            <li>{{ errors['title'] }}</li>
-                        {% endif %}
+                        <input type="text" class="form-control" name="title" id="title"required>
+                        <small class="text-danger" id="titleError">
+                            {% if errors['title'] is defined %}
+                                <li>{{ errors['title'] }}</li>
+                            {% endif %}
+                        </small>
                     </label>
                     <label>
                         Description
                         <input type="text" class="form-control" name="description" required>
-                        {% if errors['description'] is defined %}
-                            <li>{{ errors['description'] }}</li>
-                        {% endif %}
+                        <small class="text-danger" id="description">
+                            {% if errors['description'] is defined %}
+                                <li>{{ errors['description'] }}</li>
+                            {% endif %}
+                        </small>
                     </label>
                     <label>
                         Price
                         <input type="number" class="form-control" step="any" name="price" pattern="/^\d+(\.\d{1,2})?$/" required>
-                        {% if errors['price'] is defined %}
-                            <li>{{ errors['price'] }}</li>
-                        {% endif %}
+                        <small  class="text-danger" id="price">
+                            {% if errors['price'] is defined %}
+                                <li>{{ errors['price'] }}</li>
+                            {% endif %}
+                        </small>
                     </label>
                     <div>
                         <label for="category">Category</label>
@@ -39,9 +45,11 @@
                             <option>Home</option>
                             <option>Other</option>
                         </select>
-                        {% if errors['category'] is defined %}
-                            <li>{{ errors['category'] }}</li>
-                        {% endif %}
+                        <small class="text-danger" id="categoryError">
+                            {% if errors['category'] is defined %}
+                                <li>{{ errors['category'] }}</li>
+                            {% endif %}
+                        </small>
                     </div>
                     <label>
                         Profile Image
