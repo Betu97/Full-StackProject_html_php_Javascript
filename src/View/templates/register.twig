@@ -11,18 +11,16 @@
                         <label>
                             Name
                             <input type="text" class="form-control" name="name" required>
-                            <small class="form-text text-danger" id="name_error_format">
-                                 {% if errors["nameFormat"] %}
-                                    {{ errors["nameFormat"] }}
-                                 {% endif %}
+                            <small id="nameErrorFormat">
+                                {% if errors['nameFormat'] is defined %}
+                                    {{ errors['nameFormat'] }}
+                                {% endif %}
                             </small>
 
                             {% if errors['name'] is defined %}
                                 <li>{{ errors['name'] }}</li>
                             {% endif %}
-                            {% if errors['nameFormat'] is defined %}
-                                <li>{{ errors['nameFormat'] }}</li>
-                            {% endif %}
+
                         </label>
                     </div>
                     <div>
@@ -74,15 +72,13 @@
                     <div>
                         <label>
                             Confirm Password
-                            <small class="form-text text-danger" id="confirm_password">
-                                {% if errors["confirm_password"] %}
-                                    {{ errors["confirm_password"] }}
+                            <input type="password" class="form-control" name="confirm_password" required>
+                            <small id="confirmPasswordError">
+                                {% if errors['repPassword'] is defined %}
+                                    {{ errors['repPassword'] }}
                                 {% endif %}
                             </small>
-                            <input type="password" class="form-control" name="confirm_password" required>
-                            {% if errors['repPassword'] is defined %}
-                                <li>{{ errors['repPassword'] }}</li>
-                            {% endif %}
+
                         </label>
                     </div>
                     <div>

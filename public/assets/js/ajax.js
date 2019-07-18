@@ -39,16 +39,15 @@ $(document).ready(function() {
         let errors = validateRegister(payload);
 
             if (errors["name"]) {
-                $('#name_error').text(errors["name"]);
+                $("#name_error").text(errors["name"]);
                 stop = 1;
             }
-            else $('#name_error').text("");
+            else $("#name_error").text("");
             if (errors["nameFormat"]){
-                console.log(errors["nameFormat"]);
-                $('#name_error_format').text(errors["nameFormat"]);
+                $("#nameErrorFormat").text(errors["nameFormat"]);
                 stop = 1;
             }
-            else $('#name_error_format').text("");
+            else $("#nameErrorFormat").text("");
             if (errors['username']){
                 $('#username_error').text(errors['username']);
                 stop = 1;
@@ -79,11 +78,12 @@ $(document).ready(function() {
                 stop = 1;
             }
             else $('#phone_number_error_length').text("");
-            if (errors["confirm_password"]) {
-                $('#confirm_password_error').text(errors["confirm_password"]);
+
+        if (errors["confirm_password"]) {
+                $("#confirmPasswordError").text(errors["confirm_password"]);
                 stop = 1;
             }
-            else $('#confirm_password_error').text("");
+            else $("#confirmPasswordError").text("");
             if (stop == 1) {
                 event.preventDefault();
             }
@@ -127,8 +127,8 @@ function validateRegister(payload) {
         errors['phone_number_length'] = 'Phone number must be in format XXX XXX XXX';
     }
 
-    if (payload['confirm_password'] !== payload['password']) {
-        errors["confirm_Password"] = "Password confirmation doesn't match password";
+    if (payload["confirm_password"] !== payload["password"]) {
+        errors["confirm_password"] = "Password confirmation doesn't match password";
     }
 
 
