@@ -16,10 +16,12 @@
                                     {{ errors['nameFormat'] }}
                                 {% endif %}
                             </small>
+                            <small id="nameError">
+                                {% if errors['name'] is defined %}
+                                    {{ errors['name'] }}
+                                {% endif %}
+                            </small>
 
-                            {% if errors['name'] is defined %}
-                                <li>{{ errors['name'] }}</li>
-                            {% endif %}
 
                         </label>
                     </div>
@@ -27,24 +29,36 @@
                         <label>
                             Username
                             <input type="text" class="form-control" name="username" required>
-                            {% if errors['username'] is defined %}
-                                <li>{{ errors['username'] }}</li>
-                            {% endif %}
-                            {% if errors['usernameFormat'] is defined %}
-                                <li>{{ errors['usernameFormat'] }}</li>
-                            {% endif %}
-                            {% if errors['usernameCaught'] is defined %}
-                                <li>{{ errors['usernameCaught'] }}</li>
-                            {% endif %}
+                            <small id="usernameError">
+                                {% if errors['username'] is defined %}
+                                    {{ errors['username'] }}
+                                {% endif %}
+                            </small>
+
+                            <small id="usernameErrorFormat">
+                                {% if errors['usernameFormat'] is defined %}
+                                    {{ errors['usernameFormat'] }}
+                                {% endif %}
+                            </small>
+
+                            <small id="usernameErrorCaught">
+                                {% if errors['usernameCaught'] is defined %}
+                                    {{ errors['usernameCaught'] }}
+                                {% endif %}
+                            </small>
+
                         </label>
                     </div>
                     <div>
                         <label>
                             Email
                             <input type="email" class="form-control" name="email" required>
-                            {% if errors['email'] is defined %}
-                                <li>{{ errors['email'] }}</li>
-                            {% endif %}
+                            <small id="emailErrorFormat">
+                                {% if errors['email'] is defined %}
+                                    {{ errors['email'] }}
+                                {% endif %}
+                            </small>
+
                         </label>
                     </div>
                     <div>
@@ -58,15 +72,28 @@
                             Phone Number
                             <input type="tel" class="form-control" name="phone_number" aria-describedby="pattern" pattern="[0-9]{3} [0-9]{3} [0-9]{3}" required>
                             <small id="pattern" class="form-text text-muted">Format: xxx xxx xxx</small>
+                            <small id="phoneNumberError">
+                                {% if errors['phone'] is defined %}
+                                    {{ errors['phone'] }}
+                                {% endif %}
+                            </small>
+                            <small id="phoneNumberErrorLength">
+                                {% if errors['phonelength'] is defined %}
+                                    {{ errors['phonelength'] }}
+                                {% endif %}
+                            </small>
                         </label>
                     </div>
                     <div>
                         <label>
                             Password
                             <input type="password" class="form-control" name="password" required>
-                            {% if errors['password'] is defined %}
-                                <li>{{ errors['password'] }}</li>
-                            {% endif %}
+                            <small id="passwordError">
+                                {% if errors['password'] is defined %}
+                                    {{ errors['password'] }}
+                                {% endif %}
+                            </small>
+
                         </label>
                     </div>
                     <div>
