@@ -35,36 +35,59 @@ $(document).ready(function() {
             confirm_password: $('input[name=confirm_password]').val()
         };
 
-
+        let stop = 0;
         let errors = validateRegister(payload);
-        if(errors.length == 0){
 
             if (errors["name"]) {
                 $('#name_error').text(errors["name"]);
+                stop = 1;
             }
             else $('#name_error').text("");
             if (errors["nameFormat"]){
-                console.log('hola');
+                console.log(errors["nameFormat"]);
                 $('#name_error_format').text(errors["nameFormat"]);
+                stop = 1;
             }
             else $('#name_error_format').text("");
-            if (errors['username']) $('#username_error').text(errors['username']);
+            if (errors['username']){
+                $('#username_error').text(errors['username']);
+                stop = 1;
+            }
             else $('#username_error').text("");
-            if (errors['usernameFormat']) $('#name_error_format').text(errors['usernameFormat']);
+            if (errors['usernameFormat']) {
+                $('#name_error_format').text(errors['usernameFormat']);
+                stop = 1;
+            }
             else $('#name_error_format').text("");
-            if (errors['password']) $('#password_error').text(errors['password']);
+            if (errors['password']){
+                $('#password_error').text(errors['password']);
+                stop = 1;
+            }
             else $('#password_error').text("");
-            if (errors['email']) $('#email_error_format').text(errors['email']);
+            if (errors['email']) {
+                $('#email_error_format').text(errors['email']);
+                stop = 1;
+            }
             else $('#email_error_format').text("");
-            if (errors['phone_number']) $('#phone_number_error').text(errors['phone_number']);
+            if (errors['phone_number']) {
+                $('#phone_number_error').text(errors['phone_number']);
+                stop = 1;
+            }
             else $('#phone_number_error').text("");
-            if (errors['phone_number_length']) $('#phone_number_error_length').text(errors['phone_number_length']);
+            if (errors['phone_number_length']) {
+                $('#phone_number_error_length').text(errors['phone_number_length']);
+                stop = 1;
+            }
             else $('#phone_number_error_length').text("");
-            if (errors["confirm_password"]) $('#confirm_password_error').text(errors["confirm_password"]);
+            if (errors["confirm_password"]) {
+                $('#confirm_password_error').text(errors["confirm_password"]);
+                stop = 1;
+            }
             else $('#confirm_password_error').text("");
-            event.preventDefault();
+            if (stop == 1) {
+                event.preventDefault();
+            }
 
-        }
 
     });
 });

@@ -12,9 +12,9 @@
                             Name
                             <input type="text" class="form-control" name="name" required>
                             <small class="form-text text-danger" id="name_error_format">
-                                {% if errors["nameFormat"] %}
+                                 {% if errors["nameFormat"] %}
                                     {{ errors["nameFormat"] }}
-                                {% endif %}
+                                 {% endif %}
                             </small>
 
                             {% if errors['name'] is defined %}
