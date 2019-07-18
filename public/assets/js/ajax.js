@@ -42,7 +42,7 @@ function validateLogin(payload) {
         errors['username'] = 'The username must be between 1 and 20 characters';
     }
 
-    if (!payload['username'].match(/^[a-zA-Z ]+$/) ){
+    if (!payload['username'].match(/^[a-zA-Z\d]+$/) ){
         errors['usernameFormat'] = 'The username must contain only alphanumerical characters';
     }
 
