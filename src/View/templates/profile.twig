@@ -40,7 +40,7 @@
                 <label class="col-3">
                     Email
                     <input type="email" class="form-control" name="email" value="{{ user.email }}">
-                    <small class="text-danger" id="nameErrorFormat">
+                    <small class="text-danger" id="emailErrorFormat">
                         {% if errors['email'] is defined %}
                             <li>{{ errors['email'] }}</li>
                         {% endif %}
@@ -51,9 +51,9 @@
                 <label class="col-3">
                     Birth Date
                     <input type="date" class="form-control" name="birthdate" value="{{ user.birthdate }}">
-                    <small class="text-danger" id="nameErrorFormat">
-                        {% if errors['email'] is defined %}
-                            <li>{{ errors['email'] }}</li>
+                    <small class="text-danger" id="birthdateError">
+                        {% if errors['birthdate'] is defined %}
+                            <li>{{ errors['birthdate'] }}</li>
                         {% endif %}
                     </small>
                 </label>
@@ -61,9 +61,16 @@
                     Phone Number
                     <input type="tel" class="form-control" name= "phone_number" aria-describedby="pattern" pattern="[0-9]{3} [0-9]{3} [0-9]{3}" value="{{ user.phone_number }}">
                     <small id="pattern" class="form-text text-muted">Format: xxx xxx xxx</small>
-                    {% if errors['phone'] is defined %}
-                        <li>{{ errors['phone'] }}</li>
-                    {% endif %}
+                    <small class="text-danger" id="phoneNumberError">
+                        {% if errors['phone'] is defined %}
+                            {{ errors['phone'] }}
+                        {% endif %}
+                    </small>
+                    <small class="text-danger" id="phoneNumberErrorLength">
+                        {% if errors['phonelength'] is defined %}
+                            {{ errors['phonelength'] }}
+                        {% endif %}
+                    </small>
                 </label>
             </div>
             <label class="col-5 mx-5 py-2">

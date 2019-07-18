@@ -206,3 +206,58 @@ function validateAdd(payload) {
 
     return errors;
 }
+
+$(document).ready(function() {
+    $('#profile-form').submit(function(event) {
+        var payload = {
+            name: $('input[name=name]').val(),
+            email: $('input[name=email]').val(),
+            birthdate: $('input[name=birthdate]').val(),
+            phone_number: $('input[name=phone_number]').val()
+        };
+
+        let stop = 0;
+        let errors = validateProfile(payload);
+
+        if (errors["nameFormat"]){
+            $("#nameErrorFormat").text(errors["nameFormat"]);
+            stop = 1;
+        }
+        else $("#nameErrorFormat").text("");
+
+        if (errors['email']) {
+            $("#emailErrorFormat").text(errors['email']);
+            stop = 1;
+        }
+        else $("#emailErrorFormat").text("");
+
+        if (errors["phone_number_length"]) {
+            $("#phoneNumberErrorLength").text(errors["phone_number_length"]);
+            stop = 1;
+        }
+        else $("#phoneNumberErrorLength").text("");
+
+        if (stop == 1) {
+            event.preventDefault();
+        }
+
+    });
+});
+
+function validateProfile(payload) {
+    var errors = [];
+
+    if (!payload["name"].match(/^[a-zA-Z ]+$/) ){
+        errors["nameFormat"] = 'The name must contain only alphanumerical characters';
+    }
+
+    if ((!/^\w+([\.-]?w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(payload['email']))) {
+        errors['email'] = 'The email is not valid';
+    }
+
+    if(!payload['phone_number'].match(/^\d{3}\s\d{3}\s\d{3}/)){
+        errors["phone_number_length"] = "Phone number must be in format XXX XXX XXX";
+    }
+
+    return errors;
+}
