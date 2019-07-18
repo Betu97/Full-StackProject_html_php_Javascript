@@ -80,8 +80,8 @@ $(document).ready(function() {
             }
             else $("#phoneNumberError").text("");
 
-            if (errors['phone_number_length']) {
-                $("#phoneNumberErrorLength").text(errors['phone_number_length']);
+            if (errors["phone_number_length"]) {
+                $("#phoneNumberErrorLength").text(errors["phone_number_length"]);
                 stop = 1;
             }
             else $("#phoneNumberErrorLength").text("");
@@ -131,8 +131,9 @@ function validateRegister(payload) {
         errors['phone_number'] = 'Phone number cannot be empty';
     }
 
-    if(payload['phone_number'].match(/^\d{10}$/)){
-        errors['phone_number_length'] = 'Phone number must be in format XXX XXX XXX';
+    if(!payload['phone_number'].match(/^\d{3}\s\d{3}\s\d{3}/)){
+        errors["phone_number_length"] = "Phone number must be in format XXX XXX XXX";
+        console.log("hellooooo");
     }
 
     if (payload["confirm_password"] !== payload["password"]) {
