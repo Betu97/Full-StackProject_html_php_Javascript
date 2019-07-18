@@ -37,12 +37,16 @@ $(document).ready(function() {
 
 
         let errors = validateRegister(payload);
-        console.log(errors);
-        if(Object.keys(errors).length > 0){
-            event.preventDefault();
-            if (errors["name"]) $('#name_error').text(errors["name"]);
+        if(errors.length == 0){
+
+            if (errors["name"]) {
+                $('#name_error').text(errors["name"]);
+            }
             else $('#name_error').text("");
-            if (errors["nameFormat"]) $('#name_error_format').text(errors["nameFormat"]);
+            if (errors["nameFormat"]){
+                console.log('hola');
+                $('#name_error_format').text(errors["nameFormat"]);
+            }
             else $('#name_error_format').text("");
             if (errors['username']) $('#username_error').text(errors['username']);
             else $('#username_error').text("");
@@ -58,6 +62,8 @@ $(document).ready(function() {
             else $('#phone_number_error_length').text("");
             if (errors["confirm_password"]) $('#confirm_password_error').text(errors["confirm_password"]);
             else $('#confirm_password_error').text("");
+            event.preventDefault();
+
         }
 
     });
