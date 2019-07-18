@@ -121,6 +121,12 @@ $(document).ready(function() {
             }
             else $("#confirmPasswordError").text("");
 
+            if (errors["birthdate"]) {
+                $("#birthdateError").text(errors["birthdate"]);
+                stop = 1;
+            }
+            else $("#birthdateError").text("");
+
             if (stop == 1) {
                 event.preventDefault();
             }
@@ -132,12 +138,34 @@ $(document).ready(function() {
 function validateRegister(payload) {
     var errors = [];
 
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy = today.getFullYear();
+
+    var birthdate = new Date(payload["birthdate"]);
+    var d = String(birthdate.getDate()).padStart(2, '0');
+    var m = String(birthdate.getMonth() + 1).padStart(2, '0');
+    var y = birthdate.getFullYear();
+
+    console.log(d);
+    console.log(dd);
+    console.log(m);
+    console.log(mm);
+    console.log(y);
+    console.log(yyyy);
+
+
     if (!payload["name"]){
         errors["name"] = 'The name cannot be empty';
     }
 
     if (!payload["name"].match(/^[a-zA-Z\d]+$/) ){
         errors["nameFormat"] = 'The name must contain only alphanumerical characters';
+    }
+
+    if (y > yyyy || (y == yyyy && m > mm) || (y == yyyy && m == mm && d > dd) ){
+        errors["birthdate"] = 'The date is not correct';
     }
 
     if (!payload['username'] || payload['username'].length > 20) {

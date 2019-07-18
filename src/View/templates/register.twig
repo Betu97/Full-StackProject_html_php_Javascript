@@ -64,6 +64,11 @@
                         <label>
                             Birth Date
                             <input type="date" class="form-control" name="birthdate" value="2019-02-11">
+                            <small class="text-danger" id="birthdateError">
+                                {% if errors['birthdate'] is defined %}
+                                    <li>{{ errors['birthdate'] }}</li>
+                                {% endif %}
+                            </small>
                         </label>
                     </div>
                     <div>

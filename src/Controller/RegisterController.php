@@ -133,6 +133,13 @@ final class RegisterController
     {
         $errors = [];
 
+        $birthdate = new DateTime($data['birthdate']);
+
+
+        if ($birthdate->format('Y-m-d') > date('Y-m-d')){
+            $errors['birthdate'] = 'The date is not correct';
+        }
+
         if (empty($data['name'])){
             $errors['name'] = 'The name cannot be empty';
         }
