@@ -1,28 +1,57 @@
 $(document).ready(function() {
-    $('#login-form').submit(function (event) {
+    $('#loginForm').submit(function(event) {
         var payload = {
             username: $('input[name=username]').val(),
             password: $('input[name=password]').val()
         };
 
-        $.ajax({
-            type: 'POST',
-            url: '/login',
-            contentType: 'application/json;charset=utf-8',
-            data: JSON.stringify(payload), // our data object
-            dataType: 'json' // what type of data do we expect back from the server
-        })
-            .done(function (data) {
-                console.log(data);
-            })
-            .fail(function (error) {
-                console.log(error);
-            });
+        let stop = 0;
+        let errors = validateLogin(payload);
 
-        // stop the form from submitting the normal way and refreshing the page
-        event.preventDefault();
+        if (errors['username']){
+            $("#usernameError").text(errors['username']);
+            stop = 1;
+        }
+        else $("#usernameError").text("");
+
+        if (errors['usernameFormat']) {
+            $("#usernameErrorFormat").text(errors['usernameFormat']);
+            stop = 1;
+        }
+        else $("#usernameErrorFormat").text("");
+
+        if (errors['password']){
+            $("#passwordError").text(errors['password']);
+            stop = 1;
+        }
+        else $("#passwordError").text("");
+
+        if (stop == 1) {
+            event.preventDefault();
+        }
+
+
     });
 });
+
+function validateLogin(payload) {
+    var errors = [];
+
+
+    if (!payload['username'] || payload['username'].length > 20) {
+        errors['username'] = 'The username must be between 1 and 20 characters';
+    }
+
+    if (!payload['username'].match(/^[a-zA-Z ]+$/) ){
+        errors['usernameFormat'] = 'The username must contain only alphanumerical characters';
+    }
+
+    if (!payload['password'] || payload['password'].length < 6) {
+        errors['password'] = 'The password must contain at least 6 characters';
+    }
+
+    return errors;
+}
 $(document).ready(function() {
     $('#register-form').submit(function(event) {
         var payload = {
@@ -123,7 +152,7 @@ function validateRegister(payload) {
         errors['password'] = 'The password must contain at least 6 characters';
     }
 
-    if ((!/^\w+([\.-]?w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(payload['email']))) {
+    if ((!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(payload['email']))) {
         errors['email'] = 'The email is not valid';
     }
 
@@ -133,7 +162,6 @@ function validateRegister(payload) {
 
     if(!payload['phone_number'].match(/^\d{3}\s\d{3}\s\d{3}/)){
         errors["phone_number_length"] = "Phone number must be in format XXX XXX XXX";
-        console.log("hellooooo");
     }
 
     if (payload["confirm_password"] !== payload["password"]) {

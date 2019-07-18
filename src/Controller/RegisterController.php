@@ -161,6 +161,14 @@ final class RegisterController
             $errors['email'] = sprintf('The email %s is not valid', $data['email']);
         }
 
+        if (empty($data['phone_number'])){
+            $errors['phone'] = 'Phone number cannot be empty';
+        }
+
+        if (!preg_match("/^\d{3}\s\d{3}\s\d{3}/" , $data['phone_number'])) {
+            $errors['phonelength'] = sprintf('Phone number must be in format XXX XXX XXX');
+        }
+
         if (strcmp($data['confirm_password'], $data['password'])) {
             $errors['repPassword'] = "Password confirmation doesn't match password";
         }

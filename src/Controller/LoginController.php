@@ -62,7 +62,6 @@ final class LoginController
             return $response;
         }
 
-        unset($_SESSION['id']);
         if($user == -2) {
             $errors['notFound'] = 'The user is not already registered';
             $logged = isset($_SESSION['id']);
