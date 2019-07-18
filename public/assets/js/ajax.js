@@ -148,13 +148,6 @@ function validateRegister(payload) {
     var m = String(birthdate.getMonth() + 1).padStart(2, '0');
     var y = birthdate.getFullYear();
 
-    console.log(d);
-    console.log(dd);
-    console.log(m);
-    console.log(mm);
-    console.log(y);
-    console.log(yyyy);
-
 
     if (!payload["name"]){
         errors["name"] = 'The name cannot be empty';
@@ -307,7 +300,7 @@ function validateProfile(payload) {
         errors["nameFormat"] = 'The name must contain only alphanumerical characters';
     }
 
-    if ((!/^\w+([\.-]?w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(payload['email']))) {
+    if ((!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(payload['email']))) {
         errors['email'] = 'The email is not valid';
     }
 
