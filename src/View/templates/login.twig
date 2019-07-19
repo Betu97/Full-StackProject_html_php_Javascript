@@ -13,18 +13,12 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input class="form-control" type="text" name="username" placeholder="username"/>
-                            <small class="text-danger" id="usernameError">
-                                {% if errors['username'] is defined %}
-                                    {{ errors['username'] }}
-                                {% endif %}
-                            </small>
-
-                            <small class="text-danger" id="usernameErrorFormat">
-                                {% if errors['usernameFormat'] is defined %}
-                                    {{ errors['usernameFormat'] }}
-                                {% endif %}
-                            </small>
+                            <input type="email" class="form-control" name="email" placeholder="email address">
+                                    <small class="text-danger" id="emailErrorFormat">
+                                        {% if errors['email'] is defined %}
+                                            {{ errors['email'] }}
+                                        {% endif %}
+                                    </small>
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">

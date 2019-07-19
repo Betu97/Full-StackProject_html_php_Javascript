@@ -1,24 +1,18 @@
 $(document).ready(function() {
     $('#loginForm').submit(function(event) {
         var payload = {
-            username: $('input[name=username]').val(),
+            email: $('input[name=email]').val(),
             password: $('input[name=password]').val()
         };
 
         let stop = 0;
         let errors = validateLogin(payload);
 
-        if (errors['username']){
-            $("#usernameError").text(errors['username']);
+        if (errors['email']) {
+            $("#emailErrorFormat").text(errors['email']);
             stop = 1;
         }
-        else $("#usernameError").text("");
-
-        if (errors['usernameFormat']) {
-            $("#usernameErrorFormat").text(errors['usernameFormat']);
-            stop = 1;
-        }
-        else $("#usernameErrorFormat").text("");
+        else $("#emailErrorFormat").text("");
 
         if (errors['password']){
             $("#passwordError").text(errors['password']);
@@ -38,12 +32,8 @@ function validateLogin(payload) {
     var errors = [];
 
 
-    if (!payload['username'] || payload['username'].length > 20) {
-        errors['username'] = 'The username must be between 1 and 20 characters';
-    }
-
-    if (!payload['username'].match(/^[a-zA-Z\d]+$/) ){
-        errors['usernameFormat'] = 'The username must contain only alphanumerical characters';
+    if ((!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(payload['email']))) {
+        errors['email'] = 'The email is not valid';
     }
 
     if (!payload['password'] || payload['password'].length < 6) {
