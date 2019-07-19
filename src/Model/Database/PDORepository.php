@@ -183,11 +183,13 @@ final class PDORepository implements UserRepositoryInterface, ItemRepositoryInte
         }
 
         if (!empty($data['password'])){
+            $filteredPassword = md5(filter_var($data['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+            $strPass = strval($filteredPassword);
             $statement = $this->database->connection->prepare(
                 "UPDATE user SET password = :password WHERE id = :id"
             );
 
-            $statement->bindParam('password', $data['password'], PDO::PARAM_STR);
+            $statement->bindParam('password', $strPass, PDO::PARAM_STR);
             $statement->bindParam('id', $id, PDO::PARAM_STR);
             $statement->execute();
         }
