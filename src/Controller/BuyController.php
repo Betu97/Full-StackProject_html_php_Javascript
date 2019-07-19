@@ -40,8 +40,6 @@ final class BuyController
             $data = $request->getParsedBody();
             $email = [];
             $repository = $this->container->get('user_repo');
-            mail('albert.m_97@hotmail.com', 'An item has been sold!', 'User has bought your product! The phone number of this user is: 651066477');
-
             $info = $repository->loadItem($data['item']);
 
             $email ['product'] = $info['title'];

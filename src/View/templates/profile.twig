@@ -73,6 +73,18 @@
                     </small>
                 </label>
             </div>
+            <div>
+                <label>
+                    Password
+                    <input type="password" class="form-control" name="password" id="password">
+                    <small class="text-danger" id="passwordError">
+                        {% if errors['password'] is defined %}
+                            {{ errors['password'] }}
+                        {% endif %}
+                    </small>
+
+                </label>
+            </div>
             <label class="col-5 mx-5 py-2">
                 Username
                 <input type="text" class="form-control" value="{{ user.username }}" disabled>

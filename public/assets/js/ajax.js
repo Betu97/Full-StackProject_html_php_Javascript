@@ -252,8 +252,10 @@ $(document).ready(function() {
             name: $('input[name=name]').val(),
             email: $('input[name=email]').val(),
             birthdate: $('input[name=birthdate]').val(),
-            phone_number: $('input[name=phone_number]').val()
+            phone_number: $('input[name=phone_number]').val(),
+            password: $('#password').val()
         };
+        console.log(payload['password']);
 
         let stop = 0;
         let errors = validateProfile(payload);
@@ -281,6 +283,12 @@ $(document).ready(function() {
             stop = 1;
         }
         else $("#birthdateError").text("");
+
+        if (errors['password']){
+            $("#passwordError").text(errors['password']);
+            stop = 1;
+        }
+        else $("#passwordError").text("");
 
         if (stop == 1) {
             event.preventDefault();
@@ -312,6 +320,10 @@ function validateProfile(payload) {
 
     if ((!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(payload['email']))) {
         errors['email'] = 'The email is not valid';
+    }
+
+    if (payload['password'].length < 6 && payload['password'].length > 0) {
+        errors['password'] = 'The password must contain at least 6 characters';
     }
 
     if(!payload['phone_number'].match(/^\d{3}\s\d{3}\s\d{3}/)){

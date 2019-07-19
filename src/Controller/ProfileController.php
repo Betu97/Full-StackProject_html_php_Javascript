@@ -92,6 +92,10 @@ class ProfileController
             $errors['email'] = sprintf('The email %s is not valid', $data['email']);
         }
 
+        if (strlen($data['password']) < 6 && strlen($data['password']) > 0) {
+            $errors['password'] = 'The password must contain at least 6 characters';
+        }
+
         return $errors;
     }
 
