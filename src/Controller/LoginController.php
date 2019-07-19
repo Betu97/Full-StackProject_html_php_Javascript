@@ -45,11 +45,12 @@ final class LoginController
         /** @var PDORepository $repository */
         $repository = $this->container->get('user_repo');
 
-        $user = $repository->signIn($data['username'], $data['password']);
+        $user = $repository->signIn($data['email'], $data['password']);
 
         if($user != -1 && $user != -2) {
             $_SESSION['id'] = $user;
-            $_SESSION['username'] = $data['username'];
+            $info = $repository->loadUser($user);
+            $_SESSION['username'] = $info['username'];
             if(isset($data['remember'])){
                 $info = strval($user);
                 setcookie("userId", $info, time() + 60 * 120);
@@ -81,12 +82,8 @@ final class LoginController
     {
         $errors = [];
 
-        if (empty($data['username']) || strlen($data['username']) > 20) {
-            $errors['username'] = 'The username must be between 1 and 20 characters';
-        }
-
-        if (!ctype_alnum($data['username'] )){
-            $errors['usernameFormat'] = sprintf('The username must contain only alphanumerical characters');
+        if (false === filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $errors['email'] = sprintf('The email %s is not valid', $data['email']);
         }
 
         if (empty($data['password']) || strlen($data['password']) < 6) {

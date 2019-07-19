@@ -268,13 +268,13 @@ final class PDORepository implements UserRepositoryInterface, ItemRepositoryInte
         return $item;
     }
 
-    public function checkUser(string $user): int
+    public function checkUser(string $email): int
     {
-        $strUser = strval($user);
+        $strEmail = strval($email);
         $statement = $this->database->connection->prepare(
-            "SELECT * FROM user WHERE (username = :username AND is_active = 1)"
+            "SELECT * FROM user WHERE (email = :email AND is_active = 1)"
         );
-        $statement->bindParam(':username', $strUser, PDO::PARAM_STR);
+        $statement->bindParam(':email', $strEmail, PDO::PARAM_STR);
         $statement->execute();
         $infoUser = $statement->fetchAll();
 
@@ -284,20 +284,20 @@ final class PDORepository implements UserRepositoryInterface, ItemRepositoryInte
         return 1;
     }
 
-    public function signIn(string $user, string $password): int
+    public function signIn(string $email, string $password): int
     {
-        $strUser = strval($user);
+        $strEmail = strval($email);
         $filteredPassword = md5(filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
         $strPass = strval($filteredPassword);
         $statement = $this->database->connection->prepare(
-            "SELECT * FROM user WHERE (username = :username AND password = :password AND is_active = 1)"
+            "SELECT * FROM user WHERE (email = :email AND password = :password AND is_active = 1)"
         );
-        $statement->bindParam(':username', $strUser, PDO::PARAM_STR);
+        $statement->bindParam(':email', $strEmail, PDO::PARAM_STR);
         $statement->bindParam(':password', $strPass, PDO::PARAM_STR);
         $statement->execute();
         $info = $statement->fetchAll();
 
-        if($this->checkUser($user) == -1){
+        if($this->checkUser($email) == -1){
             return -2;
         }
         if(!isset($info[0]['id'])){
