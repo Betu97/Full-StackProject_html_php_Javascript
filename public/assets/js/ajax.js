@@ -286,6 +286,12 @@ $(document).ready(function() {
         }
         else $("#phoneNumberErrorLength").text("");
 
+        if (errors["birthdate"]) {
+            $("#birthdateError").text(errors["birthdate"]);
+            stop = 1;
+        }
+        else $("#birthdateError").text("");
+
         if (stop == 1) {
             event.preventDefault();
         }
@@ -295,6 +301,20 @@ $(document).ready(function() {
 
 function validateProfile(payload) {
     var errors = [];
+
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy = today.getFullYear();
+
+    var birthdate = new Date(payload["birthdate"]);
+    var d = String(birthdate.getDate()).padStart(2, '0');
+    var m = String(birthdate.getMonth() + 1).padStart(2, '0');
+    var y = birthdate.getFullYear();
+
+    if (y > yyyy || (y == yyyy && m > mm) || (y == yyyy && m == mm && d > dd) ){
+        errors["birthdate"] = 'The date is not correct';
+    }
 
     if (!payload["name"].match(/^[a-zA-Z\d]+$/) ){
         errors["nameFormat"] = 'The name must contain only alphanumerical characters';
@@ -307,6 +327,67 @@ function validateProfile(payload) {
     if(!payload['phone_number'].match(/^\d{3}\s\d{3}\s\d{3}/)){
         errors["phone_number_length"] = "Phone number must be in format XXX XXX XXX";
     }
+
+    return errors;
+}
+
+$(document).ready(function() {
+    $('#overviewForm').submit(function(event) {
+        var payload = {
+            title: $('#title').val(),
+            description: $('input[name=description]').val(),
+            price: $('input[name=price]').val(),
+            category: $('#category').val()
+        };
+
+        let stop = 0;
+        let errors = validateOverview(payload);
+
+        if (errors['title']) {
+            $("#titleError").text(errors['title']);
+            stop = 1;
+        }
+        else $("#titleError").text("");
+        if (errors["description"]){
+            $("#description").text(errors["description"]);
+            stop = 1;
+        }
+        else $("#description").text("");
+        if (errors['price']){
+            $('#price').text(errors['price']);
+            stop = 1;
+        }
+        else $('#price').text("");
+        if (errors['category']){
+            $('#categoryError').text(errors['category']);
+            stop = 1;
+        }
+        else $('#categoryError').text("");
+        if (stop == 1) {
+            event.preventDefault();
+        }
+    });
+});
+
+function validateOverview(payload) {
+    var errors = [];
+
+    var categories = ['Computers and electronic', 'Cars', 'Sports', 'Games', 'Fashion', 'Home', 'Other'];
+
+    console.log(payload['category']);
+
+    if (payload['description'].length < 20) {
+        errors['description'] = 'The description must have a minimum of 20 characters';
+    }
+
+    if (!payload['price'].match(/^\d+(\.\d{1,2})?$/) ){
+        errors['price'] = 'The price must have the correct format';
+    }
+
+    if (!categories.includes(payload['category']) && !empty(payload['category'])) {
+        errors['category'] = 'The category must be one of the list';
+    }
+
 
     return errors;
 }

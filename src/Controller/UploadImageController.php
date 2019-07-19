@@ -83,13 +83,20 @@ final class UploadImageController
         if ($uploadedFiles['files']['0']->getSize() > 500000){
             $errors['file'] = "The file can't exceed 500KB";
         }
+
         if (!empty($errors)){
             $name = $this->getImageName();
         }
+
+        $repository = $this->container->get('user_repo');
+        $user = $repository->loadUser($_SESSION['id']);
+        $user['birthdate'] = date('Y-m-d', strtotime($user['birthdate']));
+
         return $this->container->get('view')->render($response, 'profile.twig', [
             'errors' => $errors,
             'image' => $name,
             'logged'  => $logged,
+            'user' => $user,
         ]);
     }
 

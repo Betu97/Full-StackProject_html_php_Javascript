@@ -68,7 +68,15 @@ class ProfileController
         }
 
         $repository->updateProfile($data, $_SESSION['id']);
-        return $this->container->get('view')->render($response, 'profile.twig', ['logged'  => $logged, 'image' => $name])->withStatus(200);
+
+        echo'<script type="text/javascript">
+                alert("You have successfully updated your profile");
+        </script>';
+
+        $user = $repository->loadUser($_SESSION['id']);
+        $user['birthdate'] = date('Y-m-d', strtotime($user['birthdate']));
+
+        return $this->container->get('view')->render($response, 'profile.twig', ['logged'  => $logged, 'image' => $name, 'user' => $user])->withStatus(200);
     }
 
 

@@ -33,11 +33,16 @@
             {% endif %}
             {% if mine == 1  %}
                 <div class="container">
-                    <form action="{{ path_for('updateItem') }}" enctype="multipart/form-data" method="POST">
+                    <form id="overviewForm"action="{{ path_for('updateItem') }}" enctype="multipart/form-data" method="POST">
                         <div class="row">
                             <label class="col-5">
                                 <h4>Title</h4>
-                                <input type="text" class="form-control" name="title" placeholder="{{ item.title }}">
+                                <input type="text" class="form-control" name="title" id="title" value="{{ item.title }}">
+                                <small class="text-danger" id="titleError">
+                                    {% if errors['title'] is defined %}
+                                        <li>{{ errors['title'] }}</li>
+                                    {% endif %}
+                                </small>
                             </label>
                         </div>
                         <div class="row">
@@ -46,10 +51,12 @@
                         <div class="row">
                             <label class="col-5">
                                 <h4>Price</h4>
-                                <input type="text" class="form-control" name="price" placeholder="{{ item.price }}€">
-                                {% if errors['price'] is defined %}
-                                    <li>{{ errors['price'] }}</li>
-                                {% endif %}
+                                <input type="text" class="form-control" name="price" value="{{ item.price }}">
+                                <small  class="text-danger" id="price">
+                                    {% if errors['price'] is defined %}
+                                        <li>{{ errors['price'] }}</li>
+                                    {% endif %}
+                                </small>
                             </label>
                         </div>
                         <div class="row">
@@ -65,18 +72,22 @@
                                     <option value="Home">Home</option>
                                     <option value="Other">Other</option>
                                 </select>
-                                {% if errors['category'] is defined %}
-                                    <li>{{ errors['category'] }}</li>
-                                {% endif %}
+                                <small class="text-danger" id="categoryError">
+                                    {% if errors['category'] is defined %}
+                                        <li>{{ errors['category'] }}</li>
+                                    {% endif %}
+                                </small>
                             </label>
                         </div>
                         <div class="row">
                             <label class="col-5">
                                 <h4>Description</h4>
-                                <input type="text" class="form-control" name="description" placeholder="{{ item.description }}">
-                                {% if errors['description'] is defined %}
-                                    <li>{{ errors['description'] }}</li>
-                                {% endif %}
+                                <input type="text" class="form-control" name="description" value="{{ item.description }}">
+                                <small class="text-danger" id="description">
+                                    {% if errors['description'] is defined %}
+                                        <li>{{ errors['description'] }}</li>
+                                    {% endif %}
+                                </small>
                             </label>
                         </div>
                         <input type="hidden" name="item" value="{{ item.Id }}"/>
