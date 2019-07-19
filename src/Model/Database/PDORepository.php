@@ -236,6 +236,11 @@ final class PDORepository implements UserRepositoryInterface, ItemRepositoryInte
         $statement->execute();
 
         $item = $statement->fetchAll();
+        
+        if (!isset($item[0]['MAX(id)'])){
+            return 0;
+        }
+
         return $item[0]['MAX(id)'];
     }
 
