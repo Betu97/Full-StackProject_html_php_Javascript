@@ -28,13 +28,6 @@ final class OverviewController
             $_SESSION['id'] = $_COOKIE['userId'];
         }
 
-        if(!isset($_SESSION['id'])){
-            $errors['notLogged'] = 'You need to be logged in to access this content';
-            $logged = isset($_SESSION['id']);
-
-            return $this->container->get('view')->render($response, 'error403.twig', ['errors' => $errors, 'logged'  => $logged])->withStatus(403);
-        }
-
         try {
 
             $mine = 0;
@@ -55,9 +48,12 @@ final class OverviewController
 
                 return $response;
             }
-            if ($item->getOwner() == $_SESSION['id']) {
-                $mine = 1;
+            if(isset($_SESSION['id'])) {
+                if ($item->getOwner() == $_SESSION['id']) {
+                    $mine = 1;
+                }
             }
+
 
             // We should validate the information before creating the entity
 
